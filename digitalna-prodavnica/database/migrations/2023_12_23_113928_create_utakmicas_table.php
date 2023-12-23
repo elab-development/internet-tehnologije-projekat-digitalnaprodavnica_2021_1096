@@ -11,8 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('utakmicas', function (Blueprint $table) {
-            $table->id();
+        Schema::create('utakmica', function (Blueprint $table) {
+            $table->id('utakmicaId');
+            $table->string('timDomacin');
+            $table->string('timGost');
+            $table->string('tipSporta');
+            $table->dateTime('datumVreme');
+            $table->unsignedBigInteger('stadionId');
+            $table->foreign('stadionId')
+                ->references('stadionId')
+                ->on('stadion')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -22,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('utakmicas');
+        Schema::dropIfExists('utakmica');
     }
 };

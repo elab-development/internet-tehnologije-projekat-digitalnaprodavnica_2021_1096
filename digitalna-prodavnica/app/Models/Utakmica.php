@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Utakmica extends Model
@@ -12,18 +13,17 @@ class Utakmica extends Model
 
     protected $table = 'utakmica';
     protected $primarniKljuc = 'utakmicaId';
-
-    public function stadion(): HasOne
-    {
-        return $this->hasOne(Stadion::class);
-    }
-
     protected $fillable = [
         'timDomacin',
         'timGost',
         'tipSporta',
         'datumVreme',
+        'stadionId',
     ];
-
     public $timestamps = true;
+
+    public function stadion(): BelongsTo
+    {
+        return $this->belongsTo(Stadion::class, 'stadionId');
+    }
 }
