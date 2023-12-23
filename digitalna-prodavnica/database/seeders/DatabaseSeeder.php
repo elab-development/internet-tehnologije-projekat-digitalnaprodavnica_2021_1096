@@ -4,7 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Karta;
 use App\Models\Korisnik;
+use App\Models\Stadion;
+use App\Models\Utakmica;
 use Database\Factories\KorisnikFactory;
 use Illuminate\Database\Seeder;
 
@@ -23,5 +26,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         Korisnik::factory(10)->create();
+        Stadion::factory()->count(3)->create();
+        Utakmica::factory()->count(3)->create();
+        Karta::factory()->count(3)->create();
     }
 }

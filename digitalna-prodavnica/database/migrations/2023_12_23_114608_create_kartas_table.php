@@ -11,8 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kartas', function (Blueprint $table) {
-            $table->id();
+        Schema::create('karta', function (Blueprint $table) {
+            $table->id('kartaId');
+            $table->string('brojKarte')->unique();
+            $table->unsignedDecimal('cena');
+            $table->unsignedInteger('kolicina');
+            $table->unsignedBigInteger('utakmicaId');
+            $table->foreign('utakmicaId')
+                ->references('utakmicaId')
+                ->on('utakmica')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -22,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kartas');
+        Schema::dropIfExists('karta');
     }
 };

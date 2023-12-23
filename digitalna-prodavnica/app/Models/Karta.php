@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Karta extends Model
@@ -12,17 +13,16 @@ class Karta extends Model
 
     protected $table = 'karta';
     protected $primarniKljuc = 'kartaId';
-
-    public function utakmica(): HasOne
-    {
-        return $this->hasOne(Utakmica::class);
-    }
-
     protected $fillable = [
         'brojKarte',
         'cena',
         'kolicina',
+        'utakmicaId',
     ];
-
     public $timestamps = true;
+
+    public function utakmica(): BelongsTo
+    {
+        return $this->belongsTo(Utakmica::class, 'utakmicaId');
+    }
 }
