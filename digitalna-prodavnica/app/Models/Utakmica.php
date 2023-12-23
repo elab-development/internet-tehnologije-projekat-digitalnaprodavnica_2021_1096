@@ -12,7 +12,7 @@ class Utakmica extends Model
     use HasFactory;
 
     protected $table = 'utakmica';
-    protected $primarniKljuc = 'utakmicaId';
+    protected $primaryKey = 'utakmicaId';
     protected $fillable = [
         'timDomacin',
         'timGost',

@@ -12,7 +12,7 @@ class Karta extends Model
     use HasFactory;
 
     protected $table = 'karta';
-    protected $primarniKljuc = 'kartaId';
+    protected $primaryKey = 'kartaId';
     protected $fillable = [
         'brojKarte',
         'cena',

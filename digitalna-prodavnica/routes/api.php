@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\KartaController;
+use App\Http\Controllers\KorisnikController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/karte', [KartaController::class, 'index']);
+Route::get('/karte/{brojKarte}', [KartaController::class, 'show']);
+Route::get('/korisnici', [KorisnikController::class, 'index']);
+Route::get('/korisnici/{id}', [KorisnikController::class, 'show']);
