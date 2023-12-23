@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Korisnik extends Model
+class Stadion extends Model
 {
     use HasFactory;
 
-    protected $table = 'korisnik';
-    protected $primarniKljuc = 'korisnikId';
+    protected $table = 'stadion';
+    protected $primarniKljuc = 'stadionId';
 
     protected $fillable = [
-        'email',
-        'password',
-        'ime',
-        'prezime',
+        'naziv',
+        'adresa',
     ];
 
     public $timestamps = true;
