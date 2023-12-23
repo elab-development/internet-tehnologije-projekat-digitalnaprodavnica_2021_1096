@@ -10,8 +10,7 @@ class Korisnik extends Model
     use HasFactory;
 
     protected $table = 'korisnik';
-    protected $primarniKljuc = 'korisnikId';
-
+    protected $primaryKey = 'korisnikId';
     protected $fillable = [
         'email',
         'password',

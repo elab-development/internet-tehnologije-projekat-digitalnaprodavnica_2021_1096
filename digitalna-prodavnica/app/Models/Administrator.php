@@ -10,8 +10,7 @@ class Administrator extends Model
     use HasFactory;
 
     protected $table = 'administrator';
-    protected $primarniKljuc = 'administratorId';
-
+    protected $primaryKey = 'administratorId';
     protected $fillable = [
         'adminUsername',
         'adminPassword',

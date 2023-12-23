@@ -11,7 +11,7 @@ class Stadion extends Model
     use HasFactory;
 
     protected $table = 'stadion';
-    protected $primarniKljuc = 'stadionId';
+    protected $primaryKey = 'stadionId';
     protected $fillable = [
         'naziv',
         'adresa',
