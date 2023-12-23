@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Korisnik;
-use App\Http\Requests\StoreKorisnikRequest;
-use App\Http\Requests\UpdateKorisnikRequest;
+use App\Models\Karta;
+use App\Http\Requests\StoreKartaRequest;
+use App\Http\Requests\UpdateKartaRequest;
 
-class KorisnikController extends Controller
+class KartaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Korisnik::all();
+        //
     }
 
     /**
@@ -27,7 +27,7 @@ class KorisnikController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreKorisnikRequest $request)
+    public function store(StoreKartaRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class KorisnikController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Korisnik $korisnik)
+    public function show(Karta $karta)
     {
         //
     }
@@ -43,7 +43,7 @@ class KorisnikController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Korisnik $korisnik)
+    public function edit(Karta $karta)
     {
         //
     }
@@ -51,7 +51,7 @@ class KorisnikController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateKorisnikRequest $request, Korisnik $korisnik)
+    public function update(UpdateKartaRequest $request, Karta $karta)
     {
         //
     }
@@ -59,7 +59,7 @@ class KorisnikController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Korisnik $korisnik)
+    public function destroy(Karta $karta)
     {
         //
     }
