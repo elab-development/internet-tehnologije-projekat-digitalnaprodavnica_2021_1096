@@ -13,5 +13,20 @@ class KorisnikSeeder extends Seeder
      */
     public function run(): void
     {
+        Korisnik::create([
+            'email' => 'dusan@gmail.com',
+            'password' => 'admin',
+            'ime' => 'Dusan',
+            'prezime' => 'Draskovic',
+            'isAdmin' => true,
+        ]);
+
+        Korisnik::create([
+            'email' => 'luka@gmail.com',
+            'password' => 'admin',
+            'ime' => 'Luka',
+            'prezime' => 'Boskovic',
+            'isAdmin' => true,
+        ]);
     }
 }

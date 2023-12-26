@@ -12,6 +12,5 @@ class KartaSeeder extends Seeder
      */
     public function run(): void
     {
-        //
     }
 }
