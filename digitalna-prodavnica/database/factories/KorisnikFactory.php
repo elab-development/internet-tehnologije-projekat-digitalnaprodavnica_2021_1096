@@ -21,7 +21,6 @@ class KorisnikFactory extends Factory
             'password' => $this->faker->password(),
             'ime' => $this->faker->firstName(),
             'prezime' => $this->faker->lastName(),
-            'isAdmin' => false,
         ];
     }
 }
