@@ -16,9 +16,9 @@ class StadionFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
-            'naziv' => $this->faker->randomElement(['Marakana', 'Stamford Bridge', 'Old Trafford', 'Santiago Bernabeu', 'Hala Pionir']),
-            'adresa' => $this->faker->address(),
+            0 //todo
         ];
     }
 }

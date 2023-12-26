@@ -8,7 +8,6 @@ use App\Models\Karta;
 use App\Models\Korisnik;
 use App\Models\Stadion;
 use App\Models\Utakmica;
-use Database\Factories\KorisnikFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

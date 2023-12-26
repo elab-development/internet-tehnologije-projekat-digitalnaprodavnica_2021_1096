@@ -13,7 +13,8 @@ class KartaController extends Controller
      */
     public function index()
     {
-        //
+        $karte = Karta::all();
+        return response()->json($karte, 200);
     }
 
     /**
@@ -35,9 +36,10 @@ class KartaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Karta $karta)
+    public function show($brojKarte)
     {
-        //
+        $karta = Karta::where('brojKarte', $brojKarte)->firstOrFail();
+        return response()->json($karta, 200);
     }
 
     /**
