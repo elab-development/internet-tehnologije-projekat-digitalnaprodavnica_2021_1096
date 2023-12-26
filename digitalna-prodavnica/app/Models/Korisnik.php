@@ -17,6 +17,7 @@ class Korisnik extends Model
         'ime',
         'prezime',
     ];
+    protected $guarded = 'isAdmin';
 
     public $timestamps = true;
 }
