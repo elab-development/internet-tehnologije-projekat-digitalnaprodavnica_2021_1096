@@ -18,10 +18,7 @@ class KartaFactory extends Factory
     public function definition(): array
     {
         return [
-            'brojKarte' => $this->faker->unique()->numerify('KARTA###'),
-            'cena' => $this->faker->randomFloat(2, 10, 100),
-            'kolicina' => $this->faker->numberBetween(100, 1000),
-            'utakmicaId' => Utakmica::factory()->create()->id,
+            0 //todo
         ];
     }
 }
