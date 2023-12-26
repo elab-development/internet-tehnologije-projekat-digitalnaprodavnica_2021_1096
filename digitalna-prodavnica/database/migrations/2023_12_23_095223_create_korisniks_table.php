@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('ime');
             $table->string('prezime');
+            $table->boolean('isAdmin')->default(false);
             $table->timestamps();
         });
     }

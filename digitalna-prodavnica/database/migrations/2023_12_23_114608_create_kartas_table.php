@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('karta', function (Blueprint $table) {
             $table->id('kartaId');
             $table->string('brojKarte')->unique();
-            $table->unsignedDecimal('cena');
+            $table->unsignedInteger('cena');
             $table->unsignedInteger('kolicina');
             $table->unsignedBigInteger('utakmicaId');
             $table->foreign('utakmicaId')
