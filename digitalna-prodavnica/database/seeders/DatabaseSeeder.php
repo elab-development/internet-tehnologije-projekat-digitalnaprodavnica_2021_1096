@@ -24,9 +24,8 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Korisnik::factory(10)->create();
-        Stadion::factory()->count(3)->create();
-        Utakmica::factory()->count(3)->create();
-        Karta::factory()->count(3)->create();
+        $this->call(
+            KorisnikSeeder::class
+        );
     }
 }
