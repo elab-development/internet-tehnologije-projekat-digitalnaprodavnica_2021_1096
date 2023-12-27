@@ -24,8 +24,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->call(
-            KorisnikSeeder::class
-        );
+        $this->call([
+            KorisnikSeeder::class,
+            StadionSeeder::class,
+            UtakmicaSeeder::class,
+            KartaSeeder::class
+        ]);
     }
 }
