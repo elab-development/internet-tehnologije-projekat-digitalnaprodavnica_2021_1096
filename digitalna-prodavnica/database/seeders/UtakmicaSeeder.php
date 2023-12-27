@@ -36,5 +36,29 @@ class UtakmicaSeeder extends Seeder
             'datumVreme' => Carbon::create(2024, 3, 4, 18, 0, 0),
             'stadionId' => '3',
         ]);
+
+        Utakmica::create([
+            'timDomacin' => 'KK Crvena zvezda',
+            'timGost' => 'KK Partizan',
+            'tipSporta' => 'kosarka',
+            'datumVreme' => Carbon::create(2024, 2, 17, 19, 0, 0),
+            'stadionId' => '4',
+        ]);
+
+        Utakmica::create([
+            'timDomacin' => 'LA Lakers',
+            'timGost' => 'Denver Nuggets',
+            'tipSporta' => 'kosarka',
+            'datumVreme' => Carbon::create(2024, 2, 5, 20, 30, 0),
+            'stadionId' => '5',
+        ]);
+
+        Utakmica::create([
+            'timDomacin' => 'Alba Berlin',
+            'timGost' => 'Saski Baskonia',
+            'tipSporta' => 'kosarka',
+            'datumVreme' => Carbon::create(2024, 3, 7, 17, 45, 0),
+            'stadionId' => '6',
+        ]);
     }
 }
