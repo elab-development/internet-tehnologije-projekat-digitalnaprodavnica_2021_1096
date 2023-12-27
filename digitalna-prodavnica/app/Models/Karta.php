@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Karta extends Model
@@ -20,6 +21,11 @@ class Karta extends Model
         'utakmicaId',
     ];
     public $timestamps = true;
+
+    public function korisnici(): BelongsToMany
+    {
+        return $this->belongsToMany(Korisnik::class, 'karta_korisnik')->withPivot('kolicina');
+    }
 
     public function utakmica(): BelongsTo
     {

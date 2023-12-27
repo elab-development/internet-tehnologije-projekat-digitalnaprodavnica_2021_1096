@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Sanctum\HasApiTokens;
 
 class Korisnik extends Model
@@ -19,6 +20,10 @@ class Korisnik extends Model
         'prezime',
     ];
     protected $guarded = 'isAdmin';
-
     public $timestamps = true;
+
+    public function karte(): BelongsToMany
+    {
+        return $this->belongsToMany(Karta::class, 'karta_korisnik')->withPivot('kolicina');
+    }
 }
