@@ -25,12 +25,10 @@ class AuthController extends Controller
 
         $token = $korisnik->createToken('token')->plainTextToken;
 
-        $response = [
+        return response()->json([
             'korisnik' => $korisnik,
             'token' => $token,
-        ];
-
-        return response()->json($response, 200);
+        ], 200);
     }
 
     public function login(Request $request)
@@ -47,12 +45,10 @@ class AuthController extends Controller
 
         $token = $korisnik->createToken('token')->plainTextToken;
 
-        $response = [
+        return response()->json([
             'korisnik' => $korisnik,
             'token' => $token,
-        ];
-
-        return response()->json($response, 200);
+        ], 200);
     }
 
     public function logout(Request $request)
