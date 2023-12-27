@@ -14,13 +14,17 @@ return new class extends Migration
         Schema::create('karta_korisnik', function (Blueprint $table) {
             $table->unsignedBigInteger('kartaId');
             $table->unsignedBigInteger('korisnikId');
-            $table->unsignedInteger('kolicina');
-            $table->timestamps();
-
-            $table->foreign('kartaId')->references('kartaId')->on('karta')->onDelete('cascade');
-            $table->foreign('korisnikId')->references('korisnikId')->on('korisnik')->onDelete('cascade');
-
             $table->primary(['kartaId', 'korisnikId']);
+            $table->unsignedInteger('kolicina');
+            $table->foreign('kartaId')
+                ->references('kartaId')
+                ->on('karta')
+                ->onDelete('cascade');
+            $table->foreign('korisnikId')
+                ->references('korisnikId')
+                ->on('korisnik')
+                ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
