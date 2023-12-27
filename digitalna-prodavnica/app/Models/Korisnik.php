@@ -24,6 +24,7 @@ class Korisnik extends Model
 
     public function karte(): BelongsToMany
     {
-        return $this->belongsToMany(Karta::class, 'karta_korisnik')->withPivot('kolicina');
+        return $this->belongsToMany(Karta::class, 'karta_korisnik', 'korisnikId', 'kartaId')
+            ->withPivot('kolicina');
     }
 }
