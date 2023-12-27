@@ -15,6 +15,11 @@ class KartaController extends Controller
     public function index()
     {
         $karte = Karta::paginate();
+
+        if (!$karte) {
+            return response()->json(['poruka' => 'Ne postoje karte u sistemu'], 404);
+        }
+
         return response()->json($karte, 200);
     }
 
@@ -39,7 +44,12 @@ class KartaController extends Controller
      */
     public function show($brojKarte)
     {
-        $karta = Karta::where('brojKarte', $brojKarte)->firstOrFail();
+        $karta = Karta::where('brojKarte', $brojKarte)->first();
+
+        if (!$karta) {
+            return response()->json(['poruka' => 'Ne postoji karta sa brojem: ' . $brojKarte], 404);
+        }
+
         return response()->json($karta, 200);
     }
 
@@ -73,7 +83,7 @@ class KartaController extends Controller
         $karte = Karta::whereIn('utakmicaId', $utakmice)->get();
 
         if (!$karte) {
-            return response()->json(['poruka' => 'Ne postoje utakmice u toj kategoriji sporta'], 400);
+            return response()->json(['poruka' => 'Ne postoje utakmice u kategoriji sporta: ' . $tipSporta], 404);
         }
 
         return response()->json($karte, 200);

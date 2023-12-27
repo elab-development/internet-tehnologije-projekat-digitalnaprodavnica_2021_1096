@@ -48,11 +48,14 @@ class KartaKorisnikController extends Controller
     public function vratiSveKarte($korisnikId)
     {
         $korisnik = Korisnik::where('korisnikId', $korisnikId)->first();
-        $karte = $korisnik->karte;
+
+        if (!$korisnik) {
+            return response()->json(['poruka' => 'Ne postoji korisnik sa id: ' . $korisnikId], 404);
+        }
 
         return response()->json([
             'korisnik' => $korisnik,
-        ]);
+        ], 200);
     }
 
     public function vratiKartu($korisnikId, $brojKarte)
@@ -60,17 +63,17 @@ class KartaKorisnikController extends Controller
         $korisnik = Korisnik::where('korisnikId', $korisnikId)->first();
 
         if (!$korisnik) {
-            return response()->json(['poruka' => 'Ne postoji dati korisnik']);
+            return response()->json(['poruka' => 'Ne postoji korisnik sa id: ' . $korisnikId], 404);
         }
         $karta = Karta::where('brojKarte', $brojKarte)->first();
 
         if (!$karta) {
-            return response()->json(['poruka' => 'Korisnik nema datu kartu']);
+            return response()->json(['poruka' => 'Korisnik nema kartu sa brojem: ' . $brojKarte], 404);
         }
 
         return response()->json([
             'korisnik' => $korisnik,
             'karta' => $karta,
-        ]);
+        ], 200);
     }
 }

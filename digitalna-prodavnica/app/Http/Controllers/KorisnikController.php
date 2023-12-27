@@ -13,7 +13,12 @@ class KorisnikController extends Controller
      */
     public function index()
     {
-        $korisnici = Korisnik::all();
+        $korisnici = Korisnik::paginate();
+
+        if (!$korisnici) {
+            return response()->json(['poruka' => 'Ne postoje korisnici u sistemu'], 404);
+        }
+
         return response()->json($korisnici, 200);
     }
 
@@ -36,9 +41,14 @@ class KorisnikController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($korisnikId)
     {
-        $korisnik = Korisnik::findOrFail($id);
+        $korisnik = Korisnik::findOrFail($korisnikId);
+
+        if (!$korisnik) {
+            return response()->json(['poruka' => 'Ne postoji korisnik sa id: ' . $korisnikId], 404);
+        }
+
         return response()->json($korisnik, 200);
     }
 
