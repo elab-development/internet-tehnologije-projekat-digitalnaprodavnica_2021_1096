@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Karta;
 use App\Http\Requests\StoreKartaRequest;
 use App\Http\Requests\UpdateKartaRequest;
+use App\Models\Utakmica;
 
 class KartaController extends Controller
 {
@@ -13,7 +14,7 @@ class KartaController extends Controller
      */
     public function index()
     {
-        $karte = Karta::all();
+        $karte = Karta::paginate();
         return response()->json($karte, 200);
     }
 
@@ -64,5 +65,17 @@ class KartaController extends Controller
     public function destroy(Karta $karta)
     {
         //
+    }
+
+    public function vratiKartePoSportu($tipSporta)
+    {
+        $utakmice = Utakmica::where('tipSporta', $tipSporta)->pluck('utakmicaId');
+        $karte = Karta::whereIn('utakmicaId', $utakmice)->get();
+
+        if (!$karte) {
+            return response()->json(['poruka' => 'Ne postoje utakmice u toj kategoriji sporta'], 400);
+        }
+
+        return response()->json($karte, 200);
     }
 }

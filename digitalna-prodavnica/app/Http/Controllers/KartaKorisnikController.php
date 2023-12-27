@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class KartaKorisnikController extends Controller
 {
-    public function dodajKartu(Request $request, $korisnikId, $brojKarte)
+    public function kupiKartu(Request $request, $korisnikId, $brojKarte)
     {
         $korisnik = Korisnik::where('korisnikId', $korisnikId)->first();
 
