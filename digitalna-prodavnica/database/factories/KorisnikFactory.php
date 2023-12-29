@@ -19,6 +19,7 @@ class KorisnikFactory extends Factory
         return [
             'email' => $this->faker->email(),
             'password' => $this->faker->password(),
+            'username' => $this->faker->userName(),
             'ime' => $this->faker->firstName(),
             'prezime' => $this->faker->lastName(),
         ];

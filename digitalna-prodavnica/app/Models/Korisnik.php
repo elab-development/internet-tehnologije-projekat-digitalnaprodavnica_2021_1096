@@ -16,8 +16,11 @@ class Korisnik extends Model
     protected $fillable = [
         'email',
         'password',
+        'username',
         'ime',
         'prezime',
+        'profilna_slika',
+        'reset_password_token',
     ];
     protected $guarded = 'isAdmin';
     public $timestamps = true;
