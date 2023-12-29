@@ -16,6 +16,7 @@ class KorisnikSeeder extends Seeder
         Korisnik::create([
             'email' => 'dusan@gmail.com',
             'password' => 'admin',
+            'username' => 'ddusan',
             'ime' => 'Dusan',
             'prezime' => 'Draskovic',
             'isAdmin' => true,
@@ -24,9 +25,18 @@ class KorisnikSeeder extends Seeder
         Korisnik::create([
             'email' => 'luka@gmail.com',
             'password' => 'admin',
+            'username' => 'lonbaj',
             'ime' => 'Luka',
             'prezime' => 'Boskovic',
             'isAdmin' => true,
+        ]);
+
+        Korisnik::create([
+            'email' => 'draskovicdusan4@gmail.com',
+            'password' => 'dusan12',
+            'username' => 'random',
+            'ime' => 'Neko',
+            'prezime' => 'Nekic',
         ]);
     }
 }

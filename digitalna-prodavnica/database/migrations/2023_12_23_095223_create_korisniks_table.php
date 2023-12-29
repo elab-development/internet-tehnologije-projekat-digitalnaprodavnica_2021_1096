@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('korisnikId');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('username')->unique();
             $table->string('ime');
             $table->string('prezime');
             $table->boolean('isAdmin')->default(false);

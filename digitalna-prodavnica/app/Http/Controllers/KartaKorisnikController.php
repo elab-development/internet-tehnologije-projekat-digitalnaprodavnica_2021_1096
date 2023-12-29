@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Log;
 
 class KartaKorisnikController extends Controller
 {
-    public function kupiKartu(Request $request, $korisnikId, $brojKarte)
+    public function kupiKartu(Request $request, $username, $brojKarte)
     {
-        $korisnik = Korisnik::where('korisnikId', $korisnikId)->first();
+        $korisnik = Korisnik::where('username', $username)->first();
 
         if ($request->user()->id !== $korisnik->id) {
             return response()->json(['greska' => 'Nije dozvoljen pristup'], 400);
@@ -45,12 +45,14 @@ class KartaKorisnikController extends Controller
         }
     }
 
-    public function vratiSveKarte($korisnikId)
+    public function vratiSveKarte($username)
     {
-        $korisnik = Korisnik::where('korisnikId', $korisnikId)->first();
+        $korisnik = Korisnik::where('username', $username)
+            ->with('karte')
+            ->first();
 
         if (!$korisnik) {
-            return response()->json(['poruka' => 'Ne postoji korisnik sa id: ' . $korisnikId], 404);
+            return response()->json(['poruka' => 'Ne postoji korisnik sa username: ' . $username], 404);
         }
 
         return response()->json([
@@ -58,12 +60,12 @@ class KartaKorisnikController extends Controller
         ], 200);
     }
 
-    public function vratiKartu($korisnikId, $brojKarte)
+    public function vratiKartu($username, $brojKarte)
     {
-        $korisnik = Korisnik::where('korisnikId', $korisnikId)->first();
+        $korisnik = Korisnik::where('username', $username)->first();
 
         if (!$korisnik) {
-            return response()->json(['poruka' => 'Ne postoji korisnik sa id: ' . $korisnikId], 404);
+            return response()->json(['poruka' => 'Ne postoji korisnik sa username: ' . $username], 404);
         }
         $karta = Karta::where('brojKarte', $brojKarte)->first();
 
@@ -72,7 +74,6 @@ class KartaKorisnikController extends Controller
         }
 
         return response()->json([
-            'korisnik' => $korisnik,
             'karta' => $karta,
         ], 200);
     }
