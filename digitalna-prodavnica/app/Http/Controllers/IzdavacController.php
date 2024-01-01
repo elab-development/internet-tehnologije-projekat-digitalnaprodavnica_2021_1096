@@ -6,6 +6,7 @@ use App\Models\Izdavac;
 use App\Http\Requests\StoreIzdavacRequest;
 use App\Http\Requests\UpdateIzdavacRequest;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class IzdavacController extends Controller
 {
@@ -46,7 +47,7 @@ class IzdavacController extends Controller
     // prikazi jednog izdavaca
     public function show($id)
     {
-        $izdavac = Izdavac::where('id', $id)->first();
+        $izdavac = Izdavac::where('izdavac_id', $id)->first();
         if (!$izdavac) {
             return response()->json([
                 'poruka' => 'Izdavac ne postoji',
@@ -61,7 +62,7 @@ class IzdavacController extends Controller
     // promeni jednog izdavaca
     public function update(Request $request, $id)
     {
-        $izdavac = Izdavac::where('id', $id)->first();
+        $izdavac = Izdavac::where('izdavac_id', $id)->first();
 
         if (!$izdavac) {
             return response()->json([
@@ -90,7 +91,7 @@ class IzdavacController extends Controller
      */
     public function destroy($id)
     {
-        $izdavac = Izdavac::where('id', $id)->first();
+        $izdavac = Izdavac::where('izdavac_id', $id)->first();
 
         if (!$izdavac) {
             return response()->json([
@@ -102,6 +103,21 @@ class IzdavacController extends Controller
 
         return response()->json([
             'poruka' => 'Uspesno brisanje',
+        ], 200);
+    }
+
+    public function vratiKnjigeIzdavaca($izdavac_id)
+    {
+        $izdavac = Izdavac::with('knjige')->where('izdavac_id', $izdavac_id)->first();
+
+        if (!$izdavac) {
+            return response()->json([
+                'poruka' => 'Izdavac ne postoji',
+            ], 404);
+        }
+
+        return response()->json([
+            'izdavac' => $izdavac,
         ], 200);
     }
 }
