@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('korisnik', function (Blueprint $table) {
-            $table->id('korisnikId');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('username')->unique();
+        Schema::create('autor', function (Blueprint $table) {
+            $table->id('autor_id');
             $table->string('ime');
             $table->string('prezime');
-            $table->boolean('isAdmin')->default(false);
+            $table->date('datum_rodjenja');
+            $table->string('mesto_rodjenja');
+            $table->longText('biografija');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('korisnik');
+        Schema::dropIfExists('autor');
     }
 };

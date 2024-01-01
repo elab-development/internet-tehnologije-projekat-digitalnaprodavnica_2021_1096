@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Korisnik;
 use App\Http\Requests\StoreKorisnikRequest;
 use App\Http\Requests\UpdateKorisnikRequest;
+use App\Models\Korpa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class KorisnikController extends Controller
 {
 
+    // api ruta -> vraca sve korisnike
     public function index()
     {
         $korisnici = Korisnik::paginate();
@@ -24,7 +26,7 @@ class KorisnikController extends Controller
         ], 200);
     }
 
-
+    // api ruta -> vraca konkretnog korisnika
     public function show($username)
     {
         $korisnik = Cache::remember('korisnik_' . $username, 60 * 24, function ()  use ($username) {
@@ -39,12 +41,40 @@ class KorisnikController extends Controller
             'korisnik' => $korisnik
         ], 200);
     }
-
-    public function promeniPodatke(Request $request, $username)
+    // api ruta -> kreira jednog korisnika
+    public function store(Request $request)
     {
-        $korisnik = Korisnik::where('username', $username)->first();
+        $request->validate([
+            'email' => 'required|email|unique:korisnik,email',
+            'password' => 'required|string',
+            'username' => 'required|string|unique:korisnik,username',
+            'ime' => 'required|string',
+            'prezime' => 'required|string',
+        ]);
+
+        $korisnik = Korisnik::create([
+            'email' => $request->email,
+            'password' => $request->password,
+            'username' => $request->username,
+            'ime' => $request->ime,
+            'prezime' => $request->prezime,
+        ]);
+
+        return response()->json([
+            'poruka' => 'Korisnik kreiran',
+            'korisnik' => $korisnik,
+        ]);
+    }
+
+    // api ruta -> menja podatke o konkretnom korisniku
+    public function update(Request $request, $id)
+    {
+        $korisnik = Korisnik::where('korisnik_id', $id)->first();
+
         if (!$korisnik) {
-            return response()->json(['poruka' => 'Ne postoji korisnik: ' . $username], 404);
+            return response()->json([
+                'poruka' => 'korisnik ne postoji',
+            ], 404);
         }
 
         $request->validate([
@@ -55,38 +85,39 @@ class KorisnikController extends Controller
             'prezime' => 'string',
         ]);
 
-        if ($request->email && $korisnik->email !== $request->email) {
-            $korisnik->update([
-                'email' => $request->email
-            ]);
-        }
-        if ($request->password && $korisnik->password !== $request->password) {
-            $korisnik->update([
-                'password' => $request->password
-            ]);
-        }
-        if ($request->username && $korisnik->username !== $request->username) {
-            $korisnik->update([
-                'username' => $request->username
-            ]);
-        }
-        if ($request->ime && $korisnik->ime !== $request->ime) {
-            $korisnik->update([
-                'ime' => $request->ime
-            ]);
-        }
-        if ($request->prezime && $korisnik->prezime !== $request->prezime) {
-            $korisnik->update([
-                'prezime' => $request->prezime
-            ]);
-        }
+        $korisnik->update([
+            'email' => $request->email === null ? $korisnik->email : $request->email,
+            'password' => $request->password === null ? $korisnik->password : $request->password,
+            'username' => $request->username === null ? $korisnik->username : $request->username,
+            'ime' => $request->ime === null ? $korisnik->ime : $request->ime,
+            'prezime' => $request->prezime === null ? $korisnik->prezime : $request->prezime,
+        ]);
 
         return response()->json([
-            'poruka' => 'Uspesno izmenjeni podaci',
+            'poruka' => 'Uspesna izmena',
             'korisnik' => $korisnik,
         ], 200);
     }
 
+    // api ruta -> brise konkretnog korisnika
+    public function destroy($id)
+    {
+        $korisnik = Korisnik::where('korisnik_id', $id)->first();
+
+        if (!$korisnik) {
+            return response()->json([
+                'poruka' => 'Korisnik ne postoji',
+            ], 404);
+        }
+
+        $korisnik->delete();
+
+        return response()->json([
+            'poruka' => 'Uspesno brisanje',
+        ], 200);
+    }
+
+    // api ruta -> dodaje profilnu konkretnom korisniku
     public function dodajProfilnu(Request $request, $username)
     {
         $request->validate([

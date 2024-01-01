@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Korisnik;
+use App\Models\Korpa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    // api ruta -> registracija
     public function register(Request $request)
     {
         $podaci = $request->validate([
@@ -27,6 +29,12 @@ class AuthController extends Controller
             'prezime' => $podaci['prezime'],
         ]);
 
+        $korpa = Korpa::create([
+            'korisnik_id' => $korisnik->korisnik_id,
+        ]);
+
+        $korisnik->korpa()->save($korpa);
+
         $token = $korisnik->createToken('token')->plainTextToken;
 
         return response()->json([
@@ -35,6 +43,7 @@ class AuthController extends Controller
         ], 200);
     }
 
+    // api ruta -> prijavljivanje
     public function login(Request $request)
     {
         $podaci = $request->validate([
@@ -55,6 +64,7 @@ class AuthController extends Controller
         ], 200);
     }
 
+    // api ruta -> logout
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
@@ -62,6 +72,7 @@ class AuthController extends Controller
         return response()->json(['poruka' => 'Korisnik izlogovan'], 200);
     }
 
+    // api ruta -> promena lozinke u slucaju zaboravljene lozinke
     public function zaboravljenaLozinka(Request $request)
     {
         $request->validate([
@@ -86,6 +97,7 @@ class AuthController extends Controller
         return response()->json(['poruka' => 'Link za promenu lozinke poslat na email: ' . $korisnik->email], 200);
     }
 
+    // api ruta -> promena lozinke u slucaju zaboravljene lozinke
     public function promeniLozinku(Request $request, $token)
     {
         $request->validate([

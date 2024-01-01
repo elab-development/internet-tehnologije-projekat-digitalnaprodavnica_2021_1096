@@ -10,6 +10,9 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "league/omnipay": "*",
+        "omnipay/paypal": "*",
+        "paypal/paypal-checkout-sdk": "*",
         "thiagoprz/eloquent-composite-key": "^1.0"
     },
     "require-dev": {

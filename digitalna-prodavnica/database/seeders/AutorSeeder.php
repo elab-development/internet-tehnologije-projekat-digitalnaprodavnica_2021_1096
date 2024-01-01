@@ -2,19 +2,19 @@
 
 namespace Database\Seeders;
 
-use App\Models\Korisnik;
+use App\Models\Autor;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class KorisnikSeeder extends Seeder
+class AutorSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Korisnik::factory()
-            ->count(30)
+        Autor::factory()
+            ->count(20)
             ->create();
     }
 }

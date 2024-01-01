@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Stadion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Utakmica>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Izdavac>
  */
-class UtakmicaFactory extends Factory
+class IzdavacFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +16,9 @@ class UtakmicaFactory extends Factory
      */
     public function definition(): array
     {
-
         return [
-            0 //todo
+            'naziv' => $this->faker->company(),
+            'adresa' => $this->faker->address(),
         ];
     }
 }
