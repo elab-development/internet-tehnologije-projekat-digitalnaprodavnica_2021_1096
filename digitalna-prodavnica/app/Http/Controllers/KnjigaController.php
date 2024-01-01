@@ -6,6 +6,8 @@ use App\Models\Autor;
 use App\Models\Izdavac;
 use App\Models\Knjiga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class KnjigaController extends Controller
 {
@@ -36,7 +38,6 @@ class KnjigaController extends Controller
             'pismo' => 'required|string',
             'godina' => 'required|integer|digits:4',
             'strana' => 'required|integer',
-            'autor_id' => 'required|exists:autor,id',
             'izdavac_id' => 'required|exists:izdavac,id'
         ]);
 
@@ -48,7 +49,6 @@ class KnjigaController extends Controller
             'pismo' => $request->pismo,
             'godina' => $request->godina,
             'strana' => $request->strana,
-            'autor_id' => $request->autor_id,
             'izdavac_id' => $request->izdavac_id,
         ]);
 
@@ -60,7 +60,7 @@ class KnjigaController extends Controller
     // prikazi jednu knjigu
     public function show($id)
     {
-        $knjiga = Knjiga::where('id', $id)->first();
+        $knjiga = Knjiga::with('autori')->where('knjiga_id', $id)->first();
         if (!$knjiga) {
             return response()->json([
                 'poruka' => 'Knjiga ne postoji',
@@ -75,7 +75,7 @@ class KnjigaController extends Controller
     // promeni jednu knjigu
     public function update(Request $request, $id)
     {
-        $knjiga = Knjiga::where('id', $id)->first();
+        $knjiga = Knjiga::where('knjiga_id', $id)->first();
 
         if (!$knjiga) {
             return response()->json([
@@ -91,7 +91,7 @@ class KnjigaController extends Controller
             'pismo' => 'string',
             'godina' => 'integer|digits:4',
             'strana' => 'integer',
-            'autor_id' => 'exists:autor,id',
+            'cena' => 'numeric',
             'izdavac_id' => 'exists:izdavac,id'
         ]);
 
@@ -103,7 +103,7 @@ class KnjigaController extends Controller
             'pismo' => $request->pismo === null ? $knjiga->pismo : $request->pismo,
             'godina' => $request->godina === null ? $knjiga->godina : $request->godina,
             'strana' => $request->strana === null ? $knjiga->strana : $request->strana,
-            'autor_id' => $request->autor_id === null ? $knjiga->autor_id : $request->autor_id,
+            'cena' => $request->cena === null ? $knjiga->cena : $request->cena,
             'izdavac_id' => $request->izdavac_id === null ? $knjiga->izdavac_id : $request->izdavac_id,
         ]);
 
@@ -116,7 +116,7 @@ class KnjigaController extends Controller
     // izbrisi jednu knjigu
     public function destroy($id)
     {
-        $knjiga = Knjiga::where('id', $id)->first();
+        $knjiga = Knjiga::where('knjiga_id', $id)->first();
 
         if (!$knjiga) {
             return response()->json([
@@ -132,7 +132,7 @@ class KnjigaController extends Controller
     }
 
     // vrati knjige u kategoriji
-    public function vratiKnjigeUKategoriji(Request $request, $kategorija)
+    public function vratiKnjigeUKategoriji($kategorija)
     {
         $knjige = Knjiga::where('kategorija', $kategorija)->get();
 
@@ -147,39 +147,48 @@ class KnjigaController extends Controller
         ], 200);
     }
 
-    // vrati knjige po autorima
-    public function vratiKnjigePoAutorima(Request $request, $autor_id)
+    public function dodajPDF(Request $request, $knjiga_id)
     {
-        $knjige = Knjiga::where('autor_id', $autor_id)->get();
+        $knjiga = Knjiga::where('knjiga_id', $knjiga_id)->first();
 
-        if (!$knjige) {
+        if (!$knjiga) {
             return response()->json([
-                'poruka' => 'Autor nema nijednu knjigu'
+                'poruka' => 'Knjiga ne postoji',
             ], 404);
         }
-        $autor = Autor::where('id', $autor_id)->first();
+
+        if ($request->hasFile('pdf_fajl') && $request->file('pdf_fajl')->isValid()) {
+            $knjiga->dodajPDF($request->file('pdf_fajl'));
+
+            return response()->json([
+                'poruka' => 'PDF fajl uspesno dodat',
+            ], 200);
+        }
 
         return response()->json([
-            'autor' => $autor,
-            'knjige' => $knjige,
-        ], 200);
+            'poruka' => 'Greska prilikom dodavanja PDF fajla'
+        ], 400);
     }
 
-    // vrati knjige po izdavacima
-    public function vratiKnjigePoIzdavacima(Request $request, $izdavac_id)
+    public function preuzmiPDF($knjiga_id)
     {
-        $knjige = Knjiga::where('izdavac_id', $izdavac_id)->get();
+        $knjiga = Knjiga::where('knjiga_id', $knjiga_id)->first();
 
-        if (!$knjige) {
+        if (!$knjiga) {
             return response()->json([
-                'poruka' => 'Izdavac nema nijednu knjigu'
+                'poruka' => 'Knjiga ne postoji',
             ], 404);
         }
-        $izdavac = Izdavac::where('id', $izdavac_id)->first();
 
-        return response()->json([
-            'izdavac' => $izdavac,
-            'knjige' => $knjige,
-        ], 200);
+        if (!$knjiga->pdf_path) {
+            return response()->json([
+                'poruka' => 'PDF nije dostupan za ovu knjigu',
+            ], 404);
+        }
+
+        $pdf_path = $knjiga->pdf_path;
+        $pdf = Storage::get($pdf_path);
+
+        return response($pdf)->header('Content-Type', 'application/pdf');
     }
 }
