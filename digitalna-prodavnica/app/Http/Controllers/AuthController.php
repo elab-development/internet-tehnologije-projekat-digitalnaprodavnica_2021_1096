@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Korisnik;
+use App\Models\Korpa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -26,6 +27,12 @@ class AuthController extends Controller
             'ime' => $podaci['ime'],
             'prezime' => $podaci['prezime'],
         ]);
+
+        $korpa = Korpa::create([
+            'korisnik_id' => $korisnik->korisnik_id,
+        ]);
+
+        $korisnik->korpa()->save($korpa);
 
         $token = $korisnik->createToken('token')->plainTextToken;
 
