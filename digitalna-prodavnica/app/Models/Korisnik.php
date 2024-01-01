@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Sanctum\HasApiTokens;
 
 class Korisnik extends Model
@@ -12,22 +13,21 @@ class Korisnik extends Model
     use HasFactory, HasApiTokens;
 
     protected $table = 'korisnik';
-    protected $primaryKey = 'korisnikId';
+    protected $primaryKey = 'korisnik_id';
     protected $fillable = [
         'email',
         'password',
         'username',
         'ime',
         'prezime',
-        'profilna_slika',
         'reset_password_token',
+        'profilna_slika',
     ];
     protected $guarded = 'isAdmin';
     public $timestamps = true;
 
-    public function karte(): BelongsToMany
+    public function korpa(): HasOne
     {
-        return $this->belongsToMany(Karta::class, 'karta_korisnik', 'korisnikId', 'kartaId')
-            ->withPivot('kolicina');
+        return $this->hasOne(Korpa::class, 'korisnik_id');
     }
 }

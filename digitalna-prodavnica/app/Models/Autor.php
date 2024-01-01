@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Sanctum\HasApiTokens;
 
 class Autor extends Model
@@ -11,7 +12,7 @@ class Autor extends Model
     use HasFactory, HasApiTokens;
 
     protected $table = 'autor';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'autor_id';
     protected $fillable = [
         'ime',
         'prezime',
@@ -21,8 +22,8 @@ class Autor extends Model
     ];
     public $timestamps = true;
 
-    public function knjige()
+    public function knjige(): BelongsToMany
     {
-        return $this->hasMany(Knjiga::class);
+        return $this->belongsToMany(Knjiga::class, 'knjiga_autor', 'autor_id', 'knjiga_id');
     }
 }
