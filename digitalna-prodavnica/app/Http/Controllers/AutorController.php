@@ -6,6 +6,7 @@ use App\Models\Autor;
 use App\Http\Requests\StoreAutorRequest;
 use App\Http\Requests\UpdateAutorRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AutorController extends Controller
 {
@@ -52,7 +53,7 @@ class AutorController extends Controller
     // prikazi jednog Autora
     public function show($id)
     {
-        $autor = Autor::where('id', $id)->first();
+        $autor = Autor::where('autor_id', $id)->first();
         if (!$autor) {
             return response()->json([
                 'poruka' => 'Autor ne postoji',
@@ -67,7 +68,7 @@ class AutorController extends Controller
     // promeni jednog Autora
     public function update(Request $request, $id)
     {
-        $autor = Autor::where('id', $id)->first();
+        $autor = Autor::where('autor_id', $id)->first();
 
         if (!$autor) {
             return response()->json([
@@ -100,7 +101,7 @@ class AutorController extends Controller
     // brisanje autora
     public function destroy($id)
     {
-        $autor = Autor::where('id', $id)->first();
+        $autor = Autor::where('autor_id', $id)->first();
 
         if (!$autor) {
             return response()->json([
@@ -112,6 +113,21 @@ class AutorController extends Controller
 
         return response()->json([
             'poruka' => 'Uspesno brisanje',
+        ], 200);
+    }
+
+    public function vratiKnjigeAutora($autor_id)
+    {
+        $autor = Autor::with('knjige')->where('autor_id', $autor_id)->first();
+
+        if (!$autor) {
+            return response()->json([
+                'poruka' => 'Autor ne postoji',
+            ], 404);
+        }
+
+        return response()->json([
+            'autor' => $autor,
         ], 200);
     }
 }
