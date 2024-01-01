@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Autor;
 use App\Models\Izdavac;
+use App\Models\Knjiga;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,8 +27,8 @@ class KnjigaFactory extends Factory
             'pismo' => $this->faker->randomElement(['latinica', 'cirilica']),
             'godina' => $this->faker->year('now'),
             'strana' => $this->faker->numberBetween(50, 800),
-            'autor_id' => Autor::factory(),
-            'izdavac_id' => Izdavac::factory(),
+            'cena' => $this->faker->numberBetween(300, 10000),
+            'izdavac_id' => Izdavac::inRandomOrder()->first()->izdavac_id,
         ];
     }
 }

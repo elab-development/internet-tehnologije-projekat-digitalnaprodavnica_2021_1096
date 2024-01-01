@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Korisnik;
+use App\Models\Korpa;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,5 +25,12 @@ class KorisnikFactory extends Factory
             'ime' => $this->faker->firstName(),
             'prezime' => $this->faker->lastName(),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Korisnik $korisnik) {
+            $korisnik->korpa()->save(Korpa::factory()->make());
+        });
     }
 }
