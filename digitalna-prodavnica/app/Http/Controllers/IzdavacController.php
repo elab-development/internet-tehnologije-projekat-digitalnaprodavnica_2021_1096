@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class IzdavacController extends Controller
 {
-    // vrati sve izdavace
+    // api ruta -> vraca sve izdavace
     public function index()
     {
         $izdavaci = Izdavac::paginate();
@@ -26,7 +26,7 @@ class IzdavacController extends Controller
         ], 200);
     }
 
-    // kreiraj jednog izdavaca
+    // api ruta -> kreira jednog izdavaca
     public function store(Request $request)
     {
         $request->validate([
@@ -44,7 +44,7 @@ class IzdavacController extends Controller
         ], 201);
     }
 
-    // prikazi jednog izdavaca
+    // api ruta -> prikazuje konkretnog izdavaca
     public function show($id)
     {
         $izdavac = Izdavac::where('izdavac_id', $id)->first();
@@ -59,7 +59,7 @@ class IzdavacController extends Controller
         ], 200);
     }
 
-    // promeni jednog izdavaca
+    // api ruta -> menja podatke o konkretnom izdavacu
     public function update(Request $request, $id)
     {
         $izdavac = Izdavac::where('izdavac_id', $id)->first();
@@ -86,9 +86,7 @@ class IzdavacController extends Controller
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // api ruta -> brise konkretnog izdavaca
     public function destroy($id)
     {
         $izdavac = Izdavac::where('izdavac_id', $id)->first();
@@ -106,6 +104,7 @@ class IzdavacController extends Controller
         ], 200);
     }
 
+    // api ruta -> vraca knjige od izdavaca 
     public function vratiKnjigeIzdavaca($izdavac_id)
     {
         $izdavac = Izdavac::with('knjige')->where('izdavac_id', $izdavac_id)->first();

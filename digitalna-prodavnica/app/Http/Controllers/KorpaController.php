@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class KorpaController extends Controller
 {
-    // vrati korpu za korisnika
+    // api ruta -> vraca sadrzaj korpe korisnika
     public function index($korisnik_id)
     {
         $korpa = Korpa::with('stavke.knjiga')->where('korisnik_id', $korisnik_id)->first();
@@ -43,12 +43,8 @@ class KorpaController extends Controller
         ], 200);
     }
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
+    // api ruta -> prazni korpu konkretnog korisnika
+    public function destroy($korisnik_id)
     {
         //
     }

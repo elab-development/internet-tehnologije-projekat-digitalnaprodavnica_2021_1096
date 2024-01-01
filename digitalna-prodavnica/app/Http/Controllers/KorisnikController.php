@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Cache;
 class KorisnikController extends Controller
 {
 
+    // api ruta -> vraca sve korisnike
     public function index()
     {
         $korisnici = Korisnik::paginate();
@@ -25,7 +26,7 @@ class KorisnikController extends Controller
         ], 200);
     }
 
-
+    // api ruta -> vraca konkretnog korisnika
     public function show($username)
     {
         $korisnik = Cache::remember('korisnik_' . $username, 60 * 24, function ()  use ($username) {
@@ -40,7 +41,7 @@ class KorisnikController extends Controller
             'korisnik' => $korisnik
         ], 200);
     }
-
+    // api ruta -> kreira jednog korisnika
     public function store(Request $request)
     {
         $request->validate([
@@ -65,6 +66,7 @@ class KorisnikController extends Controller
         ]);
     }
 
+    // api ruta -> menja podatke o konkretnom korisniku
     public function update(Request $request, $id)
     {
         $korisnik = Korisnik::where('korisnik_id', $id)->first();
@@ -97,6 +99,7 @@ class KorisnikController extends Controller
         ], 200);
     }
 
+    // api ruta -> brise konkretnog korisnika
     public function destroy($id)
     {
         $korisnik = Korisnik::where('korisnik_id', $id)->first();
@@ -114,6 +117,7 @@ class KorisnikController extends Controller
         ], 200);
     }
 
+    // api ruta -> dodaje profilnu konkretnom korisniku
     public function dodajProfilnu(Request $request, $username)
     {
         $request->validate([
@@ -138,20 +142,5 @@ class KorisnikController extends Controller
         }
 
         return response()->json(['poruka' => 'Greska prilikom menjanja slike'], 400);
-    }
-
-    public function vratiKorpuKorisnika($id)
-    {
-        $korisnik = Korisnik::where('korisnik_id', $id)->first();
-
-        if (!$korisnik) {
-            return response()->json([
-                'poruka' => 'Korisnik ne postoji',
-            ], 404);
-        }
-
-        return response()->json([
-            'korpa' => $korisnik->korpa()->first(),
-        ], 200);
     }
 }

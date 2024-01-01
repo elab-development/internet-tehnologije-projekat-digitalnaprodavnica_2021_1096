@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AutorController extends Controller
 {
-    // vrati sve Autore
+    // api ruta -> vraca sve autore
     public function index()
     {
         $autori = Autor::paginate();
@@ -26,7 +26,7 @@ class AutorController extends Controller
         ], 200);
     }
 
-    // kreiraj jednog Autora
+    // api ruta -> kreira autora
     public function store(Request $request)
     {
         $request->validate([
@@ -50,7 +50,7 @@ class AutorController extends Controller
         ], 201);
     }
 
-    // prikazi jednog Autora
+    // api ruta -> prikazuje konkretnog autora
     public function show($id)
     {
         $autor = Autor::where('autor_id', $id)->first();
@@ -65,7 +65,7 @@ class AutorController extends Controller
         ], 200);
     }
 
-    // promeni jednog Autora
+    // api ruta -> menja podatke o konkretnom autoru
     public function update(Request $request, $id)
     {
         $autor = Autor::where('autor_id', $id)->first();
@@ -98,7 +98,7 @@ class AutorController extends Controller
         ], 200);
     }
 
-    // brisanje autora
+    // api ruta -> brise konkretnog autora
     public function destroy($id)
     {
         $autor = Autor::where('autor_id', $id)->first();
@@ -116,6 +116,7 @@ class AutorController extends Controller
         ], 200);
     }
 
+    // api ruta -> vraca knjige od konkretnog autora
     public function vratiKnjigeAutora($autor_id)
     {
         $autor = Autor::with('knjige')->where('autor_id', $autor_id)->first();

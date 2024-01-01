@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class KnjigaController extends Controller
 {
-    // vrati sve knjige
+    // api ruta -> vraca sve knjige
     public function index()
     {
         $knjige = Knjiga::paginate();
@@ -27,7 +27,7 @@ class KnjigaController extends Controller
         ], 200);
     }
 
-    // kreiraj jednu knjigu
+    // api ruta -> kreira jednu knjigu
     public function store(Request $request)
     {
         $request->validate([
@@ -57,7 +57,7 @@ class KnjigaController extends Controller
         ], 201);
     }
 
-    // prikazi jednu knjigu
+    // api ruta -> prikazuje jednu knjigu
     public function show($id)
     {
         $knjiga = Knjiga::with('autori')->where('knjiga_id', $id)->first();
@@ -72,7 +72,7 @@ class KnjigaController extends Controller
         ], 201);
     }
 
-    // promeni jednu knjigu
+    // api ruta -> menja podatke o konkretnoj knjizi
     public function update(Request $request, $id)
     {
         $knjiga = Knjiga::where('knjiga_id', $id)->first();
@@ -113,7 +113,7 @@ class KnjigaController extends Controller
         ], 200);
     }
 
-    // izbrisi jednu knjigu
+    // api ruta -> brise konkretnu knjigu
     public function destroy($id)
     {
         $knjiga = Knjiga::where('knjiga_id', $id)->first();
@@ -131,7 +131,7 @@ class KnjigaController extends Controller
         ], 200);
     }
 
-    // vrati knjige u kategoriji
+    // api ruta -> vraca knjige u kategoriji
     public function vratiKnjigeUKategoriji($kategorija)
     {
         $knjige = Knjiga::where('kategorija', $kategorija)->get();
@@ -147,6 +147,7 @@ class KnjigaController extends Controller
         ], 200);
     }
 
+    // api ruta -> dodaje pdf fajl za konkretnu knjigu
     public function dodajPDF(Request $request, $knjiga_id)
     {
         $knjiga = Knjiga::where('knjiga_id', $knjiga_id)->first();
@@ -170,6 +171,7 @@ class KnjigaController extends Controller
         ], 400);
     }
 
+    // api ruta -> preuzimanje knjige koja je u pdf formatu
     public function preuzmiPDF($knjiga_id)
     {
         $knjiga = Knjiga::where('knjiga_id', $knjiga_id)->first();
