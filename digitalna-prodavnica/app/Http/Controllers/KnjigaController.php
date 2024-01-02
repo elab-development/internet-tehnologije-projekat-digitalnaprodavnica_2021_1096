@@ -18,11 +18,13 @@ class KnjigaController extends Controller
 
         if (!$knjige) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Ne postoje knjige u sistemu'
             ], 404);
         }
 
         return response()->json([
+            'status' => 'Uspeh',
             'knjige' => $knjige,
         ], 200);
     }
@@ -38,7 +40,10 @@ class KnjigaController extends Controller
             'pismo' => 'required|string',
             'godina' => 'required|integer|digits:4',
             'strana' => 'required|integer',
-            'izdavac_id' => 'required|exists:izdavac,id'
+            'izdavac_id' => 'required|exists:izdavac,izdavac_id',
+            'autor' => 'required|array',
+            'autor.*' => 'exists:autor,autor_id',
+            'cena' => 'required|numeric',
         ]);
 
         $knjiga = Knjiga::create([
@@ -50,10 +55,14 @@ class KnjigaController extends Controller
             'godina' => $request->godina,
             'strana' => $request->strana,
             'izdavac_id' => $request->izdavac_id,
+            'cena' => $request->cena,
         ]);
 
+        $knjiga->autori()->sync($request->autori);
+
         return response()->json([
-            'Knjiga' => $knjiga,
+            'status' => 'Uspeh',
+            'knjiga' => $knjiga,
         ], 201);
     }
 
@@ -63,11 +72,13 @@ class KnjigaController extends Controller
         $knjiga = Knjiga::with('autori')->where('knjiga_id', $id)->first();
         if (!$knjiga) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Knjiga ne postoji',
             ], 404);
         }
 
         return response()->json([
+            'status' => 'Uspeh',
             'knjiga' => $knjiga,
         ], 201);
     }
@@ -79,6 +90,7 @@ class KnjigaController extends Controller
 
         if (!$knjiga) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Knjiga ne postoji',
             ], 404);
         }
@@ -107,8 +119,12 @@ class KnjigaController extends Controller
             'izdavac_id' => $request->izdavac_id === null ? $knjiga->izdavac_id : $request->izdavac_id,
         ]);
 
+        if ($request->has('autori')) {
+            $knjiga->autori()->sync($request->autori);
+        }
+
         return response()->json([
-            'poruka' => 'Uspesna izmena',
+            'status' => 'Uspeh',
             'knjiga' => $knjiga,
         ], 200);
     }
@@ -120,6 +136,7 @@ class KnjigaController extends Controller
 
         if (!$knjiga) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Knjiga ne postoji',
             ], 404);
         }
@@ -127,7 +144,7 @@ class KnjigaController extends Controller
         $knjiga->delete();
 
         return response()->json([
-            'poruka' => 'Uspesno brisanje',
+            'status' => 'Uspeh',
         ], 200);
     }
 
@@ -138,11 +155,13 @@ class KnjigaController extends Controller
 
         if (!$knjige) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Ne postoje knjige u toj kategoriji',
             ], 404);
         }
 
         return response()->json([
+            'status' => 'Uspeh',
             'knjige' => $knjige,
         ], 200);
     }
@@ -154,6 +173,7 @@ class KnjigaController extends Controller
 
         if (!$knjiga) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Knjiga ne postoji',
             ], 404);
         }
@@ -162,11 +182,13 @@ class KnjigaController extends Controller
             $knjiga->dodajPDF($request->file('pdf_fajl'));
 
             return response()->json([
+                'status' => 'Uspeh',
                 'poruka' => 'PDF fajl uspesno dodat',
             ], 200);
         }
 
         return response()->json([
+            'status' => 'Neuspeh',
             'poruka' => 'Greska prilikom dodavanja PDF fajla'
         ], 400);
     }
@@ -178,12 +200,14 @@ class KnjigaController extends Controller
 
         if (!$knjiga) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Knjiga ne postoji',
             ], 404);
         }
 
         if (!$knjiga->pdf_path) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'PDF nije dostupan za ovu knjigu',
             ], 404);
         }

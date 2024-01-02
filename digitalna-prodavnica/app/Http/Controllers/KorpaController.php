@@ -3,11 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Korpa;
-use App\Http\Requests\StoreKorpaRequest;
-use App\Http\Requests\UpdateKorpaRequest;
-use App\Models\Knjiga;
-use App\Models\Korisnik;
-use Illuminate\Http\Request;
 
 class KorpaController extends Controller
 {
@@ -18,7 +13,8 @@ class KorpaController extends Controller
 
         if (!$korpa) {
             return response()->json([
-                'poruka' => 'Korisnik ne postoji ' . $korisnik_id,
+                'status' => 'Neuspeh',
+                'poruka' => 'Korisnik id ' . $korisnik_id . ' ne postoji',
             ], 404);
         }
 
@@ -38,6 +34,7 @@ class KorpaController extends Controller
         $ukupna_cena_korpe = $stavke->sum('cena_stavke');
 
         return response()->json([
+            'status' => 'Uspeh',
             'korpa' => $stavke->values()->all(),
             'ukupna_cena_korpe' => $ukupna_cena_korpe,
         ], 200);
@@ -46,6 +43,19 @@ class KorpaController extends Controller
     // api ruta -> prazni korpu konkretnog korisnika
     public function destroy($korisnik_id)
     {
-        //
+        $korpa = Korpa::where('korisnik_id', $korisnik_id)->first();
+
+        if (!$korpa) {
+            return response()->json([
+                'status' => 'Neuspeh',
+                'poruka' => 'Korisnik ne postoji',
+            ], 404);
+        }
+
+        $korpa->stavke()->delete();
+        return response()->json([
+            'status' => 'USpeh',
+            'poruka' => 'Korpa uspesno ispraznjena',
+        ], 200);
     }
 }

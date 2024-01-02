@@ -12,7 +12,8 @@
         "laravel/tinker": "^2.8",
         "league/omnipay": "*",
         "omnipay/paypal": "*",
-        "paypal/paypal-checkout-sdk": "*",
+        "paypal/paypal-checkout-sdk": "^1.0",
+        "stripe/stripe-php": "^13.7",
         "thiagoprz/eloquent-composite-key": "^1.0"
     },
     "require-dev": {

@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Autor;
-use App\Http\Requests\StoreAutorRequest;
-use App\Http\Requests\UpdateAutorRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AutorController extends Controller
 {
@@ -17,11 +14,13 @@ class AutorController extends Controller
 
         if (!$autori) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Ne postoje autori u sistemu'
             ], 404);
         }
 
         return response()->json([
+            'status' => 'Uspeh',
             'autori' => $autori,
         ], 200);
     }
@@ -46,6 +45,7 @@ class AutorController extends Controller
         ]);
 
         return response()->json([
+            'status' => 'Uspeh',
             'autor' => $autor,
         ], 201);
     }
@@ -56,11 +56,13 @@ class AutorController extends Controller
         $autor = Autor::where('autor_id', $id)->first();
         if (!$autor) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Autor ne postoji',
             ], 404);
         }
 
         return response()->json([
+            'status' => 'Uspeh',
             'autor' => $autor,
         ], 200);
     }
@@ -72,6 +74,7 @@ class AutorController extends Controller
 
         if (!$autor) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Autor ne postoji',
             ], 404);
         }
@@ -93,26 +96,8 @@ class AutorController extends Controller
         ]);
 
         return response()->json([
-            'poruka' => 'Uspesna izmena',
+            'status' => 'Uspeh',
             'autor' => $autor,
-        ], 200);
-    }
-
-    // api ruta -> brise konkretnog autora
-    public function destroy($id)
-    {
-        $autor = Autor::where('autor_id', $id)->first();
-
-        if (!$autor) {
-            return response()->json([
-                'poruka' => 'Autor ne postoji',
-            ], 404);
-        }
-
-        $autor->delete();
-
-        return response()->json([
-            'poruka' => 'Uspesno brisanje',
         ], 200);
     }
 
@@ -123,11 +108,13 @@ class AutorController extends Controller
 
         if (!$autor) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Autor ne postoji',
             ], 404);
         }
 
         return response()->json([
+            'status' => 'Uspeh',
             'autor' => $autor,
         ], 200);
     }

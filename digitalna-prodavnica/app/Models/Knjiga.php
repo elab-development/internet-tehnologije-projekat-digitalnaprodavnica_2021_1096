@@ -17,15 +17,12 @@ class Knjiga extends Model
     protected $fillable = [
         'isbn',
         'naziv',
-        'autor',
-        'izdavac',
         'kategorija',
         'opis',
         'pismo',
         'godina',
         'strana',
         'cena',
-        'autor_id',
         'izdavac_id',
         'pdf_path',
     ];
@@ -43,7 +40,7 @@ class Knjiga extends Model
 
     public function dodajPDF($pdf)
     {
-        $nazivFajla = $this->knjiga_id . '.pdf';
+        $nazivFajla = $this->naziv . '.pdf';
         $pdf->storeAs('pdfs', $nazivFajla);
         $this->pdf_path = 'pdfs/' . $nazivFajla;
         $this->save();

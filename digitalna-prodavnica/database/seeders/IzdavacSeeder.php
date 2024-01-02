@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Izdavac;
-use Database\Factories\IzdavacFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class IzdavacSeeder extends Seeder
@@ -15,7 +13,7 @@ class IzdavacSeeder extends Seeder
     public function run(): void
     {
         Izdavac::factory()
-            ->count(10)
+            ->count(20)
             ->create();
     }
 }
