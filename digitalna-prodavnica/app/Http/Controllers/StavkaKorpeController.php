@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StavkaKorpe;
-use App\Http\Requests\StoreStavkaKorpeRequest;
-use App\Http\Requests\UpdateStavkaKorpeRequest;
 use App\Models\Knjiga;
-use App\Models\Korisnik;
 use App\Models\Korpa;
 use Illuminate\Http\Request;
 
@@ -19,6 +16,7 @@ class StavkaKorpeController extends Controller
 
         if (!$korpa) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Korisnik ne postoji ' . $korisnik_id,
             ], 404);
         }
@@ -40,15 +38,35 @@ class StavkaKorpeController extends Controller
         $stavka->knjiga()->associate($knjiga);
 
         return response()->json([
-            'poruka' => 'Uspesno dodavanje stavke u korpu',
-            'knjiga' => $stavka->knjiga()->first()->naziv,
-            'kolicina' => $request->kolicina,
+            'status' => 'Uspeh',
         ], 200);
     }
 
     // api ruta -> brise stavku konkretnog korisnika
-    public function destroy($stavka_korpe_id)
+    public function destroy($korisnik_id, $broj_stavke)
     {
-        //
+        $korpa = Korpa::where('korisnik_id', $korisnik_id)->first();
+
+        if ($korpa) {
+            $stavke = $korpa->stavke;
+
+            if ($broj_stavke <= count($stavke)) {
+                $stavka_za_brisanje = $stavke->get($broj_stavke - 1);
+                $stavka_za_brisanje->delete();
+
+                return response()->json([
+                    'status' => 'Uspeh',
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 'Neuspeh',
+                ], 400);
+            }
+        } else {
+            return response()->json([
+                'status' => 'Neuspeh',
+                'poruka' => 'Korisnik ne postoji',
+            ], 404);
+        }
     }
 }
