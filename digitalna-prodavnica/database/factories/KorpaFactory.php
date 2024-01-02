@@ -17,9 +17,8 @@ class KorpaFactory extends Factory
      */
     public function definition(): array
     {
-        $korisnik = Korisnik::inRandomOrder()->first();
         return [
-            'korisnik_id' => $korisnik ? $korisnik->korisnikId : Korisnik::factory()->create()->korisnik_id,
+            //
         ];
     }
 }
