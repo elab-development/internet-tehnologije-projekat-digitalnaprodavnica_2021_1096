@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Korisnik;
-use App\Http\Requests\StoreKorisnikRequest;
-use App\Http\Requests\UpdateKorisnikRequest;
-use App\Models\Korpa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -18,10 +15,14 @@ class KorisnikController extends Controller
         $korisnici = Korisnik::paginate();
 
         if (!$korisnici) {
-            return response()->json(['poruka' => 'Ne postoje korisnici u sistemu'], 404);
+            return response()->json([
+                'status' => 'Neuspeh',
+                'poruka' => 'Ne postoje korisnici u sistemu',
+            ], 404);
         }
 
         return response()->json([
+            'status' => 'Uspeh',
             'korisnici' => $korisnici
         ], 200);
     }
@@ -34,13 +35,18 @@ class KorisnikController extends Controller
         });
 
         if (!$korisnik) {
-            return response()->json(['poruka' => 'Ne postoji korisnik: ' . $username], 404);
+            return response()->json([
+                'status' => 'Neuspeh',
+                'poruka' => 'Ne postoji korisnik: ' . $username
+            ], 404);
         }
 
         return response()->json([
+            'status' => 'Uspeh',
             'korisnik' => $korisnik
         ], 200);
     }
+
     // api ruta -> kreira jednog korisnika
     public function store(Request $request)
     {
@@ -61,8 +67,7 @@ class KorisnikController extends Controller
         ]);
 
         return response()->json([
-            'poruka' => 'Korisnik kreiran',
-            'korisnik' => $korisnik,
+            'status' => 'Uspeh',
         ]);
     }
 
@@ -73,6 +78,7 @@ class KorisnikController extends Controller
 
         if (!$korisnik) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'korisnik ne postoji',
             ], 404);
         }
@@ -94,8 +100,7 @@ class KorisnikController extends Controller
         ]);
 
         return response()->json([
-            'poruka' => 'Uspesna izmena',
-            'korisnik' => $korisnik,
+            'status' => 'Uspeh',
         ], 200);
     }
 
@@ -106,6 +111,7 @@ class KorisnikController extends Controller
 
         if (!$korisnik) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Korisnik ne postoji',
             ], 404);
         }
@@ -113,34 +119,40 @@ class KorisnikController extends Controller
         $korisnik->delete();
 
         return response()->json([
-            'poruka' => 'Uspesno brisanje',
+            'status' => 'Uspeh',
         ], 200);
     }
 
     // api ruta -> dodaje profilnu konkretnom korisniku
-    public function dodajProfilnu(Request $request, $username)
+    public function dodajProfilnu(Request $request, $korisnik_id)
     {
         $request->validate([
             'profilna_slika' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
-        $korisnik = Korisnik::where('username', $username)->first();
+        $korisnik = Korisnik::where('korisnik_id', $korisnik_id)->first();
 
         if (!$korisnik) {
             return response()->json(['poruka' => 'Korisnik ne postoji'], 404);
         }
 
         if ($request->hasFile('profilna_slika') && $request->file('profilna_slika')->isValid()) {
-            $nazivSlike = $username . '-profilna.' . $request->profilna_slika->extension();
+            $nazivSlike = $korisnik_id . '-profilna-slika.' . $request->profilna_slika->extension();
 
             $request->profilna_slika->storeAs('profilne', $nazivSlike);
 
             $korisnik->update([
                 'profilna_slika' => 'profilne/' . $nazivSlike,
             ]);
-            return response()->json(['poruka' => 'Profilna slika promenjena'], 201);
+            return response()->json([
+                'status' => 'Uspeh',
+                'poruka' => 'Profilna slika promenjena'
+            ], 201);
         }
 
-        return response()->json(['poruka' => 'Greska prilikom menjanja slike'], 400);
+        return response()->json([
+            'status' => 'Neuspeh',
+            'poruka' => 'Greska prilikom menjanja slike'
+        ], 400);
     }
 }

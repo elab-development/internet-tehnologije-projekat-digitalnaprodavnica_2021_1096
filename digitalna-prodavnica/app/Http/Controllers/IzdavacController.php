@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Izdavac;
-use App\Http\Requests\StoreIzdavacRequest;
-use App\Http\Requests\UpdateIzdavacRequest;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class IzdavacController extends Controller
 {
@@ -17,11 +14,13 @@ class IzdavacController extends Controller
 
         if (!$izdavaci) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Ne postoje izdavaci u sistemu'
             ], 404);
         }
 
         return response()->json([
+            'status' => 'Uspeh',
             'izdavaci' => $izdavaci,
         ], 200);
     }
@@ -40,6 +39,7 @@ class IzdavacController extends Controller
         ]);
 
         return response()->json([
+            'status' => 'Uspeh',
             'izdavac' => $izdavac,
         ], 201);
     }
@@ -50,11 +50,13 @@ class IzdavacController extends Controller
         $izdavac = Izdavac::where('izdavac_id', $id)->first();
         if (!$izdavac) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Izdavac ne postoji',
             ], 404);
         }
 
         return response()->json([
+            'status' => 'Uspeh',
             'izdavac' => $izdavac,
         ], 200);
     }
@@ -66,6 +68,7 @@ class IzdavacController extends Controller
 
         if (!$izdavac) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Izdavac ne postoji',
             ], 404);
         }
@@ -81,26 +84,8 @@ class IzdavacController extends Controller
         ]);
 
         return response()->json([
-            'poruka' => 'Uspesna izmena',
+            'status' => 'Uspeh',
             'izdavac' => $izdavac,
-        ], 200);
-    }
-
-    // api ruta -> brise konkretnog izdavaca
-    public function destroy($id)
-    {
-        $izdavac = Izdavac::where('izdavac_id', $id)->first();
-
-        if (!$izdavac) {
-            return response()->json([
-                'poruka' => 'Izdavac ne postoji',
-            ], 404);
-        }
-
-        $izdavac->delete();
-
-        return response()->json([
-            'poruka' => 'Uspesno brisanje',
         ], 200);
     }
 
@@ -111,11 +96,13 @@ class IzdavacController extends Controller
 
         if (!$izdavac) {
             return response()->json([
+                'status' => 'Neuspeh',
                 'poruka' => 'Izdavac ne postoji',
             ], 404);
         }
 
         return response()->json([
+            'status' => 'Uspeh',
             'izdavac' => $izdavac,
         ], 200);
     }
