@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Knjiga;
 use App\Models\Korpa;
+use App\Models\StavkaKorpe;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,8 +23,8 @@ class StavkaKorpeFactory extends Factory
         $knjiga = Knjiga::inRandomOrder()->first();
 
         return [
-            'korpa_id' => $korpa ? $korpa->id : Korpa::factory()->create()->korpa_id,
-            'knjiga_id' => $knjiga ? $knjiga->id : Knjiga::factory()->create()->knjiga_id,
+            'korpa_id' => $korpa,
+            'knjiga_id' => $knjiga,
             'kolicina' => $this->faker->numberBetween(1, 5),
         ];
     }
