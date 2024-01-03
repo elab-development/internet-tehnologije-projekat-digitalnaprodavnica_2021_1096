@@ -35,9 +35,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/knjige/{knjiga_id}', [KnjigaController::class, 'update']);
     Route::delete('/knjige/{knjiga_id}', [KnjigaController::class, 'destroy']);
 
-    Route::post('/{korisnik_id}/checkout', [PlacanjeController::class, 'checkout']);
-    Route::get('/{korisnik_id}/success', [PlacanjeController::class, 'success']);
-    Route::get('/{korisnik_id}', [PlacanjeController::class, 'index']);
+    Route::post('/{korisnik_id}/placanje', [PlacanjeController::class, 'placanje']);
+    Route::get('/{korisnik_id}/uspeh', [PlacanjeController::class, 'uspeh']);
+    Route::get('/{korisnik_id}/otkazano', [PlacanjeController::class, 'otkaz']);
 
     // api rute -> placanje koriscenjem Stripe API
     Route::post('/knjiga/{knjiga_id}/dodaj-pdf', [KnjigaController::class, 'dodajPDF']);
@@ -49,7 +49,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 });
-
 
 // api rute -> knjige
 Route::get('/knjige', [KnjigaController::class, 'index']);

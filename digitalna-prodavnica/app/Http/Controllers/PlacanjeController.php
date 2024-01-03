@@ -9,14 +9,14 @@ use Stripe\Stripe;
 
 class PlacanjeController extends Controller
 {
-    public function index()
+    public function otkaz()
     {
         return response()->json([
             'status' => 'cancelled',
         ], 200);
     }
 
-    public function checkout($korisnik_id)
+    public function placanje($korisnik_id)
     {
         Stripe::setApiKey(config('stripe.sk'));
 
@@ -48,7 +48,7 @@ class PlacanjeController extends Controller
     }
 
 
-    public function success()
+    public function uspeh()
     {
         return response()->json([
             'status' => 'success',
