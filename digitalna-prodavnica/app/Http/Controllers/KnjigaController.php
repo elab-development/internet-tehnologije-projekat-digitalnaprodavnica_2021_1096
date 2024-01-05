@@ -14,7 +14,7 @@ class KnjigaController extends Controller
     // api ruta -> vraca sve knjige
     public function index()
     {
-        $knjige = Knjiga::paginate();
+        $knjige = Knjiga::with('autori')->paginate();
 
         if (!$knjige) {
             return response()->json([
