@@ -25,7 +25,7 @@ class KnjigaController extends Controller
 
         return response()->json([
             'status' => 'Uspeh',
-            'knjige' => $knjige,
+            'knjige' => $knjige->items(),
         ], 200);
     }
 

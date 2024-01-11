@@ -21,7 +21,7 @@ class AutorController extends Controller
 
         return response()->json([
             'status' => 'Uspeh',
-            'autori' => $autori,
+            'autori' => $autori->items(),
         ], 200);
     }
 
@@ -98,6 +98,25 @@ class AutorController extends Controller
         return response()->json([
             'status' => 'Uspeh',
             'autor' => $autor,
+        ], 200);
+    }
+
+    // api ruta -> brise konkretnog autora
+    public function destroy($id)
+    {
+        $autor = Autor::where('autor_id', $id)->first();
+
+        if (!$autor) {
+            return response()->json([
+                'status' => 'Neuspeh',
+                'poruka' => 'Autor ne postoji',
+            ], 404);
+        }
+
+        $autor->delete();
+
+        return response()->json([
+            'status' => 'Uspeh',
         ], 200);
     }
 

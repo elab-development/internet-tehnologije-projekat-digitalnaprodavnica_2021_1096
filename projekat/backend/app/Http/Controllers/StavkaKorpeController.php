@@ -22,7 +22,7 @@ class StavkaKorpeController extends Controller
         }
 
         $request->validate([
-            'knjiga_id' => 'required|string|exists:knjiga,knjiga_id',
+            'knjiga_id' => 'required|integer|exists:knjiga,knjiga_id',
             'kolicina' => 'required|integer',
         ]);
 

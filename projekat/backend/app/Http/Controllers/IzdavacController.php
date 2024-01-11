@@ -21,7 +21,7 @@ class IzdavacController extends Controller
 
         return response()->json([
             'status' => 'Uspeh',
-            'izdavaci' => $izdavaci,
+            'izdavaci' => $izdavaci->items(),
         ], 200);
     }
 
