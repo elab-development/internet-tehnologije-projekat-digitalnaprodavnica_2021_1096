@@ -23,7 +23,7 @@ class KorisnikController extends Controller
 
         return response()->json([
             'status' => 'Uspeh',
-            'korisnici' => $korisnici
+            'korisnici' => $korisnici->items(),
         ], 200);
     }
 
@@ -154,5 +154,22 @@ class KorisnikController extends Controller
             'status' => 'Neuspeh',
             'poruka' => 'Greska prilikom menjanja slike'
         ], 400);
+    }
+
+    public function vratiKorisnika($korisnik_id)
+    {
+        $korisnik = Korisnik::where('korisnik_id', $korisnik_id)->first();
+
+        if (!$korisnik) {
+            return response()->json([
+                'status' => 'Neuspeh',
+                'poruka' => 'Ne postoji korisnik:'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'Uspeh',
+            'korisnik' => $korisnik
+        ], 200);
     }
 }
