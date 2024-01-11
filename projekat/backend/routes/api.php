@@ -19,6 +19,7 @@ Route::post('/auth/promena-lozinke/{token}', [AuthController::class, 'promeniLoz
 // api rute -> samo ulogovani korisnici
 Route::middleware('auth:sanctum')->group(function () {
 
+    Route::get('/korisnici/{korisnik_id}', [KorisnikController::class, 'vratiKorisnika']); // dodato zbog frontenda
     Route::get('/{username}/profil', [KorisnikController::class, 'show']);
     Route::get('/korisnici', [KorisnikController::class, 'index']);
     Route::put('/korisnici/{korisnik_id}', [KorisnikController::class, 'update']);
