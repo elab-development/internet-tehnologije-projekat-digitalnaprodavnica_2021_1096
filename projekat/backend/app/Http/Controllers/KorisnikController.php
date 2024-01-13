@@ -12,7 +12,7 @@ class KorisnikController extends Controller
     // api ruta -> vraca sve korisnike
     public function index()
     {
-        $korisnici = Korisnik::paginate();
+        $korisnici = Korisnik::all(); //::paginate();
 
         if (!$korisnici) {
             return response()->json([
@@ -23,7 +23,7 @@ class KorisnikController extends Controller
 
         return response()->json([
             'status' => 'Uspeh',
-            'korisnici' => $korisnici->items(),
+            'korisnici' => $korisnici,
         ], 200);
     }
 
@@ -84,9 +84,9 @@ class KorisnikController extends Controller
         }
 
         $request->validate([
-            'email' => 'email|unique:korisnik,email',
+            'email' => 'email|unique:korisnik,email,' . $id . ',korisnik_id',
             'password' => 'string',
-            'username' => 'string|unique:korisnik,username',
+            'username' => 'string|unique:korisnik,username,' . $id . ',korisnik_id',
             'ime' => 'string',
             'prezime' => 'string',
         ]);
