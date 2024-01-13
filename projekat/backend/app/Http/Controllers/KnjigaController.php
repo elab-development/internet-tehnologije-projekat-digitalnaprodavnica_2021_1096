@@ -193,7 +193,6 @@ class KnjigaController extends Controller
         ], 400);
     }
 
-    // api ruta -> preuzimanje knjige koja je u pdf formatu
     public function preuzmiPDF($knjiga_id)
     {
         $knjiga = Knjiga::where('knjiga_id', $knjiga_id)->first();
@@ -212,9 +211,15 @@ class KnjigaController extends Controller
             ], 404);
         }
 
-        $pdf_path = $knjiga->pdf_path;
-        $pdf = Storage::get($pdf_path);
+        $pdf_path = public_path('storage/' . $knjiga->pdf_path);
 
-        return response($pdf)->header('Content-Type', 'application/pdf');
+        if (!file_exists($pdf_path)) {
+            return response()->json([
+                'status' => 'Neuspeh',
+                'poruka' => 'PDF fajl nije pronađen',
+            ], 404);
+        }
+
+        return response()->file($pdf_path);
     }
 }
