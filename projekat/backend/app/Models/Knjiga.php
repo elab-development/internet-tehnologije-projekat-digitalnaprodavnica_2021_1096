@@ -41,8 +41,10 @@ class Knjiga extends Model
     public function dodajPDF($pdf)
     {
         $nazivFajla = $this->naziv . '.pdf';
-        $pdf->storeAs('pdfs', $nazivFajla);
+        $putanja = public_path('storage/pdfs');
+        $pdf->move($putanja, $nazivFajla);
         $this->pdf_path = 'pdfs/' . $nazivFajla;
+
         $this->save();
     }
 }
