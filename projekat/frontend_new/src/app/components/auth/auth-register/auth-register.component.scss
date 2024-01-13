@@ -1,0 +1,43 @@
+.welcome-text {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.custom-input {
+  width: 80%;
+  margin: 8px 0;
+}
+
+.custom-button {
+  border-radius: 12px;
+  width: 50%;
+  margin-top: 16px;
+  background-color: #2196f3;
+  color: white;
+  &:hover {
+    background-color: #1565c0;
+    transition: 0.3s ease;
+  }
+}
+
+.register-link {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #616161;
+}
+
+.register-link a {
+  color: #2196f3;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+mat-card {
+  border-radius: 12px;
+}
