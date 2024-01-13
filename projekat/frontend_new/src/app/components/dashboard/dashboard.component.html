@@ -1,0 +1,45 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+    <button (click)="drawer.toggle()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Dashboard</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button routerLink=""><mat-icon>home</mat-icon></button>
+
+
+</mat-toolbar>
+<mat-drawer-container autosize>
+    <mat-drawer #drawer opened="true" mode="side" position="start">
+        <mat-nav-list>
+            <mat-list-item routerLink="/dashboard/knjige">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>library_books</mat-icon>
+                    <span class="icon-text">Knjige</span>
+                </div>
+            </mat-list-item>
+            <mat-list-item routerLink="/dashboard/autori">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>person</mat-icon>
+                    <span class="icon-text">Autori</span>
+                </div>
+            </mat-list-item>
+            <mat-list-item routerLink="/dashboard/izdavaci">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>business</mat-icon>
+                    <span class="icon-text">Izdavači</span>
+                </div>
+            </mat-list-item>
+            <mat-list-item routerLink="/dashboard/korisnici">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>people</mat-icon>
+                    <span class="icon-text">Korisnici</span>
+                </div>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div style="text-align: center; min-height: 100vh;">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
