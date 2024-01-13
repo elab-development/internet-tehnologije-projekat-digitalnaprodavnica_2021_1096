@@ -1,0 +1,21 @@
+<mat-card>
+    <mat-card-content>
+        <form #loginForm="ngForm" (ngSubmit)="login()">
+            <h2>Prijava</h2>
+            <mat-form-field>
+                <input matInput placeholder="Email" [(ngModel)]="podaci.email" name="username" required>
+                <mat-error>
+                    Molimo vas da unesete validan email
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="password" placeholder="Password" [(ngModel)]="podaci.password" name="password"
+                    required>
+                <mat-error>
+                    Molimo vas da unesete validnu lozinku
+                </mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Prijavi se</button>
+        </form>
+    </mat-card-content>
+</mat-card>
