@@ -1,0 +1,31 @@
+<div mat-dialog-title>
+    <h1>Kreiranje korisnika</h1>
+</div>
+
+<div mat-dialog-content class="content" fxLayout="column" style="width: 500px; border-radius: 12px;">
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" placeholder="example@gmail.com" [(ngModel)]="podaci.email" name="email" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Korisnicko ime</mat-label>
+        <input matInput [(ngModel)]="podaci.username" name="username" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Lozinka</mat-label>
+        <input matInput type="password" [(ngModel)]="podaci.password" name="password" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Ime</mat-label>
+        <input matInput [(ngModel)]="podaci.ime" name="ime" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Prezime</mat-label>
+        <input matInput [(ngModel)]="podaci.prezime" name="prezime" required>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button mat-dialog-close>OTKAŽI</button>
+    <button mat-raised-button color="primary" (click)="create()">KREIRAJ</button>
+</div>

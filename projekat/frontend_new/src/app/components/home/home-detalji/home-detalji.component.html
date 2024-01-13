@@ -1,0 +1,31 @@
+<div *ngIf="knjiga">
+    <mat-card class="detalji-kartica">
+        <div fxLayout="row" fxLayoutGap="20px">
+
+            <div fxFlex="30%">
+                <img src="assets/book.jpg" style="max-width: 100%; height: auto;">
+            </div>
+
+            <div fxFlex="70%" class="detalji-knjige">
+                <h2 class="naslov-knjige">{{ knjiga.naziv }}</h2>
+                <p class="kategorija">Kategorija: {{ knjiga.kategorija }}</p>
+                <p class="opis">Opis: {{ knjiga.opis }}</p>
+                <p class="autori">Autori:
+                    <span *ngFor="let autor of knjiga.autori; let last = last">
+                        {{ autor.ime }} {{ autor.prezime }}{{!last ? ',' : ''}}
+                    </span>
+                </p>
+                <p class="cena">Cena: {{ knjiga.cena | currency:'RSD':'symbol':'3.2-2':'fr' }}</p>
+            </div>
+
+
+        </div>
+        <div class="pdf-prostor" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutGap="10px">
+                <button mat-raised-button color="primary" (click)="vratiPDF(knjiga.knjiga_id)">PRIKAŽI PDF</button>
+                <button mat-raised-button color="warn" (click)="dodajUKorpu(knjiga.knjiga_id)">DODAJ U KORPU</button>
+            </div>
+            <button mat-raised-button color="basic" routerLink="">IDI NAZAD</button>
+        </div>
+    </mat-card>
+</div>

@@ -1,0 +1,33 @@
+<div class="content">
+    <mat-form-field>
+        <mat-label>Izaberite kategoriju</mat-label>
+        <mat-select [value]="izabranaKategorija" (selectionChange)="onKategorijaChange($event.value)">
+            <mat-option>Sve</mat-option>
+            <mat-option *ngFor="let kategorija of jedinstveneKategorije" [value]="kategorija">{{ kategorija
+                }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-paginator [length]="this.knjige?.length" [pageSize]="4" [pageSizeOptions]="[4,8,12]"
+        (page)="onPageChange($event)">
+    </mat-paginator>
+
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div [fxFlex]="(100/4) + '%'" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="25%"
+            *ngFor="let knjiga of pageSlice">
+            <mat-card class="mat-elevation-z4">
+                <img mat-card-image src="assets/book.jpg">
+                <mat-card-content>
+                    <mat-card-title>{{knjiga.naziv}}</mat-card-title>
+                    <mat-card-subtitle>{{ knjiga.kategorija }} <h2>{{ knjiga.cena | currency:'RSD':'symbol':'3.2-2':'fr'
+                            }}</h2>
+                    </mat-card-subtitle>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-button color="warn">DODAJ U KORPU</button>
+                    <button mat-button [routerLink]="['/detalji', knjiga.knjiga_id]">DETALJI</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<mat-toolbar>
+
+    <span>E-Knjige</span>
+    <button mat-icon-button routerLink="">
+        <mat-icon>home</mat-icon>
+    </button>
+    <span class="example-spacer"></span>
+    <button mat-icon-button *ngIf="isAdmin()" [matMenuTriggerFor]="dashboardMenu">
+        <mat-icon>dashboard</mat-icon>
+        <mat-menu #dashboardMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="redirectToDashboard()">Dashboard</button>
+        </mat-menu>
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="korpaMenu">
+        <mat-icon matBadge="0" matBadgeColor="warn" aria-hidden="false">shopping_cart</mat-icon>
+        <mat-menu #korpaMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="redirectToKorpa()">Moja Korpa</button>
+        </mat-menu>
+    </button>
+    <button mat-icon-button *ngIf="!isLoggedIn()" [matMenuTriggerFor]="profilMenu">
+        <mat-icon>account_circle</mat-icon>
+        <mat-menu #profilMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="redirectToLogin()">Prijavi se</button>
+        </mat-menu>
+    </button>
+    <button mat-icon-button *ngIf="isLoggedIn()" [matMenuTriggerFor]="profilMenu">
+        <mat-icon>account_circle</mat-icon>
+        <mat-menu #profilMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="redirectToProfil()">Moj Profil</button>
+            <button mat-menu-item (click)="logout()">Odjavi se</button>
+        </mat-menu>
+    </button>
+
+</mat-toolbar>

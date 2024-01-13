@@ -1,0 +1,40 @@
+.detalji-kartica {
+  width: 80%;
+  margin: auto;
+  margin-top: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+.mat-card.detalji-kartica {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pdf-prostor,
+.detalji-knjige {
+  padding: 10px;
+}
+
+.naslov-knjige {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.cena,
+.kategorija,
+.opis,
+.autori {
+  margin-bottom: 10px;
+}
+
+.autori span::after {
+  content: "";
+  margin-left: 5px;
+}
+
+.autori span:last-child::after {
+  content: "";
+}

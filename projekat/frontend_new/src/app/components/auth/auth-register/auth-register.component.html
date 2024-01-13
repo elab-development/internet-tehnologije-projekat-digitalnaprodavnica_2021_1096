@@ -1,0 +1,31 @@
+<div fxLayoutAlign="center center" fxFlexFill>
+    <mat-card fxFlex="25">
+        <h2 class="welcome-text">Dobro došli!</h2>
+        <form fxLayoutAlign="center center" fxLayout="column" (ngSubmit)="register()">
+            <mat-form-field class="custom-input">
+                <mat-label>Email</mat-label>
+                <input matInput [(ngModel)]="podaci.email" name="email" required>
+            </mat-form-field>
+            <mat-form-field class="custom-input">
+                <mat-label>Username</mat-label>
+                <input matInput [(ngModel)]="podaci.username" name="username" required>
+            </mat-form-field>
+            <mat-form-field class="custom-input">
+                <mat-label>Lozinka</mat-label>
+                <input matInput type="password" [(ngModel)]="podaci.password" name="password" required>
+            </mat-form-field>
+            <mat-form-field class="custom-input">
+                <mat-label>Ime</mat-label>
+                <input matInput [(ngModel)]="podaci.ime" name="ime" required>
+            </mat-form-field>
+            <mat-form-field class="custom-input">
+                <mat-label>Prezime</mat-label>
+                <input matInput [(ngModel)]="podaci.prezime" name="prezime" required>
+            </mat-form-field>
+
+            <button mat-raised-button class="custom-button" type="submit">Prijava</button>
+
+            <p class="register-link">Već imate nalog? <a routerLink="/login">Prijavite se</a></p>
+        </form>
+    </mat-card>
+</div>
