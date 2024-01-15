@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Korisnik;
+use App\Models\Korpa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -65,6 +66,12 @@ class KorisnikController extends Controller
             'ime' => $request->ime,
             'prezime' => $request->prezime,
         ]);
+
+        $korpa = Korpa::create([
+            'korisnik_id' => $korisnik->korisnik_id,
+        ]);
+
+        $korisnik->korpa()->save($korpa);
 
         return response()->json([
             'status' => 'Uspeh',
