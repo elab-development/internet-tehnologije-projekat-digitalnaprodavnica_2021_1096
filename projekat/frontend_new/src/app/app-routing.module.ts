@@ -11,11 +11,15 @@ import { DashboardAutoriComponent } from './components/dashboard/dashboard-autor
 import { DashboardIzdavaciComponent } from './components/dashboard/dashboard-izdavaci/dashboard-izdavaci.component';
 import { DashboardKorisniciComponent } from './components/dashboard/dashboard-korisnici/dashboard-korisnici.component';
 import { HomeDetaljiComponent } from './components/home/home-detalji/home-detalji.component';
+import { AuthZaboravljenaLozinkaComponent } from './components/auth/auth-zaboravljena-lozinka/auth-zaboravljena-lozinka.component';
+import { AuthPromenaLozinkeComponent } from './components/auth/auth-promena-lozinke/auth-promena-lozinke.component';
 
 const routes: Routes = [
   { path: '', component: HomeKnjigeComponent },
   { path: 'login', component: AuthLoginComponent },
   { path: 'register', component: AuthRegisterComponent },
+  { path: 'zaboravljena-lozinka', component: AuthZaboravljenaLozinkaComponent },
+  { path: 'promena-lozinke/:token', component: AuthPromenaLozinkeComponent },
   { path: 'korpa', component: KorpaComponent },
   { path: 'profil', component: ProfilComponent },
   { path: 'detalji/:id', component: HomeDetaljiComponent },
