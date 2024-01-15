@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Autor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AutorController extends Controller
@@ -10,7 +11,7 @@ class AutorController extends Controller
     // api ruta -> vraca sve autore
     public function index()
     {
-        $autori = Autor::paginate();
+        $autori = Autor::all(); // ::paginate();
 
         if (!$autori) {
             return response()->json([
@@ -21,7 +22,7 @@ class AutorController extends Controller
 
         return response()->json([
             'status' => 'Uspeh',
-            'autori' => $autori->items(),
+            'autori' => $autori, //->items()
         ], 200);
     }
 
@@ -36,10 +37,12 @@ class AutorController extends Controller
             'biografija' => 'required|string',
         ]);
 
+        $datum_rodjenja = Carbon::parse($request->datum_rodjenja)->format('Y-m-d'); // formatiranje datuma
+
         $autor = Autor::create([
             'ime' => $request->ime,
             'prezime' => $request->prezime,
-            'datum_rodjenja' => $request->datum_rodjenja,
+            'datum_rodjenja' => $datum_rodjenja,
             'mesto_rodjenja' => $request->mesto_rodjenja,
             'biografija' => $request->biografija,
         ]);
@@ -87,10 +90,12 @@ class AutorController extends Controller
             'biografija' => 'string',
         ]);
 
+        $datum_rodjenja = Carbon::parse($request->datum_rodjenja)->format('Y-m-d'); // formatiranje datuma
+
         $autor->update([
             'ime' => $request->ime === null ? $autor->ime : $request->ime,
             'prezime' => $request->prezime === null ? $autor->prezime : $request->prezime,
-            'datum_rodjenja' => $request->datum_rodjenja === null ? $autor->datum_rodjenja : $request->datum_rodjenja,
+            'datum_rodjenja' => $datum_rodjenja,
             'mesto_rodjenja' => $request->mesto_rodjenja === null ? $autor->mesto_rodjenja : $request->mesto_rodjenja,
             'biografija' => $request->biografija === null ? $autor->biografija : $request->biografija,
         ]);
