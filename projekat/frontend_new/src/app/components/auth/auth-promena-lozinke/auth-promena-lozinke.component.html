@@ -1,0 +1,18 @@
+<mat-card>
+    <mat-card-content>
+        <form #loginForm="ngForm" (ngSubmit)="resetujLozinku()">
+            <h2>Resetovanje lozinke</h2>
+            <p>Unesite novu lozinku</p>
+            <mat-form-field>
+                <input matInput type="password" placeholder="Lozinka" [(ngModel)]="password" name="password" required>
+                <mat-error>
+                    Molimo vas da unesete lozinku
+                </mat-error>
+            </mat-form-field>
+            <div fxLayout="column" style="margin-bottom: 10px;">
+                <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Resetuj lozinku</button>
+                <button mat-raised-button color="basic" routerLink="/login">Nazad na prijavu</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
