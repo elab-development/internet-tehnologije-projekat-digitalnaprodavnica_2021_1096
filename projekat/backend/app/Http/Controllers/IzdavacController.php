@@ -10,7 +10,7 @@ class IzdavacController extends Controller
     // api ruta -> vraca sve izdavace
     public function index()
     {
-        $izdavaci = Izdavac::paginate();
+        $izdavaci = Izdavac::all(); //  ::paginate();
 
         if (!$izdavaci) {
             return response()->json([
@@ -21,7 +21,7 @@ class IzdavacController extends Controller
 
         return response()->json([
             'status' => 'Uspeh',
-            'izdavaci' => $izdavaci->items(),
+            'izdavaci' => $izdavaci, //->items()
         ], 200);
     }
 
@@ -104,6 +104,25 @@ class IzdavacController extends Controller
         return response()->json([
             'status' => 'Uspeh',
             'izdavac' => $izdavac,
+        ], 200);
+    }
+
+    // api ruta -> brise izdavaca
+    public function destroy($izdavac_id)
+    {
+        $izdavac = Izdavac::find($izdavac_id);
+
+        if (!$izdavac) {
+            return response()->json([
+                'status' => 'Neuspeh',
+                'poruka' => 'Izdavac ne postoji',
+            ], 404);
+        }
+
+        $izdavac->delete();
+
+        return response()->json([
+            'status' => 'Uspesno brisanje',
         ], 200);
     }
 }
