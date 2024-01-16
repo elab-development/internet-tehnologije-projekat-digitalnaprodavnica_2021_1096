@@ -13,6 +13,9 @@ import { DashboardKorisniciComponent } from './components/dashboard/dashboard-ko
 import { HomeDetaljiComponent } from './components/home/home-detalji/home-detalji.component';
 import { AuthZaboravljenaLozinkaComponent } from './components/auth/auth-zaboravljena-lozinka/auth-zaboravljena-lozinka.component';
 import { AuthPromenaLozinkeComponent } from './components/auth/auth-promena-lozinke/auth-promena-lozinke.component';
+import { PlacanjeSuccessComponent } from './components/placanje-success/placanje-success.component';
+import { PlacanjeCancelComponent } from './components/placanje-cancel/placanje-cancel.component';
+import { MojeKnjigeComponent } from './components/moje-knjige/moje-knjige.component';
 
 const routes: Routes = [
   { path: '', component: HomeKnjigeComponent },
@@ -22,7 +25,10 @@ const routes: Routes = [
   { path: 'promena-lozinke/:token', component: AuthPromenaLozinkeComponent },
   { path: 'korpa', component: KorpaComponent },
   { path: 'profil', component: ProfilComponent },
+  { path: 'moje-knjige', component: MojeKnjigeComponent },
   { path: 'detalji/:id', component: HomeDetaljiComponent },
+  { path: 'success', component: PlacanjeSuccessComponent },
+  { path: 'cancel', component: PlacanjeCancelComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,
