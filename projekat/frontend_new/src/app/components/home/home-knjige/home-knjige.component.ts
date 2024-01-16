@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BrojStavkiService } from 'src/app/services/broj-stavki.service';
 import { KnjigaService } from 'src/app/services/knjiga.service';
+import { KorpaService } from 'src/app/services/korpa.service';
 
 @Component({
   selector: 'app-home-knjige',
@@ -14,7 +17,7 @@ export class HomeKnjigeComponent implements OnInit {
   jedinstveneKategorije: string[] = [];
   pageSlice: any
 
-  constructor(private knjigaService: KnjigaService) { }
+  constructor(private knjigaService: KnjigaService, private korpaService: KorpaService, private snackBar: MatSnackBar, private brojStavkiService: BrojStavkiService) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -70,6 +73,20 @@ export class HomeKnjigeComponent implements OnInit {
       endIndex = this.knjige.length;
     }
     this.pageSlice = this.knjige.slice(startIndex, endIndex);
+  }
+
+  dodajUKorpu(knjigaId: number) {
+    this.korpaService.dodajUKorpu(knjigaId).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.snackBar.open(response.poruka, 'Zatvori', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+        this.brojStavkiService.azurirajBrojStavki(response.broj_stavki);
+      }
+    })
   }
 
 }

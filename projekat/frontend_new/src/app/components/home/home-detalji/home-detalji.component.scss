@@ -27,6 +27,7 @@
 .kategorija,
 .opis,
 .autori {
+  font-style: italic;
   margin-bottom: 10px;
 }
 
@@ -37,4 +38,14 @@
 
 .autori span:last-child::after {
   content: "";
+}
+
+h2 {
+  font-size: 1.5em;
+  color: #333;
+}
+
+p {
+  font-style: italic;
+  color: #666;
 }
