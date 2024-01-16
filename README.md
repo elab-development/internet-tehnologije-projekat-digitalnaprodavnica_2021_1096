@@ -3,7 +3,8 @@
 [![Angular Version](https://img.shields.io/badge/angular-16.2.2-red.svg)](https://angular.io/)
 [![npm Version](https://img.shields.io/badge/npm-9.6.7-blue.svg)](https://www.npmjs.com/)
 
-# E-Knjige
+![banner](projekat/frontend_new/src/assets/readme-banner.png)
+
 
 ## Opis
 
