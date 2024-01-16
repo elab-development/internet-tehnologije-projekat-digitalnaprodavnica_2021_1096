@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   register(podaci: any) {
-    return this.http.post<any>("http://127.0.0.1:8000/api/auth/logout", podaci);
+    return this.http.post<any>("http://127.0.0.1:8000/api/auth/register", podaci);
   }
 
   create(podaci: any) {
