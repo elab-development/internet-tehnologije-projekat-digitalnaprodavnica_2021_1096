@@ -6,4 +6,23 @@ mat-card {
 
 mat-form-field {
   display: block;
+  width: 100%;
+}
+
+.forgot-password {
+  display: block;
+  text-decoration: none;
+  color: #757575;
+}
+
+.button-container {
+  margin-top: 2em;
+}
+
+.additional-actions {
+  margin-top: 1em;
+  a {
+    text-decoration: none;
+    color: #757575;
+  }
 }

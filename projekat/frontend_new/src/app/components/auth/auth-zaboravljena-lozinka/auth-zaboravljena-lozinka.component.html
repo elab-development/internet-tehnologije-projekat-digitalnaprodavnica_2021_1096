@@ -3,15 +3,14 @@
         <form #loginForm="ngForm" (ngSubmit)="posaljiMejl()">
             <h2>Zaboravljena lozinka</h2>
             <p>Molimo vas da unesete email na koji želite da vam pošaljemo instrukcije za resetovanje lozinke</p>
-            <mat-form-field>
-                <input matInput placeholder="Email" [(ngModel)]="email" name="email" required>
-                <mat-error>
-                    Molimo vas da unesete validan email
-                </mat-error>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="example@gmail.com" [(ngModel)]="email" name="email" required>
             </mat-form-field>
             <div fxLayout="column" style="margin-bottom: 10px;">
                 <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Zatraži reset link</button>
-                <button mat-raised-button color="basic" routerLink="/login">Nazad na prijavu</button>
+                <button mat-raised-button color="basic" routerLink="/login" style="margin-top: 10px;">Nazad na
+                    prijavu</button>
             </div>
         </form>
     </mat-card-content>

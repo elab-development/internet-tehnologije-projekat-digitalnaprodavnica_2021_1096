@@ -1,21 +1,28 @@
 <mat-card>
     <mat-card-content>
-        <form #loginForm="ngForm" (ngSubmit)="login()">
+        <form #loginForm="ngForm" (ngSubmit)="login()" fxLayout="column" fxLayoutAlign="center center">
             <h2>Prijava</h2>
-            <mat-form-field>
-                <input matInput placeholder="Email" [(ngModel)]="podaci.email" name="username" required>
-                <mat-error>
-                    Molimo vas da unesete validan email
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput type="password" placeholder="Password" [(ngModel)]="podaci.password" name="password"
+            <div fxLayout="row" fxLayoutAlign="end" style="width: 100%;">
+            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="example@gmail.com" [(ngModel)]="podaci.email" name="email"
                     required>
-                <mat-error>
-                    Molimo vas da unesete validnu lozinku
-                </mat-error>
             </mat-form-field>
-            <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Prijavi se</button>
+            <mat-form-field appearance="outline">
+                <mat-label>Lozinka</mat-label>
+                <input matInput type="password" [(ngModel)]="podaci.password" name="password" required>
+            </mat-form-field>
+            <a style="text-decoration: none; margin-left: auto;" routerLink="/zaboravljena-lozinka">Zaboravljena
+                lozinka</a>
+            <div fxLayout="column" style="margin-bottom: 10px; text-align: center; width: 100%;">
+                <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Prijavi se</button>
+                <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 10px;">
+                    <button mat-raised-button color="basic" routerLink="" style="width: 100%;">Nastavi bez
+                        prijave</button>
+                </div>
+            </div>
+            <p>Nemate nalog? <a style="text-decoration: none;" routerLink="/register">Registrujte se</a></p>
         </form>
     </mat-card-content>
 </mat-card>
