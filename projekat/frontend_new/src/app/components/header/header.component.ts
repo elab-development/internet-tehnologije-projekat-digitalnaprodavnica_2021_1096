@@ -1,7 +1,9 @@
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { KorpaService } from 'src/app/services/korpa.service';
+import { BrojStavkiService } from 'src/app/services/broj-stavki.service';
 
 
 @Component({
@@ -9,9 +11,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  brojStavki: number = 0;
 
-  constructor(private router: Router, private authService: AuthService, private snackBar: MatSnackBar) { }
+  constructor(private router: Router, private authService: AuthService, private snackBar: MatSnackBar, private korpaService: KorpaService, private brojStavkiService: BrojStavkiService) { }
+
+  ngOnInit(): void {
+    this.brojStavkiService.brojStavki$.subscribe(noviBroj => {
+      this.brojStavki = noviBroj;
+    })
+  }
 
   isLoggedIn(): boolean {
     return localStorage.getItem('token') !== null;
@@ -49,12 +58,20 @@ export class HeaderComponent {
     this.router.navigate(['/login']);
   }
 
+  redirectToMojeKnjige(): void {
+    if (!this.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    } else {
+      this.router.navigate(['/moje-knjige']);
+    }
+  }
+
   logout(): void {
     this.authService.logout().subscribe({
       next: (response) => {
         console.log(response);
         localStorage.removeItem('token');
-        localStorage.removeItem('korisnikId');
+        localStorage.removeItem('korisnikID');
         localStorage.removeItem('isAdmin');
 
         this.snackBar.open('Uspešno ste se odjavili.', 'Zatvori', {
