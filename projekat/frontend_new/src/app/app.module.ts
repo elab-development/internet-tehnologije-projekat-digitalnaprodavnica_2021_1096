@@ -47,6 +47,11 @@ import { EditAutorComponent } from './components/dashboard/dashboard-autori/edit
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DatePipe } from '@angular/common';
+import { EditKnjigaComponent } from './components/dashboard/dashboard-knjige/edit-knjiga/edit-knjiga.component';
+import { PlacanjeSuccessComponent } from './components/placanje-success/placanje-success.component';
+import { PlacanjeCancelComponent } from './components/placanje-cancel/placanje-cancel.component';
+import { MojeKnjigeComponent } from './components/moje-knjige/moje-knjige.component';
+import { AddPdfComponent } from './components/dashboard/dashboard-knjige/add-pdf/add-pdf.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +79,11 @@ import { DatePipe } from '@angular/common';
     AuthPromenaLozinkeComponent,
     EditIzdavacComponent,
     EditAutorComponent,
+    EditKnjigaComponent,
+    PlacanjeSuccessComponent,
+    PlacanjeCancelComponent,
+    MojeKnjigeComponent,
+    AddPdfComponent,
   ],
   imports: [
     BrowserModule,
