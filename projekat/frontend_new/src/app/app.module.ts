@@ -40,6 +40,18 @@ import { CreateIzdavacComponent } from './components/dashboard/dashboard-izdavac
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
 import { EditKorisnikComponent } from './components/dashboard/dashboard-korisnici/edit-korisnik/edit-korisnik.component';
+import { AuthZaboravljenaLozinkaComponent } from './components/auth/auth-zaboravljena-lozinka/auth-zaboravljena-lozinka.component';
+import { AuthPromenaLozinkeComponent } from './components/auth/auth-promena-lozinke/auth-promena-lozinke.component';
+import { EditIzdavacComponent } from './components/dashboard/dashboard-izdavaci/edit-izdavac/edit-izdavac.component';
+import { EditAutorComponent } from './components/dashboard/dashboard-autori/edit-autor/edit-autor.component';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DatePipe } from '@angular/common';
+import { EditKnjigaComponent } from './components/dashboard/dashboard-knjige/edit-knjiga/edit-knjiga.component';
+import { PlacanjeSuccessComponent } from './components/placanje-success/placanje-success.component';
+import { PlacanjeCancelComponent } from './components/placanje-cancel/placanje-cancel.component';
+import { MojeKnjigeComponent } from './components/moje-knjige/moje-knjige.component';
+import { AddPdfComponent } from './components/dashboard/dashboard-knjige/add-pdf/add-pdf.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +75,15 @@ import { EditKorisnikComponent } from './components/dashboard/dashboard-korisnic
     CreateAutorComponent,
     CreateIzdavacComponent,
     EditKorisnikComponent,
+    AuthZaboravljenaLozinkaComponent,
+    AuthPromenaLozinkeComponent,
+    EditIzdavacComponent,
+    EditAutorComponent,
+    EditKnjigaComponent,
+    PlacanjeSuccessComponent,
+    PlacanjeCancelComponent,
+    MojeKnjigeComponent,
+    AddPdfComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,11 +110,18 @@ import { EditKorisnikComponent } from './components/dashboard/dashboard-korisnic
     MatDialogModule,
     MatTableModule,
     MatSortModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
   ],
   providers: [{
     provide: LOCALE_ID,
     useValue: 'fr'
-  }],
+  },
+  {
+    provide: MAT_DATE_LOCALE,
+    useValue: 'en-GB'
+  },
+    DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

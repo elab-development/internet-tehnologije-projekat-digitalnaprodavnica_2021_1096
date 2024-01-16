@@ -26,6 +26,13 @@ class StavkaKorpeController extends Controller
             'kolicina' => 'required|integer',
         ]);
 
+        if ($korpa->stavke()->where('knjiga_id', $request->knjiga_id)->exists()) {
+            return response()->json([
+                'status' => 'Neuspeh',
+                'poruka' => 'Knjiga je vec u korpi! ',
+            ], 200); //200 da ne bi vracalo gresku
+        }
+
         $stavka = StavkaKorpe::create([
             'korpa_id' => $korpa->korpa_id,
             'knjiga_id' => $request->knjiga_id,
@@ -39,6 +46,7 @@ class StavkaKorpeController extends Controller
 
         return response()->json([
             'status' => 'Uspeh',
+            'poruka' => 'Knjiga dodata u korpu',
         ], 200);
     }
 
@@ -56,10 +64,12 @@ class StavkaKorpeController extends Controller
 
                 return response()->json([
                     'status' => 'Uspeh',
+                    'poruka' => 'Knjiga uklonjena iz korpe'
                 ], 200);
             } else {
                 return response()->json([
                     'status' => 'Neuspeh',
+                    'poruka' => 'Knjiga nije uklonjena iz korpe'
                 ], 400);
             }
         } else {

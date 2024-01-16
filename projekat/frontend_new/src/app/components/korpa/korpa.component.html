@@ -1,1 +1,31 @@
-korpaa TODOOOO
+<mat-card>
+    <mat-card-content>
+        <div fxLayout="column">
+            <h2>Moja Korpa</h2>
+            <mat-divider></mat-divider>
+            <div *ngIf="detaljiKorpe && detaljiKorpe.korpa && detaljiKorpe.korpa.length > 0 else praznaKorpa">
+                <div fxLayout="row" fxLayoutGap="16px" *ngFor="let stavka of detaljiKorpe.korpa; let i = index"
+                    class="stavka">
+                    <div fxFlex="70%">
+                        <p>{{ stavka.naziv_knjige }}</p>
+                        <p>Cena: {{ stavka.cena | currency:'RSD':'symbol':'3.2-2':'fr' }}</p>
+                    </div>
+                    <div fxFlex="30%">
+                        <button mat-icon-button color="warn" (click)="obrisiStavkuKorpe(i + 1)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <h3>Ukupno: {{ detaljiKorpe.ukupna_cena_korpe | currency:'RSD':'symbol':'3.2-2':'fr' }}</h3>
+                    <button mat-raised-button color="primary" [disabled]="!detaljiKorpe.korpa.length"
+                        (click)="kupi()">Kupi</button>
+                </div>
+            </div>
+            <ng-template #praznaKorpa>
+                <p>Korpa je prazna.</p>
+            </ng-template>
+        </div>
+    </mat-card-content>
+</mat-card>

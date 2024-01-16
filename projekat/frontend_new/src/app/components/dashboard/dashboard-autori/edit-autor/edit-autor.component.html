@@ -1,0 +1,37 @@
+<div mat-dialog-title>
+    <h1>Izmena autora</h1>
+</div>
+
+<div mat-dialog-content class="content" fxLayout="column" style="width: 500px; border-radius: 12px;">
+    <mat-form-field appearance="outline">
+        <mat-label>Id</mat-label>
+        <input matInput placeholder="ID" [(ngModel)]="podaci.autor_id" name="autor_id" [disabled]="true">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Ime</mat-label>
+        <input matInput [(ngModel)]="podaci.ime" name="ime">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Prezime</mat-label>
+        <input matInput [(ngModel)]="podaci.prezime" name="prezime">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Datum rodjenja</mat-label>
+        <input matInput matInput [matDatepicker]="picker" [(ngModel)]="podaci.datum_rodjenja" name="datum_rodjenja">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Mesto rodjenja</mat-label>
+        <input matInput [(ngModel)]="podaci.mesto_rodjenja" name="mesto_rodjenja">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Biografija</mat-label>
+        <input matInput [(ngModel)]="podaci.biografija" name="biografija">
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button mat-dialog-close>OTKAŽI</button>
+    <button mat-raised-button color="primary" (click)="izmeni(podaci)">SAČUVAJ</button>
+</div>

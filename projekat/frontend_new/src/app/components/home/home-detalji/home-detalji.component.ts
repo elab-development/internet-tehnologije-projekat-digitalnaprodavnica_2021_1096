@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { BrojStavkiService } from 'src/app/services/broj-stavki.service';
 import { KnjigaService } from 'src/app/services/knjiga.service';
 import { KorpaService } from 'src/app/services/korpa.service';
 
@@ -14,7 +15,7 @@ export class HomeDetaljiComponent implements OnInit {
   knjiga: any;
   pdfSrc: any;
 
-  constructor(private knjigaService: KnjigaService, private route: ActivatedRoute, private korpaService: KorpaService, private snackBar: MatSnackBar) { }
+  constructor(private knjigaService: KnjigaService, private route: ActivatedRoute, private korpaService: KorpaService, private snackBar: MatSnackBar, private brojStavkiService: BrojStavkiService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -33,29 +34,18 @@ export class HomeDetaljiComponent implements OnInit {
     })
   }
 
-  vratiPDF(knjigaId: number) {
-    this.knjigaService.vratiPdf(knjigaId).subscribe({
-      next: (blob) => {
-        const file = new Blob([blob], { type: 'application/pdf' });
-        const fileURL = URL.createObjectURL(file);
-        window.open(fileURL, '_blank');
-      },
-      error: (err) => {
-        console.error(err)
-        this.snackBar.open('Izabrana knjiga nema PDF fajl.', 'Zatvori', {
+  dodajUKorpu(knjigaId: number) {
+    this.korpaService.dodajUKorpu(knjigaId).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.snackBar.open(response.poruka, 'Zatvori', {
           duration: 3000,
           horizontalPosition: 'center',
           verticalPosition: 'bottom',
         });
+        this.brojStavkiService.azurirajBrojStavki(response.broj_stavki);
       }
     })
-  }
-
-  dodajUKorpu(knjigaId: number) {
-    const korisnikId = localStorage.getItem('korisnikID');
-    const kolicina = 1;
-    const token = localStorage.getItem('token');
-    this.korpaService.dodajUKorpu(korisnikId, knjigaId, kolicina, token);
   }
 
 }

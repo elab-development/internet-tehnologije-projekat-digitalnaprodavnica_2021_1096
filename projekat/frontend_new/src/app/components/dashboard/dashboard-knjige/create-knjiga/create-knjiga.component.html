@@ -1,1 +1,69 @@
-<p>create-knjiga works!</p>
+<div mat-dialog-title>
+    <h1>Kreiranje knjige</h1>
+</div>
+
+<div mat-dialog-content class="content" fxLayout="column" style="width: 500px; border-radius: 12px;">
+    <mat-form-field appearance="outline">
+        <mat-label>ISBN</mat-label>
+        <input matInput [(ngModel)]="podaci.isbn" name="isbn" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Naziv</mat-label>
+        <input matInput [(ngModel)]="podaci.naziv" name="naziv" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Kategorija</mat-label>
+        <input matInput [(ngModel)]="podaci.kategorija" name="kategorija" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Opis</mat-label>
+        <textarea matInput [(ngModel)]="podaci.opis" name="opis" required></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Pismo</mat-label>
+        <input matInput [(ngModel)]="podaci.pismo" name="pismo" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Godina</mat-label>
+        <input matInput [(ngModel)]="podaci.godina" name="godina" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Strana</mat-label>
+        <input matInput [(ngModel)]="podaci.strana" name="strana" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Cena</mat-label>
+        <input matInput [(ngModel)]="podaci.cena" name="cena" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Autori</mat-label>
+        <mat-select [(ngModel)]="izabraniAutori" name="autori" multiple required>
+            <mat-option *ngFor="let autor of sviAutori" [value]="autor.autor_id">
+                {{ autor.ime }} {{ autor.prezime }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Izdavac</mat-label>
+        <mat-select [(ngModel)]="podaci.izdavac_id" name="izdavac_id" required>
+            <mat-option *ngFor="let izdavac of izdavaci" [value]="izdavac.izdavac_id">
+                {{ izdavac.naziv }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button mat-dialog-close>OTKAŽI</button>
+    <button mat-raised-button color="primary" (click)="create()">KREIRAJ</button>
+</div>

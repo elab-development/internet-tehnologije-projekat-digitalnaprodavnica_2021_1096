@@ -31,12 +31,14 @@ class KorpaController extends Controller
             ];
         })->unique('naziv_knjige');
 
+        $broj_stavki = $korpa->stavke->count();
         $ukupna_cena_korpe = $stavke->sum('cena_stavke');
 
         return response()->json([
             'status' => 'Uspeh',
             'korpa' => $stavke->values()->all(),
             'ukupna_cena_korpe' => $ukupna_cena_korpe,
+            'broj_stavki' => $broj_stavki,
         ], 200);
     }
 

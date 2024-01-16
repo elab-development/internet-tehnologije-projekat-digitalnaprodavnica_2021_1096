@@ -88,13 +88,16 @@ class AuthController extends Controller
         $token = Str::random(60);
         $korisnik->update(['reset_password_token' => $token]);
 
-        $link = url("/promena-lozinke/$token");
+        $link = "http://localhost:4200/promena-lozinke/$token";
 
         Mail::raw("Link za promenu lozinke: $link", function ($mail) use ($korisnik) {
             $mail->to($korisnik->email)->subject('Promena lozinke');
         });
 
-        return response()->json(['poruka' => 'Link za promenu lozinke poslat na email: ' . $korisnik->email], 200);
+        return response()->json([
+            'poruka' => 'Link za promenu lozinke poslat na email: ' . $korisnik->email,
+            'token' => $token,
+        ], 200);
     }
 
     // api ruta -> promena lozinke u slucaju zaboravljene lozinke

@@ -1,8 +1,38 @@
 .content {
-  padding: 100px;
+  padding: 50px;
 }
 
-.content > mat-card {
+mat-form-field {
+  width: 100%;
   margin-bottom: 16px;
-  padding: 8px;
+}
+
+mat-paginator {
+  margin-top: 16px;
+}
+
+mat-card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-content {
+  padding: 16px;
+}
+
+mat-card-title {
+  font-size: 1.2em;
+}
+
+mat-card-subtitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+mat-card-actions {
+  margin-top: 8px;
+}
+
+button {
+  margin-right: 8px;
 }

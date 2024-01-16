@@ -1,1 +1,38 @@
-<p>create-autor works!</p>
+<div mat-dialog-title>
+    <h1>Kreiranje autora</h1>
+</div>
+
+<div mat-dialog-content class="content" fxLayout="column" style="width: 500px; border-radius: 12px;">
+    <mat-form-field appearance="outline">
+        <mat-label>Ime</mat-label>
+        <input matInput [(ngModel)]="podaci.ime" name="ime" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Prezime</mat-label>
+        <input matInput [(ngModel)]="podaci.prezime" name="prezime" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Datum rodjenja</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="podaci.datum_rodjenja" name="datum_rodjenja" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Mesto rodjenja</mat-label>
+        <input matInput placeholder="Ex. Beograd, Srbija" [(ngModel)]="podaci.mesto_rodjenja" name="mesto_rodjenja"
+            required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Biografija</mat-label>
+        <textarea matInput [(ngModel)]="podaci.biografija" name="biografija" required></textarea>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button mat-dialog-close>OTKAŽI</button>
+    <button mat-raised-button color="primary" (click)="create()">KREIRAJ</button>
+</div>

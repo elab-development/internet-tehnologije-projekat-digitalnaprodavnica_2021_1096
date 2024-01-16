@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { BrojStavkiService } from 'src/app/services/broj-stavki.service';
 import { KorpaService } from 'src/app/services/korpa.service';
+import { PlacanjeService } from 'src/app/services/placanje.service';
 
 @Component({
   selector: 'app-korpa',
@@ -13,7 +16,7 @@ export class KorpaComponent implements OnInit {
   token = localStorage.getItem('token');
   korisnikID = localStorage.getItem('korisnikID');
 
-  constructor(private korpaService: KorpaService) { }
+  constructor(private korpaService: KorpaService, private brojStavkiService: BrojStavkiService, private placanjeService: PlacanjeService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.osveziKorpu();
@@ -24,6 +27,7 @@ export class KorpaComponent implements OnInit {
       this.korpaService.prikaziKorpu(this.korisnikID, this.token).subscribe({
         next: (response) => {
           this.detaljiKorpe = response;
+          this.brojStavkiService.azurirajBrojStavki(response.broj_stavki);
         },
         error: console.log,
       })
@@ -32,11 +36,16 @@ export class KorpaComponent implements OnInit {
   }
 
   obrisiStavkuKorpe(redniBrojStavke: number) {
-    this.korpaService.obrisiStavkuKorpe(this.korisnikID, redniBrojStavke, this.token).subscribe({
+    this.korpaService.obrisiStavkuKorpe(redniBrojStavke).subscribe({
       next: (response) => {
         console.log(response);
-        this.korpaService.brojStavki--;
+        this.brojStavkiService.azurirajBrojStavki(response.broj_stavki);
         this.osveziKorpu();
+        this.snackBar.open(response.poruka, 'Zatvori', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
       },
       error:
         console.log,
@@ -48,11 +57,15 @@ export class KorpaComponent implements OnInit {
     this.korpaService.isprazniKorpu(this.korisnikID, this.token).subscribe({
       next: (response) => {
         console.log(response);
-        this.korpaService.brojStavki = 0;
+        this.brojStavkiService.azurirajBrojStavki(0);
         this.osveziKorpu();
       },
       error: console.log,
     })
+  }
+
+  kupi() {
+    this.placanjeService.otvoriProzorZaPlacanje();
   }
 
 }

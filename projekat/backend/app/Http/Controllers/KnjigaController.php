@@ -14,7 +14,7 @@ class KnjigaController extends Controller
     // api ruta -> vraca sve knjige
     public function index()
     {
-        $knjige = Knjiga::with('autori')->paginate();
+        $knjige = Knjiga::with('autori')->get();
 
         if (!$knjige) {
             return response()->json([
@@ -25,7 +25,7 @@ class KnjigaController extends Controller
 
         return response()->json([
             'status' => 'Uspeh',
-            'knjige' => $knjige->items(),
+            'knjige' => $knjige,
         ], 200);
     }
 
@@ -42,9 +42,17 @@ class KnjigaController extends Controller
             'strana' => 'required|integer',
             'izdavac_id' => 'required|exists:izdavac,izdavac_id',
             'autor' => 'required|array',
-            'autor.*' => 'exists:autor,autor_id',
             'cena' => 'required|numeric',
         ]);
+
+        foreach ($request->autor as $autor_id) {
+            if (!Autor::find($autor_id)) {
+                return response()->json([
+                    'status' => 'Neuspeh',
+                    'poruka' => 'Jedan od unetih autora ne postoji'
+                ], 404);
+            }
+        }
 
         $knjiga = Knjiga::create([
             'isbn' => $request->isbn,
@@ -58,7 +66,7 @@ class KnjigaController extends Controller
             'cena' => $request->cena,
         ]);
 
-        $knjiga->autori()->sync($request->autori);
+        $knjiga->autori()->attach($request->autor);
 
         return response()->json([
             'status' => 'Uspeh',
@@ -96,15 +104,14 @@ class KnjigaController extends Controller
         }
 
         $request->validate([
-            'isbn' => 'string|unique:knjiga,isbn',
+            'isbn' => 'string|unique:knjiga,isbn,' . $id . ',knjiga_id',
             'naziv' => 'string',
             'kategorija' => 'string',
-            'opis' => 'string|unique:knjiga,opis',
+            'opis' => 'string|unique:knjiga,opis,' . $id . ',knjiga_id',
             'pismo' => 'string',
             'godina' => 'integer|digits:4',
             'strana' => 'integer',
             'cena' => 'numeric',
-            'izdavac_id' => 'exists:izdavac,id'
         ]);
 
         $knjiga->update([
@@ -116,12 +123,11 @@ class KnjigaController extends Controller
             'godina' => $request->godina === null ? $knjiga->godina : $request->godina,
             'strana' => $request->strana === null ? $knjiga->strana : $request->strana,
             'cena' => $request->cena === null ? $knjiga->cena : $request->cena,
-            'izdavac_id' => $request->izdavac_id === null ? $knjiga->izdavac_id : $request->izdavac_id,
         ]);
 
-        if ($request->has('autori')) {
-            $knjiga->autori()->sync($request->autori);
-        }
+        //if ($request->has('autor')) {
+        //    $knjiga->autori()->sync($request->autor);
+        //}
 
         return response()->json([
             'status' => 'Uspeh',

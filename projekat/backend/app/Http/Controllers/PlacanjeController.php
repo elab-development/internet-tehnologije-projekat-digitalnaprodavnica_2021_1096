@@ -4,17 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Korpa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 
 class PlacanjeController extends Controller
 {
-    public function otkaz()
-    {
-        return response()->json([
-            'status' => 'cancelled',
-        ], 200);
-    }
 
     public function placanje($korisnik_id)
     {
@@ -30,7 +25,7 @@ class PlacanjeController extends Controller
                     'product_data' => [
                         'name' => $stavka->knjiga->naziv,
                     ],
-                    'unit_amount' => $stavka->knjiga->cena * 100,
+                    'unit_amount' => $stavka->knjiga->cena,
                 ],
                 'quantity' => $stavka->kolicina,
             ];
@@ -40,18 +35,38 @@ class PlacanjeController extends Controller
             'payment_method_types' => ['card'],
             'line_items' => $lineItems,
             'mode' => 'payment',
-            'success_url' => 'https://neki_fake_domen/success',
-            'cancel_url' => 'https://neki_fake_domen/cancel',
+            'success_url' => 'http://localhost:4200/success',
+            'cancel_url' => 'http://localhost:4200/cancel',
         ]);
 
-        return redirect()->away($session->url);
+        return response()->json([
+            'url' => $session->url
+        ], 200);
     }
 
-
-    public function uspeh()
+    public function success($korisnik_id)
     {
+        $korpa = Korpa::where('korisnik_id', $korisnik_id)->first();
+
+        foreach ($korpa->stavke as $stavka) {
+            DB::table('korisnik_knjiga')->insert([
+                'korisnik_id' => $korisnik_id,
+                'knjiga_id' => $stavka->knjiga->knjiga_id,
+            ]);
+        }
+
+        $korpa->stavke()->delete();
+
         return response()->json([
             'status' => 'success',
+        ], 200);
+    }
+
+    public function cancel()
+    {
+
+        return response()->json([
+            'status' => 'cancelled',
         ], 200);
     }
 }

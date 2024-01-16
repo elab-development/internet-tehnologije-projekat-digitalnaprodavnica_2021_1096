@@ -8,9 +8,9 @@
 
             <div fxFlex="70%" class="detalji-knjige">
                 <h2 class="naslov-knjige">{{ knjiga.naziv }}</h2>
-                <p class="kategorija">Kategorija: {{ knjiga.kategorija }}</p>
-                <p class="opis">Opis: {{ knjiga.opis }}</p>
-                <p class="autori">Autori:
+                <p class="kategorija">{{ knjiga.kategorija }}</p>
+                <p class="opis">{{ knjiga.opis }}</p>
+                <p class="autori">
                     <span *ngFor="let autor of knjiga.autori; let last = last">
                         {{ autor.ime }} {{ autor.prezime }}{{!last ? ',' : ''}}
                     </span>
@@ -22,7 +22,6 @@
         </div>
         <div class="pdf-prostor" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="row" fxLayoutGap="10px">
-                <button mat-raised-button color="primary" (click)="vratiPDF(knjiga.knjiga_id)">PRIKAŽI PDF</button>
                 <button mat-raised-button color="warn" (click)="dodajUKorpu(knjiga.knjiga_id)">DODAJ U KORPU</button>
             </div>
             <button mat-raised-button color="basic" routerLink="">IDI NAZAD</button>

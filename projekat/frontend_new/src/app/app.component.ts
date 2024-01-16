@@ -11,7 +11,7 @@ export class AppComponent {
   constructor(private route: Router) { }
 
   isAuthPage(): boolean {
-    return this.route.url.startsWith('/login') || this.route.url.startsWith('/register');
+    return this.route.url.startsWith('/login') || this.route.url.startsWith('/register') || this.route.url.startsWith('/zaboravljena-lozinka') || this.route.url.startsWith('/promena-lozinke');
   }
 
   isDashboardPage(): boolean {

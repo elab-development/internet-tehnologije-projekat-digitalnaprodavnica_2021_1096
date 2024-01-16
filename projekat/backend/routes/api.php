@@ -10,6 +10,7 @@ use App\Http\Controllers\PlacanjeController;
 use App\Http\Controllers\StavkaKorpeController;
 use Illuminate\Support\Facades\Route;
 
+
 // api rute -> login, register, zaboravljenu lozinku i promenu lozinke
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
@@ -38,8 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/knjige/{knjiga_id}', [KnjigaController::class, 'destroy']);
 
     Route::post('/{korisnik_id}/placanje', [PlacanjeController::class, 'placanje']);
-    Route::get('/{korisnik_id}/uspeh', [PlacanjeController::class, 'uspeh']);
-    Route::get('/{korisnik_id}/otkazano', [PlacanjeController::class, 'otkaz']);
+    Route::post('/{korisnik_id}/success', [PlacanjeController::class, 'success']);
+    Route::post('/{korisnik_id}/cancel', [PlacanjeController::class, 'cancel']);
 
     // api rute -> placanje koriscenjem Stripe API
     Route::post('/knjiga/{knjiga_id}/dodaj-pdf', [KnjigaController::class, 'dodajPDF']);
@@ -56,6 +57,10 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/knjige', [KnjigaController::class, 'index']);
 Route::get('/knjige/{knjiga_id}', [KnjigaController::class, 'show']);
 Route::get('/knjige/kategorija/{kategorija}', [KnjigaController::class, 'vratiKnjigeUKategoriji']);
+
+
+// api ruta -> vraca sve kupljene knjige
+Route::get('/{korisnik_id}/moje-knjige', [KorisnikController::class, 'vratiKupljeneKnjige']);
 
 // api rute -> prikaz knjiga od autora i izdavaca
 Route::get('/knjige/autor/{autor_id}', [AutorController::class, 'vratiKnjigeAutora']);

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Korisnik;
+use App\Models\Korpa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class KorisnikController extends Controller
 {
@@ -65,6 +67,12 @@ class KorisnikController extends Controller
             'ime' => $request->ime,
             'prezime' => $request->prezime,
         ]);
+
+        $korpa = Korpa::create([
+            'korisnik_id' => $korisnik->korisnik_id,
+        ]);
+
+        $korisnik->korpa()->save($korpa);
 
         return response()->json([
             'status' => 'Uspeh',
@@ -170,6 +178,27 @@ class KorisnikController extends Controller
         return response()->json([
             'status' => 'Uspeh',
             'korisnik' => $korisnik
+        ], 200);
+    }
+
+    public function vratiKupljeneKnjige($korisnik_id)
+    {
+        $kupljeneKnjige = DB::table('korisnik_knjiga')
+            ->where('korisnik_id', $korisnik_id)
+            ->join('knjiga', 'knjiga.knjiga_id', '=', 'korisnik_knjiga.knjiga_id')
+            ->select('knjiga.*')
+            ->get();
+
+        if (!$kupljeneKnjige) {
+            return response()->json([
+                'status' => 'Neuspeh',
+                'poruka' => 'Ne postoje kupljene knjige'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'Uspeh',
+            'knjige' => $kupljeneKnjige,
         ], 200);
     }
 }

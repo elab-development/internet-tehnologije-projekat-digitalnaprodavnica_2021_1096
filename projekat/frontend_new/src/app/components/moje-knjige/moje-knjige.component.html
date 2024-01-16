@@ -1,0 +1,14 @@
+<mat-card>
+    <mat-card-content>
+        <div *ngIf="kupljeneKnjige && kupljeneKnjige.length > 0 else praznaLista">
+            <div *ngFor="let knjiga of kupljeneKnjige" class="kupljena-knjiga">
+                <h2 class="naslov">{{ knjiga.naziv }}</h2>
+                <p class="kategorija">{{ knjiga.kategorija }}</p>
+                <button mat-raised-button color="primary" (click)="vratiPDF(knjiga.knjiga_id)">PRIKAŽI PDF</button>
+            </div>
+        </div>
+        <ng-template #praznaLista>
+            <p>Nemate kupljenih knjiga.</p>
+        </ng-template>
+    </mat-card-content>
+</mat-card>

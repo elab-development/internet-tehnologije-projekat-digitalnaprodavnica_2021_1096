@@ -1,9 +1,5 @@
 <mat-toolbar>
-
-    <span>E-Knjige</span>
-    <button mat-icon-button routerLink="">
-        <mat-icon>home</mat-icon>
-    </button>
+    <button mat-button routerLink="">E-KNJIGE <mat-icon>home</mat-icon></button>
     <span class="example-spacer"></span>
     <button mat-icon-button *ngIf="isAdmin()" [matMenuTriggerFor]="dashboardMenu">
         <mat-icon>dashboard</mat-icon>
@@ -11,8 +7,14 @@
             <button mat-menu-item (click)="redirectToDashboard()">Dashboard</button>
         </mat-menu>
     </button>
+    <button mat-icon-button [matMenuTriggerFor]="mojeKnjigeMenu">
+        <mat-icon>library_books</mat-icon>
+        <mat-menu #mojeKnjigeMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="redirectToMojeKnjige()">Moje Knjige</button>
+        </mat-menu>
+    </button>
     <button mat-icon-button [matMenuTriggerFor]="korpaMenu">
-        <mat-icon matBadge="0" matBadgeColor="warn" aria-hidden="false">shopping_cart</mat-icon>
+        <mat-icon [matBadge]="brojStavki" matBadgeColor="warn" aria-hidden="false">shopping_cart</mat-icon>
         <mat-menu #korpaMenu="matMenu" xPosition="before">
             <button mat-menu-item (click)="redirectToKorpa()">Moja Korpa</button>
         </mat-menu>
