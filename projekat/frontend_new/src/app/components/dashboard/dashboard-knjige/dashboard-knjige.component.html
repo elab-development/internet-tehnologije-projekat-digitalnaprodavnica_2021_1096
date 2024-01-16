@@ -1,1 +1,92 @@
-<p>dashboard-knjige works!</p>
+<div class="main-body">
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mali princ" #input>
+    </mat-form-field>
+
+    <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="knjiga_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> id </th>
+                <td mat-cell *matCellDef="let row"> {{row.knjiga_id}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="isbn">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> isbn </th>
+                <td mat-cell *matCellDef="let row"> {{row.isbn}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="naziv">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> naziv </th>
+                <td mat-cell *matCellDef="let row"> {{row.naziv}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="kategorija">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> kategorija </th>
+                <td mat-cell *matCellDef="let row"> {{row.kategorija}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="opis">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> opis </th>
+                <td mat-cell *matCellDef="let row"> {{row.opis}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="pismo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> pismo </th>
+                <td mat-cell *matCellDef="let row"> {{row.pismo}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="godina">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> godina </th>
+                <td mat-cell *matCellDef="let row"> {{row.godina}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="strana">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> strana </th>
+                <td mat-cell *matCellDef="let row"> {{row.strana}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="cena">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> cena </th>
+                <td mat-cell *matCellDef="let row"> {{row.cena}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="izdavac_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> izdavac_id </th>
+                <td mat-cell *matCellDef="let row"> {{row.izdavac_id}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="akcije">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> akcije </th>
+                <td mat-cell *matCellDef="let row">
+                    <button mat-icon-button color="primary" (click)="openEditKnjigaDialog(row)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+
+                    <button mat-icon-button color="warn" (click)="obrisiKnjigu(row.knjiga_id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+
+                    <button mat-icon-button color="accent" (click)="openAddPdfFileDialog(row.knjiga_id)">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="kolone"></tr>
+            <tr mat-row *matRowDef="let row; columns: kolone;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">Ne postoje vrednosti za unet kriterijum " {{input.value}}</td>
+            </tr>
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5,10,25,100]"></mat-paginator>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 10px;">
+        <button button mat-raised-button color="accent" (click)="openCreateKnjigaDialog()">KREIRAJ KNJIGU</button>
+    </div>
+</div>
