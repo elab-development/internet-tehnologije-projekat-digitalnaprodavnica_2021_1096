@@ -53,6 +53,8 @@ import { PlacanjeCancelComponent } from './components/placanje-cancel/placanje-c
 import { MojeKnjigeComponent } from './components/moje-knjige/moje-knjige.component';
 import { AddPdfComponent } from './components/dashboard/dashboard-knjige/add-pdf/add-pdf.component';
 import { DashboardVizualizacijaComponent } from './components/dashboard/dashboard-vizualizacija/dashboard-vizualizacija.component';
+import { TruncateTextPipe } from './pipes/skrati-text.pipe';
+import { PokreniAnimacijuDirective } from './directives/pokreni-animaciju.directive';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,8 @@ import { DashboardVizualizacijaComponent } from './components/dashboard/dashboar
     MojeKnjigeComponent,
     AddPdfComponent,
     DashboardVizualizacijaComponent,
+    TruncateTextPipe,
+    PokreniAnimacijuDirective,
   ],
   imports: [
     BrowserModule,
