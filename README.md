@@ -1,10 +1,13 @@
-[![Laravel Version](https://img.shields.io/badge/laravel-10.10-blue.svg)](https://laravel.com)
-[![PHP Version](https://img.shields.io/badge/php-8.3-brightgreen.svg)](https://www.php.net/)
-[![Angular Version](https://img.shields.io/badge/angular-16.2.2-red.svg)](https://angular.io/)
-[![npm Version](https://img.shields.io/badge/npm-9.6.7-blue.svg)](https://www.npmjs.com/)
+<p align="center">
+  <img alt="Laravel Verzija" src="https://img.shields.io/badge/laravel-10.10-blue.svg">
+  <img alt="PHP Verzija" src="https://img.shields.io/badge/php-8.3-brightgreen.svg">
+  <img alt="Angular Verzija" src="https://img.shields.io/badge/angular-16.2.2-red.svg">
+  <img alt="npm Verzija" src="https://img.shields.io/badge/npm-9.6.7-blue.svg">
+</p>
 
-![banner](projekat/frontend_new/src/assets/readme-banner.png)
-
+<p align="center">
+  <img alt="Banner" src="projekat/frontend_new/src/assets/readme-banner.png">
+</p>
 
 ## Opis
 
