@@ -52,7 +52,6 @@ export class KorpaComponent implements OnInit {
     })
   }
 
-
   isprazniKorpu() {
     this.korpaService.isprazniKorpu(this.korisnikID, this.token).subscribe({
       next: (response) => {
