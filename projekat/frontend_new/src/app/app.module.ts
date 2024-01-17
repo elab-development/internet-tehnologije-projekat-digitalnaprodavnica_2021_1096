@@ -52,6 +52,7 @@ import { PlacanjeSuccessComponent } from './components/placanje-success/placanje
 import { PlacanjeCancelComponent } from './components/placanje-cancel/placanje-cancel.component';
 import { MojeKnjigeComponent } from './components/moje-knjige/moje-knjige.component';
 import { AddPdfComponent } from './components/dashboard/dashboard-knjige/add-pdf/add-pdf.component';
+import { DashboardVizualizacijaComponent } from './components/dashboard/dashboard-vizualizacija/dashboard-vizualizacija.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { AddPdfComponent } from './components/dashboard/dashboard-knjige/add-pdf
     PlacanjeCancelComponent,
     MojeKnjigeComponent,
     AddPdfComponent,
+    DashboardVizualizacijaComponent,
   ],
   imports: [
     BrowserModule,
