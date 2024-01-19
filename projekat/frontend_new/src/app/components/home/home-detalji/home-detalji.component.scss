@@ -49,3 +49,7 @@ p {
   font-style: italic;
   color: #666;
 }
+
+button[pokreniAnimaciju] {
+  transition: transform 300ms ease-out;
+}

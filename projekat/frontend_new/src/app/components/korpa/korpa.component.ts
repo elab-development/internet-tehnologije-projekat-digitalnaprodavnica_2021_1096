@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BrojStavkiService } from 'src/app/services/broj-stavki.service';
+import { KnjigaService } from 'src/app/services/knjiga.service';
 import { KorpaService } from 'src/app/services/korpa.service';
 import { PlacanjeService } from 'src/app/services/placanje.service';
 
@@ -16,7 +17,11 @@ export class KorpaComponent implements OnInit {
   token = localStorage.getItem('token');
   korisnikID = localStorage.getItem('korisnikID');
 
-  constructor(private korpaService: KorpaService, private brojStavkiService: BrojStavkiService, private placanjeService: PlacanjeService, private snackBar: MatSnackBar) { }
+  constructor(
+    private korpaService: KorpaService,
+    private brojStavkiService: BrojStavkiService,
+    private placanjeService: PlacanjeService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.osveziKorpu();
@@ -52,9 +57,8 @@ export class KorpaComponent implements OnInit {
     })
   }
 
-
   isprazniKorpu() {
-    this.korpaService.isprazniKorpu(this.korisnikID, this.token).subscribe({
+    this.korpaService.isprazniKorpu().subscribe({
       next: (response) => {
         console.log(response);
         this.brojStavkiService.azurirajBrojStavki(0);

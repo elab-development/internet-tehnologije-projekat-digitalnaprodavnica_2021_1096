@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { NgxExtendedPdfViewerComponent } from 'ngx-extended-pdf-viewer';
 import { BrojStavkiService } from 'src/app/services/broj-stavki.service';
 import { KnjigaService } from 'src/app/services/knjiga.service';
 import { KorpaService } from 'src/app/services/korpa.service';
@@ -13,9 +15,19 @@ import { KorpaService } from 'src/app/services/korpa.service';
 export class HomeDetaljiComponent implements OnInit {
 
   knjiga: any;
-  pdfSrc: any;
+  fileURL: any;
+  vidiPDF: boolean = false;
 
-  constructor(private knjigaService: KnjigaService, private route: ActivatedRoute, private korpaService: KorpaService, private snackBar: MatSnackBar, private brojStavkiService: BrojStavkiService) { }
+  constructor(
+    private knjigaService: KnjigaService,
+    private route: ActivatedRoute,
+    private korpaService: KorpaService,
+    private snackBar: MatSnackBar,
+    private brojStavkiService: BrojStavkiService,
+  ) { }
+
+  @ViewChild(NgxExtendedPdfViewerComponent) pdfViewer!: NgxExtendedPdfViewerComponent;
+  @ViewChild('viewerContainer') viewerContainer!: ElementRef;
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -32,6 +44,32 @@ export class HomeDetaljiComponent implements OnInit {
       },
       error: console.log,
     })
+  }
+
+
+  vratiPDF(knjigaId: number) {
+    this.knjigaService.vratiPdf(knjigaId).subscribe({
+      next: (blob) => {
+        const file = new Blob([blob], { type: 'application/pdf' });
+        this.fileURL = URL.createObjectURL(file);
+        this.postaviBlurOnPageChange();
+      },
+      error: (err) => {
+        console.error(err)
+        this.snackBar.open('Izabrana knjiga nema PDF fajl.', 'Zatvori', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+      }
+    })
+  }
+
+  postaviBlurOnPageChange() {
+    this.pdfViewer.pageChange.pipe().subscribe((pageNumber: number) => {
+      const blurAmount = Math.min(pageNumber / 5, 10);
+      this.viewerContainer.nativeElement.style.filter = `blur(${blurAmount}px)`;
+    });
   }
 
   dodajUKorpu(knjigaId: number) {

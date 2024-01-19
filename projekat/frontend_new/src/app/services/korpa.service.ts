@@ -51,12 +51,14 @@ export class KorpaService {
     return this.http.delete<any>(`http://127.0.0.1:8000/api/${korisnikId}/korpa/${redniBrojStavke}`, httpOptions);
   }
 
-  isprazniKorpu(korisnikID: string | null, token: string | null): Observable<any> {
+  isprazniKorpu(): Observable<any> {
+    const korisnikId = localStorage.getItem('korisnikID');
+    const token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${token}`,
       })
     };
-    return this.http.delete<any>(`http://127.0.0.1:8000/api/${korisnikID}/korpa`, httpOptions);
+    return this.http.delete<any>(`http://127.0.0.1:8000/api/${korisnikId}/korpa`, httpOptions);
   }
 }

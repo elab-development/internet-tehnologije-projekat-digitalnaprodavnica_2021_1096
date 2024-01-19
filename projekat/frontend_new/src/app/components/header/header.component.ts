@@ -38,13 +38,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  redirectToProfil(): void {
-    if (!this.isLoggedIn()) {
-      this.router.navigate(['/login']);
-    } else {
-      this.router.navigate(['/profil']);
-    }
-  }
 
   redirectToDashboard(): void {
     if (!this.isLoggedIn()) {
@@ -54,10 +47,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  redirectToLogin(): void {
-    this.router.navigate(['/login']);
-  }
-
   redirectToMojeKnjige(): void {
     if (!this.isLoggedIn()) {
       this.router.navigate(['/login']);
@@ -65,6 +54,19 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/moje-knjige']);
     }
   }
+
+  redirectToProfil(): void {
+    if (!this.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    } else {
+      this.router.navigate(['/profil']);
+    }
+  }
+
+  redirectToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
 
   logout(): void {
     this.authService.logout().subscribe({

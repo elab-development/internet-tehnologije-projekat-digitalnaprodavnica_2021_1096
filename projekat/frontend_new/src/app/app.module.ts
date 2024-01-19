@@ -52,7 +52,9 @@ import { PlacanjeSuccessComponent } from './components/placanje-success/placanje
 import { PlacanjeCancelComponent } from './components/placanje-cancel/placanje-cancel.component';
 import { MojeKnjigeComponent } from './components/moje-knjige/moje-knjige.component';
 import { AddPdfComponent } from './components/dashboard/dashboard-knjige/add-pdf/add-pdf.component';
-import { DashboardVizualizacijaComponent } from './components/dashboard/dashboard-vizualizacija/dashboard-vizualizacija.component';
+import { TruncateTextPipe } from './pipes/skrati-text.pipe';
+import { PokreniAnimacijuDirective } from './directives/pokreni-animaciju.directive';
+import { DashboardVizuelizacijaComponent } from './components/dashboard/dashboard-vizuelizacija/dashboard-vizuelizacija.component';
 
 @NgModule({
   declarations: [
@@ -62,8 +64,6 @@ import { DashboardVizualizacijaComponent } from './components/dashboard/dashboar
     HeaderComponent,
     HomeKnjigeComponent,
     HomeDetaljiComponent,
-    AuthLoginComponent,
-    AuthRegisterComponent,
     KorpaComponent,
     ProfilComponent,
     DashboardComponent,
@@ -85,7 +85,10 @@ import { DashboardVizualizacijaComponent } from './components/dashboard/dashboar
     PlacanjeCancelComponent,
     MojeKnjigeComponent,
     AddPdfComponent,
-    DashboardVizualizacijaComponent,
+    DashboardVizuelizacijaComponent,
+    TruncateTextPipe,
+    PokreniAnimacijuDirective,
+    DashboardVizuelizacijaComponent,
   ],
   imports: [
     BrowserModule,

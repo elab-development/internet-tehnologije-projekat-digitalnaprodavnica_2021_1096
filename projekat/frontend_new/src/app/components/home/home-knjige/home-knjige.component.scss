@@ -36,3 +36,7 @@ mat-card-actions {
 button {
   margin-right: 8px;
 }
+
+button[pokreniAnimaciju] {
+  transition: transform 300ms ease-out;
+}
