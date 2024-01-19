@@ -64,8 +64,6 @@ import { DashboardVizuelizacijaComponent } from './components/dashboard/dashboar
     HeaderComponent,
     HomeKnjigeComponent,
     HomeDetaljiComponent,
-    AuthLoginComponent,
-    AuthRegisterComponent,
     KorpaComponent,
     ProfilComponent,
     DashboardComponent,
