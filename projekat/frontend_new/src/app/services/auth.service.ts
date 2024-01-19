@@ -18,7 +18,6 @@ export class AuthService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/pdf',
       })
     }
     return this.http.post<any>("http://127.0.0.1:8000/api/auth/logout", null, httpOptions);
