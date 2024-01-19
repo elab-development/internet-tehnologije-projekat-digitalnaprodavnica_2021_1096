@@ -39,7 +39,7 @@
             <mat-list-item routerLink="/dashboard">
                 <div fxLayout="row" fxLayoutAlign="start center">
                     <mat-icon>bar_chart</mat-icon>
-                    <span class="icon-text">Vizualizacija</span>
+                    <span class="icon-text">Vizuelizacija</span>
                 </div>
             </mat-list-item>
         </mat-nav-list>
@@ -47,7 +47,7 @@
     <mat-drawer-content>
         <div style="text-align: center; min-height: 100vh;">
             <router-outlet></router-outlet>
-            <app-dashboard-vizualizacija *ngIf="!isDashboardHomePage()"></app-dashboard-vizualizacija>
+            <app-dashboard-vizuelizacija *ngIf="!isDashboardHomePage()"></app-dashboard-vizuelizacija>
         </div>
     </mat-drawer-content>
 </mat-drawer-container>
