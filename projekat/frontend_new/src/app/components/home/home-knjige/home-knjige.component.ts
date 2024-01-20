@@ -65,7 +65,7 @@ export class HomeKnjigeComponent implements OnInit {
   onKategorijaChange(izabranaKategorija: string): void {
     this.izabranaKategorija = izabranaKategorija;
     this.vratiKnjigePoKategoriji(this.izabranaKategorija);
-    this.pageSlice = this.knjige.slice(0, 4);
+    this.pageSlice = this.knjige.slice(0, 12);
   }
 
   onPageChange(event: PageEvent) {
