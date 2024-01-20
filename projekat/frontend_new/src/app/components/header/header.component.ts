@@ -40,11 +40,7 @@ export class HeaderComponent implements OnInit {
 
 
   redirectToDashboard(): void {
-    if (!this.isLoggedIn()) {
-      this.router.navigate(['/login']);
-    } else {
-      this.router.navigate(['/dashboard']);
-    }
+    this.router.navigate(['/dashboard']);
   }
 
   redirectToMojeKnjige(): void {
