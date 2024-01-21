@@ -19,8 +19,7 @@
                 <mat-divider></mat-divider>
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                     <h3>Ukupno: {{ detaljiKorpe.ukupna_cena_korpe | currency:'RSD':'symbol':'3.2-2':'fr' }}</h3>
-                    <button mat-raised-button color="primary" [disabled]="!detaljiKorpe.korpa.length"
-                        (click)="kupi()">Kupi</button>
+                    <button mat-raised-button color="primary" (click)=" kupi()">Kupi</button>
                 </div>
             </div>
             <ng-template #praznaKorpa>

@@ -23,8 +23,8 @@ class StavkaKorpeFactory extends Factory
         $knjiga = Knjiga::inRandomOrder()->first();
 
         return [
-            'korpa_id' => $korpa,
-            'knjiga_id' => $knjiga,
+            'korpa_id' => $korpa->korpa_id,
+            'knjiga_id' => $knjiga->knjiga_id,
             'kolicina' => $this->faker->numberBetween(1, 5),
         ];
     }

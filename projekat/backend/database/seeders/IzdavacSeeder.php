@@ -13,7 +13,7 @@ class IzdavacSeeder extends Seeder
     public function run(): void
     {
         Izdavac::factory()
-            ->count(20)
+            ->count(30)
             ->create();
     }
 }

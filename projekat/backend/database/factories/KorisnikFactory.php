@@ -19,9 +19,9 @@ class KorisnikFactory extends Factory
     public function definition(): array
     {
         return [
-            'email' => $this->faker->email(),
+            'email' => $this->faker->unique()->email(),
             'password' => $this->faker->password(),
-            'username' => $this->faker->userName(),
+            'username' => $this->faker->unique()->userName(),
             'ime' => $this->faker->firstName(),
             'prezime' => $this->faker->lastName(),
         ];

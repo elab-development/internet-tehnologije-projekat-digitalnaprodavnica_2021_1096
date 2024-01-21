@@ -39,10 +39,9 @@ class StavkaKorpeController extends Controller
             'kolicina' => $request->kolicina,
         ]);
 
-        $korpa->stavke()->save($stavka);
+        $stavka->knjiga;
 
-        $knjiga = Knjiga::where('knjiga_id', $request->knjiga_id)->first();
-        $stavka->knjiga()->associate($knjiga);
+        $korpa->stavke()->save($stavka);
 
         return response()->json([
             'status' => 'Uspeh',
