@@ -29,7 +29,7 @@
 
             <ng-container matColumnDef="opis">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> opis </th>
-                <td mat-cell *matCellDef="let row"> {{row.opis | truncateText:50}}</td>
+                <td mat-cell *matCellDef="let row"> {{row.opis | skratiText:50}}</td>
             </ng-container>
 
             <ng-container matColumnDef="pismo">

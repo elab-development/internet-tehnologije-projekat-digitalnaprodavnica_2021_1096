@@ -1,8 +1,18 @@
-# E-Knjige
+<p align="center">
+  <img alt="Laravel Verzija" src="https://img.shields.io/badge/laravel-10.10-blue.svg">
+  <img alt="PHP Verzija" src="https://img.shields.io/badge/php-8.3-brightgreen.svg">
+  <img alt="Angular Verzija" src="https://img.shields.io/badge/angular-16.2.2-red.svg">
+  <img alt="npm Verzija" src="https://img.shields.io/badge/npm-9.6.7-blue.svg">
+</p>
+
+<p align="center">
+  <img alt="Banner" src="projekat/frontend_new/src/assets/readme-banner.png">
+</p>
 
 ## Opis
 
-Aplikacija je platforma koja omogućava korisnicima istraživanje, kupovinu i preuzimanje knjiga u digitalnom formatu (.pdf), odnosno e-knjige. Pruža različite funkcionalnosti za registrovane korisnike, neregistrovane korisnike i administratore.
+Aplikacija je platforma koja omogućava korisnicima istraživanje, kupovinu i preuzimanje knjiga u digitalnom formatu (.pdf), odnosno e-knjige. Pruža različite funkcionalnosti za registrovane korisnike, neregistrovane korisnike i administratore.<br>
+Rađeno za potrebe seminarskog rada iz predmeta **Internet tehnologije**.
 
 ## Funkcionalnosti
 
@@ -10,15 +20,13 @@ Aplikacija je platforma koja omogućava korisnicima istraživanje, kupovinu i pr
 
 - Pregled široke ponude knjiga
 - Pretraga celokupne biblioteke
-- Pregled autora i izdavača
-- Detaljne informacije o knjigama, autorima i izdavačima
+- Detaljne informacije o knjigama
 - Neobavezno kreiranje korisničkog naloga za pristup sadržaju
 
 ### Registrovani korisnici
 
 - Dodavanje knjiga u korpu za kupovinu
 - Preuzimanje kupljenih knjiga u PDF formatu
-- Personalizovani korisnički profil sa slikom
 - Promena detalja profila i lozinke
 
 ### Administratori
@@ -43,3 +51,9 @@ Aplikacija je platforma koja omogućava korisnicima istraživanje, kupovinu i pr
 - Dodavanje knjiga u korpu
 - Plaćanje sadržaja korpe za preuzimanje PDF fajlova kupljenih knjiga
 - Mogućnost prekida transakcije i uklanjanja stavki iz korpe
+
+## Contributing
+
+1. Klonirati repositorijum i kreirati novu granu: `$ git checkout https://github.com/elab-development/internet-tehnologije-projekat-digitalnaprodavnica_2021_1096 -b naziv_nove_grane`
+2. Napraviti promene i testirati
+3. Poslati Pull Request sa detaljnim opisom promena
