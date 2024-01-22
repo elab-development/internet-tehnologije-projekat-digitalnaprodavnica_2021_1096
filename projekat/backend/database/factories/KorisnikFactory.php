@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Korisnik;
 use App\Models\Korpa;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Korisnik>
@@ -20,7 +21,7 @@ class KorisnikFactory extends Factory
     {
         return [
             'email' => $this->faker->unique()->email(),
-            'password' => $this->faker->password(),
+            'password' => Hash::make($this->faker->password()),
             'username' => $this->faker->unique()->userName(),
             'ime' => $this->faker->firstName(),
             'prezime' => $this->faker->lastName(),

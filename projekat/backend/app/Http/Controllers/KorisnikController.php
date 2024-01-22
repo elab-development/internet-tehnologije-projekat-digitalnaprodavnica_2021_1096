@@ -7,6 +7,7 @@ use App\Models\Korpa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class KorisnikController extends Controller
 {
@@ -62,7 +63,7 @@ class KorisnikController extends Controller
 
         $korisnik = Korisnik::create([
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'username' => $request->username,
             'ime' => $request->ime,
             'prezime' => $request->prezime,

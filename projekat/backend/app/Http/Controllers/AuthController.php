@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Korisnik;
 use App\Models\Korpa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -23,7 +24,7 @@ class AuthController extends Controller
 
         $korisnik = Korisnik::create([
             'email' => $podaci['email'],
-            'password' => $podaci['password'],
+            'password' => Hash::make($podaci['password']),
             'username' => $podaci['username'],
             'ime' => $podaci['ime'],
             'prezime' => $podaci['prezime'],
@@ -52,7 +53,7 @@ class AuthController extends Controller
         ]);
 
         $korisnik = Korisnik::where('email', $podaci['email'])->first();
-        if (!$korisnik || $podaci['password'] !== $korisnik->password) {
+        if (!$korisnik || !Hash::check($podaci['password'], $korisnik->password)) {
             return response()->json(['poruka' => 'Neuspesno logovanje'], 403);
         }
 
