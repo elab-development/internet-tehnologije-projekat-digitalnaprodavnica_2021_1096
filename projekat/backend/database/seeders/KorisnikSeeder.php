@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Korisnik;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class KorisnikSeeder extends Seeder
 {
@@ -20,7 +21,7 @@ class KorisnikSeeder extends Seeder
         $korisnik = Korisnik::create([
             'email' => 'draskovicdusan4@gmail.com',
             'username' => 'dusan',
-            'password' => 'admin',
+            'password' => Hash::make('admin'),
             'ime' => 'Dusan',
             'prezime' => 'Draskovic',
             'isAdmin' => 1,
