@@ -13,7 +13,19 @@ class KorisnikSeeder extends Seeder
     public function run(): void
     {
         Korisnik::factory()
-            ->count(30)
+            ->count(29)
             ->create();
+
+        // kreiranje admin korisnika
+        $korisnik = Korisnik::create([
+            'email' => 'draskovicdusan4@gmail.com',
+            'username' => 'dusan',
+            'password' => 'admin',
+            'ime' => 'Dusan',
+            'prezime' => 'Draskovic',
+            'isAdmin' => 1,
+        ]);
+
+        $korisnik->korpa()->create();
     }
 }

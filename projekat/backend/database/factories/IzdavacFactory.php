@@ -17,7 +17,7 @@ class IzdavacFactory extends Factory
     public function definition(): array
     {
         return [
-            'naziv' => $this->faker->company(),
+            'naziv' => $this->faker->unique()->company(),
             'adresa' => $this->faker->address(),
         ];
     }
