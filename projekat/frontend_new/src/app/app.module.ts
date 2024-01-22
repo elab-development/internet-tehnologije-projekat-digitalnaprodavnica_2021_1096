@@ -52,7 +52,7 @@ import { PlacanjeSuccessComponent } from './components/placanje-success/placanje
 import { PlacanjeCancelComponent } from './components/placanje-cancel/placanje-cancel.component';
 import { MojeKnjigeComponent } from './components/moje-knjige/moje-knjige.component';
 import { AddPdfComponent } from './components/dashboard/dashboard-knjige/add-pdf/add-pdf.component';
-import { TruncateTextPipe } from './pipes/skrati-text.pipe';
+import { SkratiTextPipe } from './pipes/skrati-text.pipe';
 import { PokreniAnimacijuDirective } from './directives/pokreni-animaciju.directive';
 import { DashboardVizuelizacijaComponent } from './components/dashboard/dashboard-vizuelizacija/dashboard-vizuelizacija.component';
 
@@ -86,7 +86,7 @@ import { DashboardVizuelizacijaComponent } from './components/dashboard/dashboar
     MojeKnjigeComponent,
     AddPdfComponent,
     DashboardVizuelizacijaComponent,
-    TruncateTextPipe,
+    SkratiTextPipe,
     PokreniAnimacijuDirective,
     DashboardVizuelizacijaComponent,
   ],

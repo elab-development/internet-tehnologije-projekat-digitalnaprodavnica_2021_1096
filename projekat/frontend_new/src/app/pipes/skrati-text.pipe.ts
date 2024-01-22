@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from "@angular/core";
     name: 'skratiText'
 })
 
-export class TruncateTextPipe implements PipeTransform {
+export class SkratiTextPipe implements PipeTransform {
     
     transform(text: string, maxLength: number = 50) {
         if (text.length <= maxLength) {
