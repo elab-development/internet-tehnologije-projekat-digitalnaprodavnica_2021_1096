@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -17,7 +18,7 @@ export class AuthRegisterComponent {
     prezime: '',
   };
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
 
   register() {
     this.authService.register(this.podaci).subscribe({
@@ -27,7 +28,14 @@ export class AuthRegisterComponent {
         localStorage.setItem('isAdmin', response.korisnik.isAdmin);
         this.router.navigate(['']);
       },
-      error: console.log
+      error: (err) => {
+        console.error(err)
+        this.snackBar.open('Greška', 'Zatvori', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+      }
     })
   }
 

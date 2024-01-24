@@ -1,4 +1,6 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -6,6 +8,14 @@ import { AuthService } from 'src/app/services/auth.service';
   selector: 'app-auth-login',
   templateUrl: './auth-login.component.html',
   styleUrls: ['./auth-login.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({
+        opacity: 0
+      })),
+      transition('void <=> *', animate(1000)),
+    ]),
+  ],
 })
 export class AuthLoginComponent {
   podaci = {
@@ -13,7 +23,7 @@ export class AuthLoginComponent {
     password: '',
   };
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
 
   login() {
     this.authService.login(this.podaci).subscribe({
@@ -23,8 +33,16 @@ export class AuthLoginComponent {
         localStorage.setItem('isAdmin', response.korisnik.isAdmin);
         this.router.navigate(['']);
       },
-      error: console.log
+      error: (err) => {
+        console.error(err)
+        this.snackBar.open('Greška prilikom unosa podataka', 'Zatvori', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+      }
     })
+
   }
 }
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class AuthZaboravljenaLozinkaComponent {
   email: string = "";
   token: string = "";
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private snackBar: MatSnackBar) { }
 
   posaljiMejl() {
     console.log(this.email);
@@ -21,7 +22,14 @@ export class AuthZaboravljenaLozinkaComponent {
         this.token = response.token;
         localStorage.setItem('reset-password-token', this.token);
       },
-      error: console.log,
+      error: (err) => {
+        console.error(err)
+        this.snackBar.open('Greška', 'Zatvori', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+      }
     })
   }
 

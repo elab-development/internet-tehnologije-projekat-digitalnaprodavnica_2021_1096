@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -13,7 +14,7 @@ export class AuthPromenaLozinkeComponent {
   password: string = "";
 
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {
   }
 
   resetujLozinku() {
@@ -23,7 +24,14 @@ export class AuthPromenaLozinkeComponent {
         localStorage.removeItem('reset-password-token');
         this.router.navigate(['/login']);
       },
-      error: console.log,
+      error: (err) => {
+        console.error(err)
+        this.snackBar.open('Greška prilikom unosa podataka', 'Zatvori', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+      }
     })
   }
 
