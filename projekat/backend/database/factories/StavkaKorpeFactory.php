@@ -25,7 +25,7 @@ class StavkaKorpeFactory extends Factory
         return [
             'korpa_id' => $korpa->korpa_id,
             'knjiga_id' => $knjiga->knjiga_id,
-            'kolicina' => $this->faker->numberBetween(1, 5),
+            'kolicina' => 1,
         ];
     }
 }
