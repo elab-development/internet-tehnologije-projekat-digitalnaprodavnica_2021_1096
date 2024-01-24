@@ -1,0 +1,17 @@
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.chart-container > app-bar-chart-prodaja,
+.chart-container > app-pie-chart-knjige-po-kategoriji,
+.chart-container > app-pie-chart-kupljene-knjige-po-kategoriji {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container > div > app-pie-chart-knjige-po-kategoriji,
+.chart-container > div > app-pie-chart-kupljene-knjige-po-kategoriji {
+  flex: 1;
+  margin-right: 20px;
+}
