@@ -78,7 +78,7 @@ export class HeaderComponent implements OnInit {
           verticalPosition: 'bottom',
         });
 
-        this.router.navigate(['']);
+        window.location.reload();
       }
     })
   }
