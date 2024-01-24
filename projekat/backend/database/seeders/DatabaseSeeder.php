@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             KnjigaSeeder::class,
             KnjigaAutorSeeder::class,
             StavkaKorpeSeeder::class,
+            ProdajaSeeder::class,
         ]);
     }
 }
