@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('korisnik_id');
             $table->unsignedBigInteger('knjiga_id');
-            $table->timestamps();
 
             $table->foreign('korisnik_id')
                 ->references('korisnik_id')
@@ -22,6 +21,9 @@ return new class extends Migration
                 ->references('knjiga_id')
                 ->on('knjiga')
                 ->onDelete('cascade');
+
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
