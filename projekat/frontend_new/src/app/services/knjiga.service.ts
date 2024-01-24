@@ -21,6 +21,18 @@ export class KnjigaService {
     return this.http.get<any>(`http://127.0.0.1:8000/api/knjige/${knjigaId}`);
   }
 
+  vratiBrojKnjigaPoKategoriji(): Observable<any> {
+    return this.http.get<any>("http://127.0.0.1:8000/api/broj-knjiga-po-kategoriji");
+  }
+
+  vratiBrojKupljenihKnjigaPoKategoriji(): Observable<any> {
+    return this.http.get<any>("http://127.0.0.1:8000/api/broj-kupljenih-knjiga-po-kategoriji");
+  }
+
+  vratiProdajuTokomVremena(): Observable<any> {
+    return this.http.get<any>(`http://127.0.0.1:8000/api/prodaja-tokom-vremena`);
+  }
+
   dodajPdf(knjigaId: number, pdf_fajl: File | null): Observable<any> {
     const token = localStorage.getItem('token');
     const httpOptions = {
