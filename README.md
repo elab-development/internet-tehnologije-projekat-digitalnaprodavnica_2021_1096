@@ -1,8 +1,16 @@
 <p align="center">
-  <img alt="Laravel Verzija" src="https://img.shields.io/badge/laravel-10.10-blue.svg">
-  <img alt="PHP Verzija" src="https://img.shields.io/badge/php-8.3-brightgreen.svg">
-  <img alt="Angular Verzija" src="https://img.shields.io/badge/angular-16.2.2-red.svg">
-  <img alt="npm Verzija" src="https://img.shields.io/badge/npm-9.6.7-blue.svg">
+  <a href="https://laravel.com" target="_blank">
+    <img alt="Laravel Verzija" src="https://img.shields.io/badge/laravel-10.10-blue.svg">
+  </a>
+  <a href="https://www.php.net/" target="_blank">
+    <img alt="PHP Verzija" src="https://img.shields.io/badge/php-8.3-brightgreen.svg">
+  </a>
+  <a href="https://angular.io/" target="_blank">
+    <img alt="Angular Verzija" src="https://img.shields.io/badge/angular-16.2.2-red.svg">
+  </a>
+  <a href="https://www.npmjs.com/" target="_blank">
+    <img alt="npm Verzija" src="https://img.shields.io/badge/npm-9.6.7-blue.svg">
+  </a>
 </p>
 
 <p align="center">
