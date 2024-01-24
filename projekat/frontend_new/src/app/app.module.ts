@@ -55,6 +55,10 @@ import { AddPdfComponent } from './components/dashboard/dashboard-knjige/add-pdf
 import { SkratiTextPipe } from './pipes/skrati-text.pipe';
 import { PokreniAnimacijuDirective } from './directives/pokreni-animaciju.directive';
 import { DashboardVizuelizacijaComponent } from './components/dashboard/dashboard-vizuelizacija/dashboard-vizuelizacija.component';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { BarChartProdajaComponent } from './components/dashboard/dashboard-vizuelizacija/bar-chart-prodaja/bar-chart-prodaja.component';
+import { PieChartKnjigePoKategorijiComponent } from './components/dashboard/dashboard-vizuelizacija/pie-chart-knjige-po-kategoriji/pie-chart-knjige-po-kategoriji.component';
+import { PieChartKupljeneKnjigePoKategorijiComponent } from './components/dashboard/dashboard-vizuelizacija/pie-chart-kupljene-knjige-po-kategoriji/pie-chart-kupljene-knjige-po-kategoriji.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +93,9 @@ import { DashboardVizuelizacijaComponent } from './components/dashboard/dashboar
     SkratiTextPipe,
     PokreniAnimacijuDirective,
     DashboardVizuelizacijaComponent,
+    BarChartProdajaComponent,
+    PieChartKnjigePoKategorijiComponent,
+    PieChartKupljeneKnjigePoKategorijiComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,6 +124,7 @@ import { DashboardVizuelizacijaComponent } from './components/dashboard/dashboar
     MatSortModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    HighchartsChartModule,
   ],
   providers: [{
     provide: LOCALE_ID,
