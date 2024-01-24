@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Autor;
 use App\Models\Knjiga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KnjigaController extends Controller
 {
@@ -196,6 +197,7 @@ class KnjigaController extends Controller
         ], 400);
     }
 
+    // api ruta -> preuzmi pdf knjige
     public function preuzmiPDF($knjiga_id)
     {
         $knjiga = Knjiga::where('knjiga_id', $knjiga_id)->first();
@@ -224,5 +226,44 @@ class KnjigaController extends Controller
         }
 
         return response()->file($pdf_path);
+    }
+
+    //api ruta -> vrati broj knjiga po kategoriji
+    public function vratiBrojKnjigaPoKategoriji()
+    {
+        $brKnjigaPoKategoriji = Knjiga::select('kategorija', DB::raw('count(*) as broj_knjiga'))
+            ->groupBy('kategorija')
+            ->get();
+
+        return response()->json([
+            $brKnjigaPoKategoriji
+        ], 200);
+    }
+
+    //api ruta -> vrati broj kupljenih knjiga po kategoriji
+    public function vratiBrojKupljenihKnjigaPoKategoriji()
+    {
+        $brKupljenihKnjigaPoKategoriji = DB::table('korisnik_knjiga')
+            ->join('knjiga', 'korisnik_knjiga.knjiga_id', '=', 'knjiga.knjiga_id')
+            ->select('knjiga.kategorija', DB::raw('count(*) as broj_knjiga'))
+            ->groupBy('knjiga.kategorija')
+            ->get();
+
+        return response()->json([
+            $brKupljenihKnjigaPoKategoriji
+        ], 200);
+    }
+
+    //api ruta -> vrati prodaju knjiga tokom vremena
+    public function vratiProdajuKnjigaTokomVremena()
+    {
+        $prodajaPoMesecima = DB::table('korisnik_knjiga')
+            ->select(DB::raw('MONTH(created_at) as mesec'), DB::raw('COUNT(*) as broj_prodatih_knjiga'))
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->get();
+
+        return response()->json([
+            'prodaja_po_mesecima' => $prodajaPoMesecima,
+        ], 200);
     }
 }
