@@ -54,7 +54,9 @@ class AuthController extends Controller
 
         $korisnik = Korisnik::where('email', $podaci['email'])->first();
         if (!$korisnik || !Hash::check($podaci['password'], $korisnik->password)) {
-            return response()->json(['poruka' => 'Neuspesno logovanje'], 403);
+            return response()->json([
+                'poruka' => 'Neuspesno logovanje'
+            ], 404);
         }
 
         $token = $korisnik->createToken('token')->plainTextToken;
@@ -70,7 +72,9 @@ class AuthController extends Controller
     {
         $request->user()->tokens()->delete();
 
-        return response()->json(['poruka' => 'Korisnik izlogovan'], 200);
+        return response()->json([
+            'poruka' => 'Korisnik izlogovan'
+        ], 200);
     }
 
     // api ruta -> promena lozinke u slucaju zaboravljene lozinke
@@ -111,7 +115,9 @@ class AuthController extends Controller
         $korisnik = Korisnik::where('reset_password_token', $token)->first();
 
         if (!$korisnik) {
-            return response()->json(['poruka' => 'Neispravan token'], 404);
+            return response()->json([
+                'poruka' => 'Neispravan token'
+            ], 404);
         }
 
         $korisnik->update([
@@ -119,6 +125,8 @@ class AuthController extends Controller
             'reset_password_token' => null,
         ]);
 
-        return response()->json(['poruka' => 'Lozinka uspesno promenjena']);
+        return response()->json([
+            'poruka' => 'Lozinka uspesno promenjena'
+        ], 200);
     }
 }
