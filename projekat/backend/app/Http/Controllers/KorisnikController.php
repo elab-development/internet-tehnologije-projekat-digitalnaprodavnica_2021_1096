@@ -31,16 +31,16 @@ class KorisnikController extends Controller
     }
 
     // api ruta -> vraca konkretnog korisnika
-    public function show($username)
+    public function show($korisnik_id)
     {
-        $korisnik = Cache::remember('korisnik_' . $username, 60 * 24, function ()  use ($username) {
-            return Korisnik::where('username', $username)->first();
+        $korisnik = Cache::remember('korisnik_' . $korisnik_id, 60 * 24, function ()  use ($korisnik_id) {
+            return Korisnik::where('korisnik_id', $korisnik_id)->first();
         });
 
         if (!$korisnik) {
             return response()->json([
                 'status' => 'Neuspeh',
-                'poruka' => 'Ne postoji korisnik: ' . $username
+                'poruka' => 'Ne postoji korisnik: ' . $korisnik_id
             ], 404);
         }
 
@@ -163,23 +163,6 @@ class KorisnikController extends Controller
             'status' => 'Neuspeh',
             'poruka' => 'Greska prilikom menjanja slike'
         ], 400);
-    }
-
-    public function vratiKorisnika($korisnik_id)
-    {
-        $korisnik = Korisnik::where('korisnik_id', $korisnik_id)->first();
-
-        if (!$korisnik) {
-            return response()->json([
-                'status' => 'Neuspeh',
-                'poruka' => 'Ne postoji korisnik:'
-            ], 404);
-        }
-
-        return response()->json([
-            'status' => 'Uspeh',
-            'korisnik' => $korisnik
-        ], 200);
     }
 
     public function vratiKupljeneKnjige($korisnik_id)
