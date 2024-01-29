@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // api ruta -> dodavanje profilne slike
     Route::post('/{korisnik_id}/dodaj-profilnu-sliku', [KorisnikController::class, 'dodajProfilnu']);
+    Route::get('/{korisnik_id}/vrati-profilnu-sliku', [KorisnikController::class, 'vratiProfilnu']);
 
     // api rute -> crud za korpu
     Route::get('/{korisnik_id}/korpa', [KorpaController::class, 'index']);
