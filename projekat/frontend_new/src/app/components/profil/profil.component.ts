@@ -6,6 +6,7 @@ interface Korisnik {
   username: string,
   ime: string,
   prezime: string
+  // ovde dodati polje i za profilnu
 }
 
 @Component({
@@ -16,11 +17,13 @@ interface Korisnik {
 export class ProfilComponent implements OnInit {
 
   korisnik: Korisnik | undefined;
+  profilna: string = '';
 
   constructor(private korisnikService: KorisnikService) { }
 
   ngOnInit(): void {
     this.vratiDetaljeKorisnika();
+    this.vratiProfilnuSliku();
   }
 
   vratiDetaljeKorisnika() {
@@ -32,8 +35,46 @@ export class ProfilComponent implements OnInit {
     })
   }
 
-  pokreniIzmenu() {
+  vratiProfilnuSliku() {
+    this.korisnikService.vratiProfilnuSliku().subscribe({
+      next: (response) => {
+        console.log(response.url);
+        this.profilna = response.url || 'assets/profilna_placeholder.jpg';
+      },
+      error: (error) => {
+        this.profilna = 'assets/profilna_placeholder.jpg';
+      }
+    })
+  }
 
+  onProfilnaChange(event: any) {
+    const files = event.target.files as FileList;
+
+    if (files.length > 0) {
+      const _profilna = URL.createObjectURL(files[0]);
+      console.log(files[0]);
+
+      this.korisnikService.dodajProfilnuSliku(files[0]).subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: console.log,
+      })
+
+      this.profilna = _profilna;
+      this.resetInput();
+    }
+  }
+
+  resetInput() {
+    const input = document.getElementById('avatar-input-file') as HTMLInputElement;
+    if (input) {
+      input.value = "";
+    }
+  }
+
+  pokreniIzmenu() {
+    // todo
   }
 
 }
