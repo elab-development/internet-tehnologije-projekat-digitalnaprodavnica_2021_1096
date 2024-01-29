@@ -146,9 +146,10 @@ class KorisnikController extends Controller
         }
 
         if ($request->hasFile('profilna_slika') && $request->file('profilna_slika')->isValid()) {
-            $nazivSlike = $korisnik_id . '-profilna-slika.' . $request->profilna_slika->extension();
+            $nazivSlike = $korisnik->username . '-profilna-slika.' . $request->profilna_slika->extension();
+            $putanja = public_path('storage/profilne_slike');
+            $request->profilna_slika->move($putanja, $nazivSlike);
 
-            $request->profilna_slika->storeAs('profilne', $nazivSlike);
 
             $korisnik->update([
                 'profilna_slika' => 'profilne/' . $nazivSlike,
@@ -164,6 +165,33 @@ class KorisnikController extends Controller
             'poruka' => 'Greska prilikom menjanja slike'
         ], 400);
     }
+
+    public function vratiProfilnu($korisnik_id)
+    {
+        $korisnik = Korisnik::find($korisnik_id);
+
+        if (!$korisnik) {
+            return response()->json([
+                'poruka' => 'Korisnik ne postoji'
+            ], 404);
+        }
+
+        $nazivSlike = $korisnik->username . '-profilna-slika.' . pathinfo($korisnik->profilna_slika, PATHINFO_EXTENSION);
+
+        $profilnaPutanja = public_path('storage/profilne_slike/' . $nazivSlike);
+
+        if (file_exists($profilnaPutanja)) {
+            $urlSlike = asset('storage/profilne_slike/' . $nazivSlike);
+            return response()->json([
+                'url' => $urlSlike
+            ]);
+        }
+
+        return response()->json([
+            'poruka' => 'Profilna slika nije pronađena'
+        ], 404);
+    }
+
 
     public function vratiKupljeneKnjige($korisnik_id)
     {
