@@ -64,8 +64,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/{korisnik_id}/cancel', [PlacanjeController::class, 'cancel']);
 
     // api rute -> vracanje knjiga u pdf formatu
-    Route::post('/knjiga/{knjiga_id}/dodaj-pdf', [KnjigaController::class, 'dodajPDF']);
-    Route::get('/knjiga/{knjiga_id}/preuzmi-pdf', [KnjigaController::class, 'preuzmiPDF']);
+    Route::post('/knjige/{knjiga_id}/dodaj-pdf', [KnjigaController::class, 'dodajPDF']);
+    Route::get('/knjige/{knjiga_id}/preuzmi-pdf', [KnjigaController::class, 'preuzmiPDF']);
 
     // api rute -> resource rute za autore i izdavace
     Route::resource('autori', AutorController::class);
