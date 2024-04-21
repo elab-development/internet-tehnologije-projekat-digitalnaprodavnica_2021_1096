@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { Knjiga } from '../models/knjiga.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,16 +10,18 @@ export class KnjigaService {
 
   constructor(private http: HttpClient) { }
 
+  private KNJIGA_URL: string = 'http://127.0.0.1:8000/api/knjige/';
+
   vratiSveKnjige(): Observable<any> {
-    return this.http.get<any>("http://127.0.0.1:8000/api/knjige");
+    return this.http.get<any>(this.KNJIGA_URL);
   }
 
   vratiKnjigePoKategoriji(kategorija: string): Observable<any> {
-    return this.http.get<any>(`http://127.0.0.1:8000/api/knjige/kategorija/${kategorija}`);
+    return this.http.get<any>(this.KNJIGA_URL + kategorija);
   }
 
   vratiDetaljeKnjige(knjigaId: number): Observable<any> {
-    return this.http.get<any>(`http://127.0.0.1:8000/api/knjige/${knjigaId}`);
+    return this.http.get<any>(this.KNJIGA_URL + knjigaId);
   }
 
   vratiBrojKnjigaPoKategoriji(): Observable<any> {
@@ -33,7 +36,38 @@ export class KnjigaService {
     return this.http.get<any>(`http://127.0.0.1:8000/api/prodaja-tokom-vremena`);
   }
 
-  dodajPdf(knjigaId: number, pdf_fajl: File | null): Observable<any> {
+  kreirajKnjigu(knjiga: Knjiga): Observable<any> {
+    console.log(knjiga);
+    const token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+      }),
+    }
+    return this.http.post<any>(this.KNJIGA_URL, knjiga, httpOptions);
+  }
+
+  izmeniKnjigu(knjiga: Knjiga) {
+    const token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+      }),
+    }
+    return this.http.put<any>(this.KNJIGA_URL + knjiga.knjiga_id, knjiga, httpOptions);
+  }
+
+  obrisiKnjigu(knjigaId: any) {
+    const token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+      }),
+    }
+    return this.http.delete<any>(this.KNJIGA_URL + knjigaId, httpOptions);
+  }
+
+  dodajPdf(knjigaId: number, pdf_fajl: File): Observable<any> {
     const token = localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -41,7 +75,10 @@ export class KnjigaService {
         'Content-Type': 'application/pdf',
       }),
     };
-    return this.http.post<any>(`http://127.0.0.1:8000/api/knjiga/${knjigaId}/dodaj-pdf`, httpOptions);
+    const formData = new FormData();
+    formData.append('pdf_fajl', pdf_fajl);
+
+    return this.http.post<any>(this.KNJIGA_URL + knjigaId + '/dodaj-pdf', formData, httpOptions);
   }
 
   vratiPdf(knjigaId: number): Observable<any> {
@@ -53,41 +90,7 @@ export class KnjigaService {
       responseType: 'blob' as 'json',
     };
 
-    return this.http.get<any>(`http://127.0.0.1:8000/api/knjiga/${knjigaId}/preuzmi-pdf`, httpOptions);
+    return this.http.get<any>(this.KNJIGA_URL + knjigaId + '/preuzmi-pdf', httpOptions);
   }
 
-  kreirajKnjigu(podaci: any): Observable<any> {
-    const token = localStorage.getItem('token');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`,
-      }),
-    }
-    return this.http.post<any>("http://127.0.0.1:8000/api/knjige", podaci, httpOptions);
-  }
-
-  izmeniKnjigu(podaci: any) {
-    const token = localStorage.getItem('token');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`,
-      }),
-    }
-    return this.http.put<any>(`http://127.0.0.1:8000/api/knjige/${podaci.knjiga_id}`, podaci, httpOptions);
-  }
-
-  obrisiKnjigu(knjigaId: any) {
-    const token = localStorage.getItem('token');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`,
-      }),
-    }
-    return this.http.delete<any>(`http://127.0.0.1:8000/api/knjige/${knjigaId}`, httpOptions);
-  }
-
-  vratiKupljeneKnjige(): Observable<any> {
-    const korisnikId = localStorage.getItem('korisnikID');
-    return this.http.get<any>(`http://127.0.0.1:8000/api/${korisnikId}/moje-knjige`);
-  }
 }

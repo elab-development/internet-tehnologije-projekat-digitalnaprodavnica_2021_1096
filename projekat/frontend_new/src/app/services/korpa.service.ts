@@ -30,13 +30,13 @@ export class KorpaService {
       );
   }
 
-  prikaziKorpu(korisnikID: string | null, token: string | null): Observable<any> {
+  prikaziKorpu(korisnikId: string | null, token: string | null): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${token}`,
       })
     };
-    return this.http.get<any>(`http://127.0.0.1:8000/api/${korisnikID}/korpa`, httpOptions);
+    return this.http.get<any>(`http://127.0.0.1:8000/api/${korisnikId}/korpa`, httpOptions);
   }
 
   obrisiStavkuKorpe(redniBrojStavke: number): Observable<any> {

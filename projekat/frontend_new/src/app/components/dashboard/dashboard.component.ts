@@ -1,4 +1,3 @@
-// dashboard.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -11,8 +10,9 @@ export class DashboardComponent {
 
   constructor(private router: Router) { }
 
+  private DASHBOARD_URL: string = '/dashboard/';
+
   isDashboardHomePage(): boolean {
-    return this.router.url.startsWith('/dashboard/knjige') || this.router.url.startsWith('/dashboard/korisnici')
-      || this.router.url.startsWith('/dashboard/autori') || this.router.url.startsWith('/dashboard/izdavaci')
+    return this.router.url.startsWith(this.DASHBOARD_URL);
   }
 }
