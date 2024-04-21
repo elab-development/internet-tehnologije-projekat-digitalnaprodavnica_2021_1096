@@ -3,6 +3,7 @@ import { IzdavacService } from 'src/app/services/izdavac.service';
 import { CreateIzdavacComponent } from '../create-izdavac/create-izdavac.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Izdavac } from 'src/app/models/izdavac.model';
 
 @Component({
   selector: 'app-edit-izdavac',
@@ -10,26 +11,18 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./edit-izdavac.component.scss']
 })
 export class EditIzdavacComponent {
-  podaci = {
-    izdavac_id: '',
-    naziv: '',
-    adresa: '',
-  };
+  izdavac!: Izdavac;
 
   constructor(
     private izdavacService: IzdavacService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<CreateIzdavacComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: any) {
-    this.podaci.izdavac_id = data.izdavac_id;
+    @Inject(MAT_DIALOG_DATA) private data: { izdavac: Izdavac }) {
+    this.izdavac = data.izdavac;
   }
 
   ngOnInit(): void {
-    this.podaci = {
-      izdavac_id: this.data.izdavac_id,
-      naziv: this.data.naziv,
-      adresa: this.data.adresa,
-    };
+    this.izdavac = this.data.izdavac;
   }
 
   izmeni(podaci: any) {

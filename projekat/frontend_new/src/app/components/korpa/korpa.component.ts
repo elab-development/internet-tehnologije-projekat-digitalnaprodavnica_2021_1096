@@ -15,7 +15,7 @@ export class KorpaComponent implements OnInit {
 
   detaljiKorpe: any;
   token = localStorage.getItem('token');
-  korisnikID = localStorage.getItem('korisnikID');
+  korisnikId = localStorage.getItem('korisnikID');
 
   constructor(
     private korpaService: KorpaService,
@@ -28,8 +28,8 @@ export class KorpaComponent implements OnInit {
   }
 
   osveziKorpu() {
-    if (this.korisnikID && this.token) {
-      this.korpaService.prikaziKorpu(this.korisnikID, this.token).subscribe({
+    if (this.korisnikId && this.token) {
+      this.korpaService.prikaziKorpu(this.korisnikId, this.token).subscribe({
         next: (response) => {
           this.detaljiKorpe = response;
           this.brojStavkiService.azurirajBrojStavki(response.broj_stavki);

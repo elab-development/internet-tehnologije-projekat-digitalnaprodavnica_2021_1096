@@ -1,3 +1,4 @@
+import { KorisnikService } from 'src/app/services/korisnik.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { KnjigaService } from 'src/app/services/knjiga.service';
@@ -12,7 +13,7 @@ export class MojeKnjigeComponent implements OnInit {
 
   kupljeneKnjige: any;
 
-  constructor(private knjigaService: KnjigaService, private snackBar: MatSnackBar) { }
+  constructor(private knjigaService: KnjigaService, private korisnikService: KorisnikService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.vratiKupljeneKnjige();
@@ -20,7 +21,7 @@ export class MojeKnjigeComponent implements OnInit {
 
 
   vratiKupljeneKnjige() {
-    this.knjigaService.vratiKupljeneKnjige().subscribe({
+    this.korisnikService.vratiKupljeneKnjige().subscribe({
       next: (response) => {
         console.log(response);
         this.kupljeneKnjige = response.knjige;

@@ -5,52 +5,52 @@
 <div mat-dialog-content class="content" fxLayout="column" style="width: 500px; border-radius: 12px;">
     <mat-form-field appearance="outline">
         <mat-label>Id</mat-label>
-        <input matInput [(ngModel)]="podaci.knjiga_id" name="knjiga_id" [disabled]="true">
+        <input matInput [(ngModel)]="knjiga.knjiga_id" name="id" [disabled]="true">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>ISBN</mat-label>
-        <input matInput [(ngModel)]="podaci.isbn" name="isbn" required>
+        <input matInput [(ngModel)]="knjiga.isbn" name="isbn" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Naziv</mat-label>
-        <input matInput [(ngModel)]="podaci.naziv" name="naziv" required>
+        <input matInput [(ngModel)]="knjiga.naziv" name="naziv" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Kategorija</mat-label>
-        <input matInput [(ngModel)]="podaci.kategorija" name="kategorija" required>
+        <input matInput [(ngModel)]="knjiga.kategorija" name="kategorija" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Opis</mat-label>
-        <textarea matInput [(ngModel)]="podaci.opis" name="opis" required></textarea>
+        <textarea matInput [(ngModel)]="knjiga.opis" name="opis" required></textarea>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Pismo</mat-label>
-        <input matInput [(ngModel)]="podaci.pismo" name="pismo" required>
+        <input matInput [(ngModel)]="knjiga.pismo" name="pismo" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Godina</mat-label>
-        <input matInput [(ngModel)]="podaci.godina" name="godina" required>
+        <input matInput [(ngModel)]="knjiga.godina" name="godina" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Strana</mat-label>
-        <input matInput [(ngModel)]="podaci.strana" name="strana" required>
+        <input matInput [(ngModel)]="knjiga.strana" name="strana" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Cena</mat-label>
-        <input matInput [(ngModel)]="podaci.cena" name="cena" required>
+        <input matInput [(ngModel)]="knjiga.cena" name="cena" required>
     </mat-form-field>
 
 </div>
 
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
     <button mat-raised-button mat-dialog-close>OTKAŽI</button>
-    <button mat-raised-button color="primary" (click)="izmeni(podaci)">SAČUVAJ</button>
+    <button mat-raised-button color="primary" (click)="izmeni(knjiga)">SAČUVAJ</button>
 </div>

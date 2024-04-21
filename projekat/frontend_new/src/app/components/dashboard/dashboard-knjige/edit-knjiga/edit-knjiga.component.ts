@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { KnjigaService } from 'src/app/services/knjiga.service';
 import { DashboardKnjigeComponent } from '../dashboard-knjige.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Knjiga } from 'src/app/models/knjiga.model';
 
 @Component({
   selector: 'app-edit-knjiga',
@@ -10,64 +11,22 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./edit-knjiga.component.scss']
 })
 export class EditKnjigaComponent implements OnInit {
-  podaci: {
-    knjiga_id: number,
-    isbn: string,
-    naziv: string,
-    kategorija: string,
-    opis: string,
-    pismo: string,
-    godina: string,
-    strana: string,
-    cena: string,
-    autor: any[],
-    izdavac_id: string,
-  } = {
-      knjiga_id: 0,
-      isbn: '',
-      naziv: '',
-      kategorija: '',
-      opis: '',
-      pismo: '',
-      godina: '',
-      strana: '',
-      cena: '',
-      autor: [],
-      izdavac_id: '',
-    };
-
-  izdavaci: any[] = [];
-  sviAutori: any[] = [];
-  izabraniAutori: any[] = [];
+  knjiga!: Knjiga;
 
   constructor(
     private knjigaService: KnjigaService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<DashboardKnjigeComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: any) {
-    this.podaci.knjiga_id = data.knjiga_id;
+    @Inject(MAT_DIALOG_DATA) private data: { knjiga: Knjiga }) {
+    this.knjiga = data.knjiga;
   }
 
   ngOnInit(): void {
-    this.podaci = {
-      knjiga_id: this.data.knjiga_id,
-      isbn: this.data.isbn,
-      naziv: this.data.naziv,
-      kategorija: this.data.kategorija,
-      opis: this.data.opis,
-      pismo: this.data.pismo,
-      godina: this.data.godina,
-      strana: this.data.strana,
-      cena: this.data.cena,
-      autor: this.data.autor,
-      izdavac_id: this.data.izdavac_id,
-    }
+    this.knjiga = this.data.knjiga;
   }
 
-  izmeni(podaci: any) {
-    this.podaci.autor = this.izabraniAutori;
-
-    this.knjigaService.izmeniKnjigu(podaci).subscribe({
+  izmeni(knjiga: Knjiga) {
+    this.knjigaService.izmeniKnjigu(knjiga).subscribe({
       next: (response) => {
         console.log(response);
         this.snackBar.open(response.status, 'Zatvori', {
@@ -79,4 +38,5 @@ export class EditKnjigaComponent implements OnInit {
       }
     })
   }
+
 }

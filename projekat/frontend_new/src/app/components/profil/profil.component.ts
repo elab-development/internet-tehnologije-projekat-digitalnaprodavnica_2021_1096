@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { KorisnikFactory } from 'src/app/factories/korisnik.factory';
+import { Korisnik } from 'src/app/models/korisnik.model';
 import { KorisnikService } from 'src/app/services/korisnik.service';
-
-interface Korisnik {
-  email: string
-  username: string,
-  ime: string,
-  prezime: string
-  // ovde dodati polje i za profilnu
-}
 
 @Component({
   selector: 'app-profil',
@@ -16,7 +10,7 @@ interface Korisnik {
 })
 export class ProfilComponent implements OnInit {
 
-  korisnik: Korisnik | undefined;
+  korisnik!: Korisnik;
   profilna: string = '';
 
   constructor(private korisnikService: KorisnikService) { }
@@ -24,6 +18,8 @@ export class ProfilComponent implements OnInit {
   ngOnInit(): void {
     this.vratiDetaljeKorisnika();
     this.vratiProfilnuSliku();
+    const korisnikFactory = new KorisnikFactory();
+    this.korisnik = korisnikFactory.createDefault();
   }
 
   vratiDetaljeKorisnika() {
@@ -43,6 +39,7 @@ export class ProfilComponent implements OnInit {
       },
       error: (error) => {
         this.profilna = 'assets/profilna_placeholder.jpg';
+        console.error(error);
       }
     })
   }

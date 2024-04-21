@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { KnjigaService } from 'src/app/services/knjiga.service';
 import { EditKnjigaComponent } from './edit-knjiga/edit-knjiga.component';
 import { CreateKnjigaComponent } from './create-knjiga/create-knjiga.component';
+import { Knjiga } from 'src/app/models/knjiga.model';
 import { AddPdfComponent } from './add-pdf/add-pdf.component';
 
 @Component({
@@ -29,7 +30,7 @@ export class DashboardKnjigeComponent implements OnInit, AfterViewInit {
     'akcije',
   ]
 
-  dataSource!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<Knjiga>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -68,9 +69,9 @@ export class DashboardKnjigeComponent implements OnInit, AfterViewInit {
     })
   }
 
-  openEditKnjigaDialog(podaci: any) {
+  openEditKnjigaDialog(knjiga: Knjiga) {
     const dialogRef = this.dialog.open(EditKnjigaComponent, {
-      data: podaci,
+      data: { knjiga: knjiga },
     })
     dialogRef.afterClosed().subscribe({
       next: (val) => {
@@ -93,6 +94,7 @@ export class DashboardKnjigeComponent implements OnInit, AfterViewInit {
   }
 
   obrisiKnjigu(knjigaId: number) {
+    console.log(knjigaId);
     this.knjigaService.obrisiKnjigu(knjigaId).subscribe({
       next: (response) => {
         console.log(response);
@@ -108,7 +110,7 @@ export class DashboardKnjigeComponent implements OnInit, AfterViewInit {
 
   openAddPdfFileDialog(knjigaId: number) {
     const dialogRef = this.dialog.open(AddPdfComponent, {
-      data: knjigaId,
+      data: { knjigaId: knjigaId },
     })
     dialogRef.afterClosed().subscribe({
       next: (val) => {

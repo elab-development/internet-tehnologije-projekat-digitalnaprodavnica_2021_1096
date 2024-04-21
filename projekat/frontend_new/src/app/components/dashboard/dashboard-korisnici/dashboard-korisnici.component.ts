@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { KorisnikService } from 'src/app/services/korisnik.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditKorisnikComponent } from './edit-korisnik/edit-korisnik.component';
+import { Korisnik } from 'src/app/models/korisnik.model';
 
 @Component({
   selector: 'app-dashboard-korisnici',
@@ -25,7 +26,7 @@ export class DashboardKorisniciComponent implements OnInit, AfterViewInit {
     'akcije',
   ];
 
-  dataSource!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<Korisnik>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -56,9 +57,9 @@ export class DashboardKorisniciComponent implements OnInit, AfterViewInit {
   }
 
 
-  openEditKorisnikDialog(podaci: any) {
+  openEditKorisnikDialog(korisnik: Korisnik) {
     this.dialog.open(EditKorisnikComponent, {
-      data: podaci,
+      data: { korisnik: korisnik },
     });
   }
 

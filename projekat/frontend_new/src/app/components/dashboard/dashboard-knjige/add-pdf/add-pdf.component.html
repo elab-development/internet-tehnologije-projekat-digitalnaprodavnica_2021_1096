@@ -1,18 +1,4 @@
-<div mat-dialog-title>
-    <h1>Dodavanje PDF fajla</h1>
-</div>
-
-<mat-form-field appearance="outline">
-    <mat-label>Id</mat-label>
-    <input matInput [(ngModel)]="knjiga_id" name="knjiga_id" [disabled]="true">
-</mat-form-field>
-
-<div mat-dialog-content class="content" fxLayout="column" style="width: 500px; border-radius: 12px;">
-    <button type="button" mat-raised-button (click)="fileInput.click()">Izaberi fajl</button>
-    <input hidden #fileInput type="file" id="file">
-</div>
-
-<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-    <button mat-raised-button mat-dialog-close>OTKAŽI</button>
-    <button mat-raised-button color="primary" (click)="dodajPdf()">DODAJ</button>
+<div>
+    <input type="file" (change)="onIzabranFajl($event)" accept=".pdf">
+    <button (click)="dodajPdf()">Dodaj PDF</button>
 </div>

@@ -3,6 +3,10 @@ import { IzdavacService } from './../../../../services/izdavac.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { KnjigaFactory } from 'src/app/factories/knjiga.factory';
+import { Autor } from 'src/app/models/autor.model';
+import { Izdavac } from 'src/app/models/izdavac.model';
+import { Knjiga } from 'src/app/models/knjiga.model';
 import { KnjigaService } from 'src/app/services/knjiga.service';
 
 @Component({
@@ -12,46 +16,23 @@ import { KnjigaService } from 'src/app/services/knjiga.service';
 })
 export class CreateKnjigaComponent implements OnInit {
 
-  podaci: {
-    isbn: string,
-    naziv: string,
-    kategorija: string,
-    opis: string,
-    pismo: string,
-    godina: string,
-    strana: string,
-    cena: string,
-    autor: any[],
-    izdavac_id: string,
-  } = {
-      isbn: '',
-      naziv: '',
-      kategorija: '',
-      opis: '',
-      pismo: '',
-      godina: '',
-      strana: '',
-      cena: '',
-      autor: [],
-      izdavac_id: '',
-    };
-
-  izdavaci: any[] = [];
-  sviAutori: any[] = [];
-  izabraniAutori: any[] = [];
+  knjiga!: Knjiga;
+  sviIzdavaci: Izdavac[] = [];
+  sviAutori: Autor[] = [];
 
   constructor(private knjigaService: KnjigaService, private autorService: AutorService, private izdavacService: IzdavacService, private snackBar: MatSnackBar, private dialogRef: MatDialogRef<CreateKnjigaComponent>) { }
 
   ngOnInit(): void {
     this.vratiSveIzdavace();
-    this.vratiSveAutore()
+    this.vratiSveAutore();
+    const knjigaFactory = new KnjigaFactory();
+    this.knjiga = knjigaFactory.createDefault();
   }
 
   vratiSveIzdavace() {
     this.izdavacService.vratiSveIzdavace().subscribe({
       next: (response) => {
-        console.log(response);
-        this.izdavaci = response.izdavaci;
+        this.sviIzdavaci = response.izdavaci;
       },
       error: console.log,
     })
@@ -60,16 +41,14 @@ export class CreateKnjigaComponent implements OnInit {
   vratiSveAutore() {
     this.autorService.vratiSveAutore().subscribe({
       next: (response) => {
-        console.log(response);
         this.sviAutori = response.autori;
-      }
+      },
+      error: console.log,
     })
   }
 
   create() {
-    this.podaci.autor = this.izabraniAutori;
-
-    this.knjigaService.kreirajKnjigu(this.podaci).subscribe({
+    this.knjigaService.kreirajKnjigu(this.knjiga).subscribe({
       next: (response) => {
         console.log(response);
         this.snackBar.open(response.status, 'Zatvori', {

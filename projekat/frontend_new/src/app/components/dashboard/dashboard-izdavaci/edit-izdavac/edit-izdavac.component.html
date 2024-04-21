@@ -5,19 +5,19 @@
 <div mat-dialog-content class="content" fxLayout="column" style="width: 500px; border-radius: 12px;">
     <mat-form-field appearance="outline">
         <mat-label>Id</mat-label>
-        <input matInput placeholder="ID" [(ngModel)]="podaci.izdavac_id" name="id" [disabled]="true">
+        <input matInput placeholder="ID" [(ngModel)]="izdavac.izdavac_id" name="id" [disabled]="true">
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Naziv</mat-label>
-        <input matInput [(ngModel)]="podaci.naziv" name="naziv">
+        <input matInput [(ngModel)]="izdavac.naziv" name="naziv">
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Adresa</mat-label>
-        <input matInput placeholder="Ex. Jove Ilica 154, 11000 Beograd" [(ngModel)]="podaci.adresa" name="adresa">
+        <input matInput placeholder="Ex. Jove Ilica 154, 11000 Beograd" [(ngModel)]="izdavac.adresa" name="adresa">
     </mat-form-field>
 </div>
 
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
     <button mat-raised-button mat-dialog-close>OTKAŽI</button>
-    <button mat-raised-button color="primary" (click)="izmeni(podaci)">SAČUVAJ</button>
+    <button mat-raised-button color="primary" (click)="izmeni(izdavac)">SAČUVAJ</button>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { pokreniAnimaciju } from 'src/app/directives/animacija';
+import { Knjiga } from 'src/app/models/knjiga.model';
 import { BrojStavkiService } from 'src/app/services/broj-stavki.service';
 import { KnjigaService } from 'src/app/services/knjiga.service';
 import { KorpaService } from 'src/app/services/korpa.service';
@@ -14,7 +15,7 @@ import { KorpaService } from 'src/app/services/korpa.service';
 })
 export class HomeKnjigeComponent implements OnInit {
 
-  knjige: any;
+  knjige: Knjiga | any;
   izabranaKategorija: string = "Sve";
   jedinstveneKategorije: string[] = [];
   pageSlice: any;

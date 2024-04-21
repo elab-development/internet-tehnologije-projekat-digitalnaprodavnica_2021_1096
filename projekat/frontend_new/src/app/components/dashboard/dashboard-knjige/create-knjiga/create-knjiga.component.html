@@ -5,48 +5,48 @@
 <div mat-dialog-content class="content" fxLayout="column" style="width: 500px; border-radius: 12px;">
     <mat-form-field appearance="outline">
         <mat-label>ISBN</mat-label>
-        <input matInput [(ngModel)]="podaci.isbn" name="isbn" required>
+        <input matInput [(ngModel)]="knjiga.isbn" name="isbn" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Naziv</mat-label>
-        <input matInput [(ngModel)]="podaci.naziv" name="naziv" required>
+        <input matInput [(ngModel)]="knjiga.naziv" name="naziv" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Kategorija</mat-label>
-        <input matInput [(ngModel)]="podaci.kategorija" name="kategorija" required>
+        <input matInput [(ngModel)]="knjiga.kategorija" name="kategorija" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Opis</mat-label>
-        <textarea matInput [(ngModel)]="podaci.opis" name="opis" required></textarea>
+        <textarea matInput [(ngModel)]="knjiga.opis" name="opis" required></textarea>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Pismo</mat-label>
-        <input matInput [(ngModel)]="podaci.pismo" name="pismo" required>
+        <input matInput [(ngModel)]="knjiga.pismo" name="pismo" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Godina</mat-label>
-        <input matInput [(ngModel)]="podaci.godina" name="godina" required>
+        <input matInput [(ngModel)]="knjiga.godina" name="godina" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Strana</mat-label>
-        <input matInput [(ngModel)]="podaci.strana" name="strana" required>
+        <input matInput [(ngModel)]="knjiga.strana" name="strana" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Cena</mat-label>
-        <input matInput [(ngModel)]="podaci.cena" name="cena" required>
+        <input matInput [(ngModel)]="knjiga.cena" name="cena" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Autori</mat-label>
-        <mat-select [(ngModel)]="izabraniAutori" name="autori" multiple required>
-            <mat-option *ngFor="let autor of sviAutori" [value]="autor.autor_id">
+        <mat-select [(ngModel)]="knjiga.autori" name="autori" multiple required>
+            <mat-option *ngFor="let autor of sviAutori" [value]="autor">
                 {{ autor.ime }} {{ autor.prezime }}
             </mat-option>
         </mat-select>
@@ -54,8 +54,8 @@
 
     <mat-form-field appearance="outline">
         <mat-label>Izdavac</mat-label>
-        <mat-select [(ngModel)]="podaci.izdavac_id" name="izdavac_id" required>
-            <mat-option *ngFor="let izdavac of izdavaci" [value]="izdavac.izdavac_id">
+        <mat-select [(ngModel)]="knjiga.izdavac" name="izdavac" required>
+            <mat-option *ngFor="let izdavac of sviIzdavaci" [value]="izdavac">
                 {{ izdavac.naziv }}
             </mat-option>
         </mat-select>

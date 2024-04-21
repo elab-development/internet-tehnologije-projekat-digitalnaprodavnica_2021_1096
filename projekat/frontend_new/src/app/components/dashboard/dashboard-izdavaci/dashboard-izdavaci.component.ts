@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { IzdavacService } from 'src/app/services/izdavac.service';
 import { CreateIzdavacComponent } from './create-izdavac/create-izdavac.component';
 import { EditIzdavacComponent } from './edit-izdavac/edit-izdavac.component';
+import { Izdavac } from 'src/app/models/izdavac.model';
 
 @Component({
   selector: 'app-dashboard-izdavaci',
@@ -22,7 +23,7 @@ export class DashboardIzdavaciComponent {
     'akcije',
   ];
 
-  dataSource!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<Izdavac>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -87,9 +88,9 @@ export class DashboardIzdavaciComponent {
     })
   }
 
-  openEditIzdavacDialog(podaci: any) {
+  openEditIzdavacDialog(izdavac: Izdavac) {
     this.dialog.open(EditIzdavacComponent, {
-      data: podaci,
+      data: { izdavac: izdavac }
     });
   }
 }

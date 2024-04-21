@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { NgxExtendedPdfViewerComponent } from 'ngx-extended-pdf-viewer';
+import { Knjiga } from 'src/app/models/knjiga.model';
 import { BrojStavkiService } from 'src/app/services/broj-stavki.service';
 import { KnjigaService } from 'src/app/services/knjiga.service';
 import { KorpaService } from 'src/app/services/korpa.service';
@@ -14,7 +15,7 @@ import { KorpaService } from 'src/app/services/korpa.service';
 })
 export class HomeDetaljiComponent implements OnInit {
 
-  knjiga: any;
+  knjiga!: Knjiga;
   fileURL: any;
   vidiPDF: boolean = false;
 

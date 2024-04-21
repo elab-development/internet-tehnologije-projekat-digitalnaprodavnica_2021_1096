@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AutorService } from 'src/app/services/autor.service';
 import { CreateAutorComponent } from './create-autor/create-autor.component';
 import { EditAutorComponent } from './edit-autor/edit-autor.component';
+import { Autor } from 'src/app/models/autor.model';
 
 @Component({
   selector: 'app-dashboard-autori',
@@ -25,7 +26,7 @@ export class DashboardAutoriComponent implements OnInit, AfterViewInit {
     'akcije',
   ]
 
-  dataSource!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<Autor>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -88,9 +89,16 @@ export class DashboardAutoriComponent implements OnInit, AfterViewInit {
     })
   }
 
-  openEditAutorDialog(podaci: any) {
-    this.dialog.open(EditAutorComponent, {
-      data: podaci,
+  openEditAutorDialog(autor: Autor) {
+    const dialogRef = this.dialog.open(EditAutorComponent, {
+      data: { autor: autor },
+    })
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.vratiSveAutore();
+        }
+      }
     })
   }
 

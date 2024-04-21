@@ -1,8 +1,9 @@
+import { KorisnikService } from 'src/app/services/korisnik.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from 'src/app/services/auth.service';
 import { CreateKorisnikComponent } from '../create-korisnik/create-korisnik.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Korisnik } from 'src/app/models/korisnik.model';
 
 @Component({
   selector: 'app-edit-korisnik',
@@ -11,36 +12,22 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class EditKorisnikComponent implements OnInit {
 
-  podaci = {
-    korisnik_id: '',
-    email: '',
-    username: '',
-    password: '',
-    ime: '',
-    prezime: '',
-  };
+  korisnik!: Korisnik;
 
   constructor(
-    private authService: AuthService,
+    private korisnikService: KorisnikService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<CreateKorisnikComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: any) {
-    this.podaci.korisnik_id = data.korisnik_id;
+    @Inject(MAT_DIALOG_DATA) private data: { korisnik: Korisnik }) {
+    this.korisnik = data.korisnik;
   }
 
   ngOnInit(): void {
-    this.podaci = {
-      korisnik_id: this.data.korisnik_id,
-      email: this.data.email,
-      username: this.data.username,
-      password: this.data.password,
-      ime: this.data.ime,
-      prezime: this.data.prezime,
-    };
+    this.korisnik = this.data.korisnik;
   }
 
   izmeni(podaci: any) {
-    this.authService.izmeni(podaci).subscribe({
+    this.korisnikService.izmeni(podaci).subscribe({
       next: (response) => {
         console.log(response);
         this.snackBar.open(response.status, 'Zatvori', {

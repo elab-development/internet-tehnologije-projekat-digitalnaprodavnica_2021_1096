@@ -1,7 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AutorFactory } from 'src/app/factories/autor.factory';
+import { Autor } from 'src/app/models/autor.model';
 import { AutorService } from 'src/app/services/autor.service';
 
 @Component({
@@ -9,19 +11,18 @@ import { AutorService } from 'src/app/services/autor.service';
   templateUrl: './create-autor.component.html',
   styleUrls: ['./create-autor.component.scss']
 })
-export class CreateAutorComponent {
-  podaci = {
-    ime: '',
-    prezime: '',
-    datum_rodjenja: '',
-    mesto_rodjenja: '',
-    biografija: '',
-  };
+export class CreateAutorComponent implements OnInit {
+  autor!: Autor;
 
   constructor(private autorService: AutorService, private snackBar: MatSnackBar, private dialogRef: MatDialogRef<CreateAutorComponent>, private datePipe: DatePipe) { }
 
+  ngOnInit(): void {
+    const autorFactory = new AutorFactory();
+    this.autor = autorFactory.createDefault();
+  }
+
   create() {
-    this.autorService.kreirajAutora(this.podaci).subscribe({
+    this.autorService.kreirajAutora(this.autor).subscribe({
       next: (response) => {
         console.log(response);
         this.snackBar.open(response.status, 'Zatvori', {

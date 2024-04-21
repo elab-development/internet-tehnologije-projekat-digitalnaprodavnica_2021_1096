@@ -5,24 +5,24 @@
 <div mat-dialog-content class="content" fxLayout="column" style="width: 500px; border-radius: 12px;">
     <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
-        <input matInput type="email" placeholder="Ex. example@gmail.com" [(ngModel)]="podaci.email" name="email"
+        <input matInput type="email" placeholder="Ex. example@gmail.com" [(ngModel)]="korisnik.email" name="email"
             required>
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Korisnicko ime</mat-label>
-        <input matInput [(ngModel)]="podaci.username" name="username" required>
+        <input matInput [(ngModel)]="korisnik.username" name="username" required>
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Lozinka</mat-label>
-        <input matInput type="password" [(ngModel)]="podaci.password" name="password" required>
+        <input matInput type="password" [(ngModel)]="korisnik.password" name="password" required>
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Ime</mat-label>
-        <input matInput [(ngModel)]="podaci.ime" name="ime" required>
+        <input matInput [(ngModel)]="korisnik.ime" name="ime" required>
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Prezime</mat-label>
-        <input matInput [(ngModel)]="podaci.prezime" name="prezime" required>
+        <input matInput [(ngModel)]="korisnik.prezime" name="prezime" required>
     </mat-form-field>
 </div>
 
