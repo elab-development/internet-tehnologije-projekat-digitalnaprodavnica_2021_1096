@@ -29,7 +29,7 @@ export class AuthLoginComponent {
     this.authService.login(this.podaci).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
-        localStorage.setItem('korisnikID', response.korisnik.korisnik_id);
+        localStorage.setItem('korisnikId', response.korisnik.korisnik_id);
         localStorage.setItem('isAdmin', response.korisnik.isAdmin);
         this.router.navigate(['']);
       },
