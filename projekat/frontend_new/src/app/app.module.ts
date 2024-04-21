@@ -51,7 +51,6 @@ import { EditKnjigaComponent } from './components/dashboard/dashboard-knjige/edi
 import { PlacanjeSuccessComponent } from './components/placanje-success/placanje-success.component';
 import { PlacanjeCancelComponent } from './components/placanje-cancel/placanje-cancel.component';
 import { MojeKnjigeComponent } from './components/moje-knjige/moje-knjige.component';
-import { AddPdfComponent } from './components/dashboard/dashboard-knjige/add-pdf/add-pdf.component';
 import { SkratiTextPipe } from './pipes/skrati-text.pipe';
 import { PokreniAnimacijuDirective } from './directives/pokreni-animaciju.directive';
 import { DashboardVizuelizacijaComponent } from './components/dashboard/dashboard-vizuelizacija/dashboard-vizuelizacija.component';
@@ -59,6 +58,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { BarChartProdajaComponent } from './components/dashboard/dashboard-vizuelizacija/bar-chart-prodaja/bar-chart-prodaja.component';
 import { PieChartKnjigePoKategorijiComponent } from './components/dashboard/dashboard-vizuelizacija/pie-chart-knjige-po-kategoriji/pie-chart-knjige-po-kategoriji.component';
 import { PieChartKupljeneKnjigePoKategorijiComponent } from './components/dashboard/dashboard-vizuelizacija/pie-chart-kupljene-knjige-po-kategoriji/pie-chart-kupljene-knjige-po-kategoriji.component';
+import { AddPdfComponent } from './components/dashboard/dashboard-knjige/add-pdf/add-pdf.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +88,6 @@ import { PieChartKupljeneKnjigePoKategorijiComponent } from './components/dashbo
     PlacanjeSuccessComponent,
     PlacanjeCancelComponent,
     MojeKnjigeComponent,
-    AddPdfComponent,
     DashboardVizuelizacijaComponent,
     SkratiTextPipe,
     PokreniAnimacijuDirective,
@@ -96,6 +95,7 @@ import { PieChartKupljeneKnjigePoKategorijiComponent } from './components/dashbo
     BarChartProdajaComponent,
     PieChartKnjigePoKategorijiComponent,
     PieChartKupljeneKnjigePoKategorijiComponent,
+    AddPdfComponent,
   ],
   imports: [
     BrowserModule,
