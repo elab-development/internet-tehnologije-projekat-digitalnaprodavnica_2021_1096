@@ -6,6 +6,7 @@ use App\Models\Autor;
 use App\Models\Knjiga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class KnjigaController extends Controller
 {
@@ -38,13 +39,19 @@ class KnjigaController extends Controller
             'pismo' => 'required|string',
             'godina' => 'required|integer|digits:4',
             'strana' => 'required|integer',
-            'izdavac_id' => 'required|exists:izdavac,izdavac_id',
-            'autor' => 'required|array',
+            'izdavac.izdavac_id' => 'required|exists:izdavac,izdavac_id',
             'cena' => 'required|numeric',
+            'autori' => 'required|array',
+            'autori.*.autor_id' => 'required|exists:autor,autor_id',
+            'autori.*.ime' => 'required|string',
+            'autori.*.prezime' => 'required|string',
+            'autori.*.datum_rodjenja' => 'required|date',
+            'autori.*.mesto_rodjenja' => 'required|string',
+            'autori.*.biografija' => 'required|string',
         ]);
 
-        foreach ($request->autor as $autor_id) {
-            if (!Autor::find($autor_id)) {
+        foreach ($request->autori as $autor) {
+            if (!Autor::find($autor['autor_id'])) {
                 return response()->json([
                     'status' => 'Neuspeh',
                     'poruka' => 'Jedan od unetih autora ne postoji'
@@ -60,11 +67,12 @@ class KnjigaController extends Controller
             'pismo' => $request->pismo,
             'godina' => $request->godina,
             'strana' => $request->strana,
-            'izdavac_id' => $request->izdavac_id,
+            'izdavac_id' => $request->izdavac['izdavac_id'],
             'cena' => $request->cena,
         ]);
 
-        $knjiga->autori()->attach($request->autor);
+        $autorIds = array_column($request->autori, 'autor_id');
+        $knjiga->autori()->attach($autorIds);
 
         return response()->json([
             'status' => 'Uspeh',
@@ -179,22 +187,34 @@ class KnjigaController extends Controller
             return response()->json([
                 'status' => 'Neuspeh',
                 'poruka' => 'Knjiga ne postoji',
+                'detalji' => 'Nije pronađena knjiga sa ID-jem ' . $knjiga_id,
             ], 404);
         }
 
-        if ($request->hasFile('pdf_fajl') && $request->file('pdf_fajl')->isValid()) {
-            $knjiga->dodajPDF($request->file('pdf_fajl'));
+        if ($request->hasFile('pdf_fajl')) {
+            $pdfFile = $request->file('pdf_fajl');
 
+            if ($pdfFile->isValid()) {
+                $knjiga->dodajPDF($pdfFile);
+
+                return response()->json([
+                    'status' => 'Uspeh',
+                    'poruka' => 'PDF fajl uspešno dodat',
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 'Neuspeh',
+                    'poruka' => 'Greška prilikom validacije PDF fajla',
+                    'detalji' => 'PDF fajl nije validan',
+                ], 400);
+            }
+        } else {
             return response()->json([
-                'status' => 'Uspeh',
-                'poruka' => 'PDF fajl uspesno dodat',
-            ], 200);
+                'status' => 'Neuspeh',
+                'poruka' => 'Greska prilikom dodavanja PDF fajla',
+                'detalji' => 'PDF fajl nije priložen u zahtevu',
+            ], 400);
         }
-
-        return response()->json([
-            'status' => 'Neuspeh',
-            'poruka' => 'Greska prilikom dodavanja PDF fajla'
-        ], 400);
     }
 
     // api ruta -> preuzmi pdf knjige
