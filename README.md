@@ -19,7 +19,7 @@
 
 ## Opis
 
-Aplikacija predstavlja platformu koja omogućava korisnicima jednostavno istraživanje, kupovinu i preuzimanje knjiga u digitalnom formatu (.pdf). Pruža različite funkcionalnosti za neregistrovane korisnike, registrovane korisnike i administratore.
+Aplikacija predstavlja E-commerce rešenje koje omogućava korisnicima jednostavno istraživanje, kupovinu i preuzimanje knjiga u digitalnom formatu (.pdf). Pruža različite funkcionalnosti za neregistrovane korisnike, registrovane korisnike i administratore.
 
 ## Funkcionalnosti
 
@@ -71,7 +71,7 @@ Pre preuzimanja, kloniranja ili pokretanja aplikacije, neophodno je instalirati 
 
 #### Konfigurisanje Laravel fajlova
 
-- Unutar direktorijuma aplikacije potrebno je da se ode na `backend`: <br>
+- Unutar direktorijuma aplikacije potrebno je da se ode na `projekat\backend`: <br>
 ```bash
   cd projekat/backend
 ```
@@ -86,7 +86,7 @@ Pre preuzimanja, kloniranja ili pokretanja aplikacije, neophodno je instalirati 
 
 #### Konfigurisanje Angular fajlova
 
-- Unutar direktorijuma aplikacije potrebno je da se ode na `frontend`: <br>
+- Unutar direktorijuma aplikacije potrebno je da se ode na `projekat\frontend_new`: <br>
 ```bash
   cd projekat/frontend_new
 ```
@@ -110,7 +110,7 @@ Nakon toga, potrebno je dodati ove dve linije u `.env`:
 STRIPE_SK=OVDE UNOSITE VAŠ SK
 STRIPE_PK=OVDE UNOSITE VAŠ PK
 ```
-#### Mailtrap e-mail server
+#### Mailtrap E-mail server
 Promena lozinke u slučaju zaboravljene lozinke je implementirana korišćenjem [Mailtrap](mailtrap.io) mejl servera. Za detaljne instrukcije konfigurisanja mejl servera pogledati [Mailtrap uputstvo](https://help.mailtrap.io/article/5-testing-integration)
 
 ## Contributing
