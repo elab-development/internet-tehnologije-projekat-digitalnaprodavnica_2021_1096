@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('isbn')->unique();
             $table->string('naziv')->unique();
             $table->string('kategorija');
-            $table->longText('opis')->unique();
+            $table->longText('opis');
             $table->string('pismo');
             $table->year('godina');
             $table->integer('strana');
